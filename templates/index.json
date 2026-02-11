@@ -152,25 +152,28 @@
         "banner2": {
           "type": "text",
           "settings": {
-            "text": "LAST CHANCE TO BUY!",
-            "image_type": "square",
-            "link": "",
+            "text": "CRYBABY",
+            "image": "shopify://shop_images/1723453588354____crybaby-_ip.webp",
+            "image_type": "circle",
+            "link": "shopify://collections/crybaby",
             "open_new_window": false,
-            "stencil_text": true
+            "stencil_text": false
           }
         },
         "banner3": {
           "type": "text",
           "settings": {
-            "text": "Last chance to buy!",
-            "image_type": "landscape",
-            "link": "",
+            "text": "MOLLY",
+            "image": "shopify://shop_images/1723457830578____molly.webp",
+            "image_type": "circle",
+            "link": "shopify://collections/molly",
             "open_new_window": false,
             "stencil_text": false
           }
         },
         "banner4": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "text": "LAST CHANCE TO BUY!",
             "image_type": "square",
