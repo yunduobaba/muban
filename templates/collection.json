@@ -1,1 +1,43 @@
-{"sections":{"collection-products-grid":{"type":"collection-products-grid","settings":{}}},"order":["collection-products-grid"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "collection-products-grid": {
+      "type": "collection-products-grid",
+      "settings": {
+        "section_heading_size": "heading_large",
+        "number_of_columns_on_desktop": 3,
+        "number_of_rows": 6,
+        "number_of_columns_on_mobile": "1",
+        "mob_cols_query": 544,
+        "hide_qty_field_on_mob": false,
+        "hide_info_bar_on_mob": false,
+        "column_image_ratio": "adapt_to_image",
+        "show_product_rating": false,
+        "show_inventory": false,
+        "show_savings_badge": false,
+        "show_vendor": false,
+        "enable_compare_button": false,
+        "enable_quick_add_button": false,
+        "section_color_scheme": "",
+        "show_featured_image": true,
+        "enable_filtering": true,
+        "enable_sorting": true,
+        "filter_type": "vertical",
+        "paging_type": "pagination",
+        "section_top_padding": 0,
+        "section_bottom_padding": 50
+      }
+    }
+  },
+  "order": [
+    "collection-products-grid"
+  ]
+}
