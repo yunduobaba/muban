@@ -192,6 +192,17 @@
             "open_new_window": false,
             "stencil_text": false
           }
+        },
+        "text_PhK7Ni": {
+          "type": "text",
+          "settings": {
+            "text": "DIMOO",
+            "image": "shopify://shop_images/1723453651328____dimoo_ip.webp",
+            "image_type": "circle",
+            "link": "shopify://collections/dimoo",
+            "open_new_window": false,
+            "stencil_text": false
+          }
         }
       },
       "block_order": [
@@ -199,7 +210,8 @@
         "banner2",
         "banner3",
         "banner4",
-        "text_A6pkce"
+        "text_A6pkce",
+        "text_PhK7Ni"
       ],
       "settings": {
         "marquee_speed": 20,
