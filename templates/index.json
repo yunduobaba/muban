@@ -77,7 +77,7 @@
         "desktop_height": 580,
         "mobile_height": 400,
         "section_color_scheme": "",
-        "auto_play": false,
+        "auto_play": true,
         "show_navigation": true,
         "pagination": "lines",
         "change_slides_every": 5,
