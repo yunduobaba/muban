@@ -289,7 +289,7 @@
                   {%- if link.links != blank -%}
                     {%- assign iteration = 0 -%}
                     {%- unless mega_menu_exists == 'true' -%}
-                      {%- render 'menu-dropdown', link: link, main_item_index: main_item_index -%}
+                      {%- render 'menu-dropdown', link: link, main_item_index: main_item_index, show_collection_image: show_collection_image -%}
                       {%- else -%}
                         {%- for block in section.blocks -%}
                           {%- assign curr_index = block.settings.item_index | times: 1 -%}
