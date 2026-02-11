@@ -173,13 +173,13 @@
         },
         "banner4": {
           "type": "text",
-          "disabled": true,
           "settings": {
-            "text": "LAST CHANCE TO BUY!",
-            "image_type": "square",
-            "link": "",
+            "text": "SKULLPANDA",
+            "image": "shopify://shop_images/1723457470659____skullpanda_ip.webp",
+            "image_type": "circle",
+            "link": "shopify://collections/skullpanda",
             "open_new_window": false,
-            "stencil_text": true
+            "stencil_text": false
           }
         }
       },
