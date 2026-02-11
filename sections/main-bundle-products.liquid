@@ -1,0 +1,245 @@
+{{ 'breadcrumbs.css' | asset_url | stylesheet_tag }}
+{{ 'product-card.css' | asset_url | stylesheet_tag }}
+{{ 'main-bundle-products.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'product.js' | asset_url }}" defer="defer"></script>
+
+{% assign section_prefix_class = 'main-bundle-products' %}
+{%- style -%}
+  .{{ section_prefix_class }}-{{ section.id }}{
+    --section-padding-top: {{ section.settings.section_top_padding }}px;
+    --section-padding-bottom: {{ section.settings.section_bottom_padding }}px;
+    --columns-count: {{ section.settings.number_of_columns_on_desktop }};
+  }
+{%- endstyle -%}
+
+{% liquid
+  assign section_align_class = '--align-left'
+  assign section_scheme_class = section.settings.section_color_scheme | prepend: 'scheme scheme--'
+  assign sidebar_color_scheme = section.settings.sidebar_color_scheme | prepend: 'scheme scheme--'
+
+  if section.settings.mobile_text_alignment
+    assign section_align_class_mobile = '--mobile-align-center' 
+  endif
+  
+  assign product_image_ratio_class = ''
+  case section.settings.column_image_ratio
+    when 'portrait'
+      assign product_image_ratio_class = '--portrait-media --position-image'
+    when 'square'
+      assign product_image_ratio_class = '--square-media --position-image'
+    when 'landscape'
+      assign product_image_ratio_class = '--landscape-media --position-image'
+    else
+      assign product_image_ratio_class = '--adapt-media'
+  endcase
+  assign section_media_size_class = product_image_ratio_class
+%}
+
+<div class="{{ section_prefix_class }} {{ section_scheme_class }} {{ section_media_size_class }} {{ section_prefix_class }}-{{ section.id }} {{ section_align_class_mobile }} {{ section_align_class }}">
+  <div class="container">
+    <div class="{{ section_prefix_class }}_wrapper">
+      <bundle-product-wrapper data-statistics-load="onload">
+        <div class="fbt-products-block_wrapper">
+          <div class="{{ section_prefix_class }}_colulmns-wrap">
+            <div class="grid {{ section_prefix_class }}_grid">
+              {% if section.settings.bundle_products_list != blank %}
+                {%- for product in section.settings.bundle_products_list -%}
+                  {% liquid
+                    assign productJson = all_products[product]
+                    assign bundle_js_contents_prefix = 'js-contents-bundle--'
+                    assign bundle_product_form_id = section.id | append: product.id | append: forloop.index
+                    assign bundle_total_prcie = bundle_total_prcie | plus: product.selected_or_first_available_variant.price
+                  %}
+                  <article class="product-bundle-card {{ section.id }}-{{ product.id }}">
+                    {% render 'product-bundle-card' product: product, product_form_id: bundle_product_form_id, js_contents_prefix: bundle_js_contents_prefix, productJson: productJson, column_index: forloop.index, product_bundle_included: false %}
+                  </article>
+                {%- endfor -%}
+                {% else %}
+                  {% for i in (1..6) %}
+                    <article class="product-bundle-card {{ section.id }}-{{ product.id }}">
+                      {% render 'product-bundle-card' product: '', column_index: forloop.index, js_contents_prefix: bundle_js_contents_prefix, product_bundle_included: false %}
+                    </article>
+                  {% endfor %}
+              {% endif %}
+            </div>
+            <aside class="fbt-products-block_sidewrap --align-center" aria-label="{{ 'templates.bundle.subtotal_container_aria_label' | t }}">
+              <div class="fbt-products-block_sidewrap_wrapper {{ sidebar_color_scheme }}">
+                <div class="thumb-image-list">
+                  <ul class="list-unstyled fbt-thumbnails_list fbt-items-list" aria-label="{{ 'templates.bundle.thumbs_list_aria_label' | t }}">
+                    {% comment %} thumbnails will be rendered here {% endcomment %}
+                  </ul>
+                </div>
+                <div class="ftb_bottom-wrap">
+                  <strong class="bundle-total-price-wrapper mty">
+                    <span class="bundle-total-text">{{ 'templates.bundle.total_price' | t }}</span>
+                    <span class="ftb_price">
+                      <span class="bundle-price">
+                        {{ 0 | money }}
+                      </span>
+                      <s class="bundle-compare-price hidden">
+                        {{ 0 | money }}
+                      </s>
+                    </span>
+                    {% if settings.show_currency_code %}
+                      <small class="bundle-curr-code">{{ localization.country.currency.iso_code }}</small>
+                    {% endif %}
+                  </strong>
+                  <button type="button" class="bundle-cart-sbumit button button--primary disabled mty">
+                    {%- liquid
+                      if settings.show_buttons_icon
+                        render 'icons-data', width: 20, height: 20, use_icon: true, icon_reference: 'cart'
+                      endif
+                    -%}
+                    <span class="hidden bcs-counter-wrap"><span class="bcs-count">0</span> {{ 'templates.bundle.items' | t }} </span>
+                    {{ 'templates.bundle.add_cart' | t }}
+                    <span class="--loader">
+                      <span class="visually-hidden">{{ 'accessibility.loading' | t }}</span>
+                      {%- render 'icons-data', width: 10, height: 10, use_icon: true, icon_reference: 'loader' -%}
+                    </span>
+                  </button>
+                  {% if section.settings.bundle_subtext_section != empty %}
+                    <div class="ftb_bottom-discount-text mty">
+                      <p>{{ section.settings.bundle_subtext_section }}</p>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </bundle-product-wrapper>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main_bundle.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "product_list",
+      "limit": 15,
+      "id": "bundle_products_list",
+      "label": "t:sections.main_bundle.settings.prod_list.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "bundle_subtext_section",
+      "label": "t:sections.main_bundle.settings.subtext.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.grid.content"
+    },
+    {
+      "type": "range",
+      "id": "number_of_columns_on_desktop",
+      "label": "t:sections.common.grid.num_col_d.label",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main_bundle.settings.product_card.content"
+    },
+    {
+      "type": "select",
+      "id": "column_image_ratio",
+      "label": "t:sections.common.image.ratio.label",
+      "options": [
+        {
+          "value": "adapt_to_image",
+          "label": "t:sections.common.image.ratio.options.opt_1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.common.image.ratio.options.opt_2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.common.image.ratio.options.opt_3.label"
+        },
+        {
+          "value": "landscape",
+          "label": "t:sections.common.image.ratio.options.opt_4.label"
+        }
+      ],
+      "default": "adapt_to_image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_rating",
+      "label": "t:sections.common.show_rating.label",
+      "default": true,
+      "info": "t:sections.common.show_rating.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_inventory",
+      "label": "t:sections.common.show_inventory.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_savings_badge",
+      "label": "t:sections.common.show_saving_badge.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "t:sections.common.show_vendor.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_compare_button",
+      "label": "t:sections.common.enable_compare.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.style.content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "default": "scheme1",
+      "label": "t:sections.common.clr_scheme.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "sidebar_color_scheme",
+      "default": "scheme1",
+      "label": "t:sections.main_bundle.settings.sidebar.clr_scheme.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.spacing.content"
+    },
+    {
+      "type": "range",
+      "id": "section_top_padding",
+      "label": "t:sections.common.spacing.top_spac.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_bottom_padding",
+      "label": "t:sections.common.spacing.bottom_spac.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50,
+      "unit": "px"
+    }
+  ]
+}
+{% endschema %}

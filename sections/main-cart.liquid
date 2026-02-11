@@ -1,0 +1,462 @@
+{{ 'breadcrumbs.css' | asset_url | stylesheet_tag }}
+{{ 'main-cart.css' | asset_url | stylesheet_tag }}
+
+{% assign section_prefix_class = 'main-cart' %}
+
+{%- style -%}
+  .{{ section_prefix_class }}-{{ section.id }}{
+    --section-padding-top: {{ section.settings.section_top_padding }}px;
+    --section-padding-bottom: {{ section.settings.section_bottom_padding }}px;
+  }
+{%- endstyle -%}
+
+{% liquid
+  assign section_align_class = '--align-left'
+  assign section_scheme_class = section.settings.section_color_scheme | prepend: 'scheme scheme--'
+  assign secondary_scheme_class = section.settings.secondary_color_scheme | prepend: 'scheme scheme--'
+  assign head_scheme_class = section.settings.secondary_color_scheme | prepend: 'scheme--'
+%}
+
+<div class="{{ section_prefix_class }} {{ section_prefix_class }}-{{ section.id }} {{ section_align_class }} {{ section_scheme_class }}" id="main-cart">
+  <div class="container">
+    {%- render 'element-breadcrumb' -%}
+  </div>
+  {%- if cart != empty -%}
+    <div class="{{ section_prefix_class }}_head-wrap">
+      <div class="container">
+        <div class="mchw_wrapper">
+          <div class="mchw_description">
+            {%- liquid
+              unless section.settings.section_heading == blank
+                render 'element-header' | elem_header_heading_tag: 'h1'
+              endunless
+              
+              assign curr_currency = ''
+              assign shop_currency = shop.currency
+              for country in localization.available_countries
+                if country.iso_code == localization.country.iso_code
+                  assign curr_currency = country.currency.iso_code
+                  
+                  break
+                endif
+              endfor
+            -%}
+            {% unless settings.cart_draw_welcome_message == blank %}
+              <strong class="showcase-popup_subtitle">
+                {{- settings.cart_draw_welcome_message -}}
+              </strong>
+            {% endunless %}
+            {%- if settings.enable_free_shipping_message -%}
+              <div data-contents="cart-shipment-bar">
+                <shipping-bar data-amount="{{ settings.free_shipping_amount }}" data-cart-totals="{{ cart.total_price }}" class="cart-free-shipping-box">
+                  <span class="shipping-subtitle {{ head_scheme_class }}">
+                    {{- settings.free_shipping_text -}}
+                  </span>
+                  <span class="free-shipping-progress" role="status">
+                    <span style="width: 0%;" data-set="bar"></span>
+                  </span>
+                </shipping-bar>
+              </div>
+            {%- endif -%}
+          </div>
+          <div class="mchw_others">
+            <a href="{{ routes.all_products_collection_url }}" class="{{ section_prefix_class }}_btn-link">
+              {{ 'sections.cart.continue_shopping' | t }}
+              {%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'arrow-right' -%}
+            </a>
+            {% if section.blocks.size > 0 %}
+              {% for block in section.blocks %}
+                {% case block.type %}
+                  {%- when 'message_box' -%}
+                    {%- style -%}
+                      .{{ section_prefix_class }}_{{ block.type }}-block--{{ forloop.index }}{
+                        --block-padding-top: {{ block.settings.block_top_padding }}px;
+                        --block-padding-bottom: {{ block.settings.block_bottom_padding }}px;
+                      }
+                    {%- endstyle -%}
+                    {% liquid
+                      assign message_box_color_scheme = block.settings.message_box_color_scheme | prepend: 'scheme scheme--'
+                    %}
+                    <aside class="mty {{ section_prefix_class }}_{{ block.type }}-block--{{ forloop.index }}" {{ block.shopify_attributes }}>
+                      <div class="mty {{ section_prefix_class }}_{{ block.type }}-block">
+                        <div class="message-box {{ message_box_color_scheme }} {% if settings.enable_hover_anims %}anim--shine{% endif %}">
+                          <div class="message-box_img">
+                            {%- render 'element-image' | elem_image: block.settings.image | elem_image_class: 'image-class' | elem_image_placeholder: 'product-3' | elem_image_alt_text: block.settings.heading -%}
+                          </div>
+                          <div class="message-box_description">
+                            <strong class="mty message-box_heading">{{ block.settings.heading }}</strong>
+                            <em class="mty message-box_subheading">{{ block.settings.subheading }}</em>
+                            <div class="mty message-box_text">
+                              {{ block.settings.description }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </aside>
+                {% endcase %}
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="{{ section_prefix_class }}_wrapper">
+        <form data-checkout-form="{{ section.id }}" action="{{ routes.cart_url }}" method="post">
+          <div class="{{ section_prefix_class }}_area">
+            <div class="{{ section_prefix_class }}_items-wrap --align-left">
+              <div class="mciw_list-head">
+                <strong class="mciw_list-heading {{ section_prefix_class }}_col--title">{{ 'sections.cart.headings.product' | t }}</strong>
+                <strong class="mciw_list-heading {{ section_prefix_class }}_col--quantity">{{ 'sections.cart.headings.quantity' | t }}</strong>
+                <strong class="mciw_list-heading {{ section_prefix_class }}_col--totals">{{ 'sections.cart.headings.total' | t }}</strong>
+              </div>
+              <div class="{{ section_prefix_class }}_items-list">
+                {%- for item in cart.items -%}
+                  {% render 'cart-item-row', item: item, section_prefix_class: section_prefix_class %}
+                {%- endfor -%}
+              </div>
+            </div>
+            <div class="{{ section_prefix_class }}_stats-wrap">
+              <div class="{{ section_prefix_class }}_sticky-wrap">
+                {% if settings.enable_order_notes %}
+                  {% assign accordion_prefix = 'main-cart-note_accordion--' %}
+                  <details class="collapsible-row {{ accordion_prefix }}row mty {{ section_prefix_class }}_widget-note {{ secondary_scheme_class }}">
+                    <summary class="collapsible-row_opener {{ accordion_prefix }}opener">
+                      {%- liquid
+                        render 'icons-data', width: 20, height: 20, use_icon: true, icon_reference: 'pencil'
+                        assign note_heading = 'additions.cart.write_note' | t
+                        render 'element-heading' | elem_heading_tag: 'strong' | elem_heading_parent: 'collapsible-row' | elem_heading_text: note_heading
+                      -%}
+                      <i class="collapsible-row_icn">
+                        <span class="{{ accordion_prefix }}icnopen">
+                          {%- render 'icons-data', width: 10, height: 10, use_icon: true, icon_reference: 'plus' -%}
+                        </span>
+                        <span class="{{ accordion_prefix }}icnclose">
+                          {%- render 'icons-data', width: 10, height: 10, use_icon: true, icon_reference: 'minus' -%}
+                        </span>
+                      </i>
+                    </summary>
+                    <div class="collapsible-row_content {{ accordion_prefix }}content">
+                      <label class="visually-hidden" for="Cart-note">{{- 'additions.cart.note_textarea_placeholder' | t -}}</label>
+                      <textarea
+                        class="form-control form-control--textarea"
+                        name="note"
+                        id="Cart-note"
+                        placeholder="{{- 'additions.cart.note_textarea_placeholder' | t -}}"
+                      >{{ cart.note }}</textarea>
+                    </div>
+                  </details>
+                {% endif %}
+                <div class="{{ section_prefix_class }}_widget-totals mty {{ secondary_scheme_class }}">
+                  <div data-contents="cart-total-price">
+                    <div class="{{ section_prefix_class }}_cart-totals-wrap">
+                      <h3 class="mcctw_title mty">{{- 'sections.cart.subtotal' | t -}}</h3>
+                      <h4 class="mcctw_price mty">{{ cart.total_price | money_with_currency }}</h4>
+                    </div>
+                    {%- if cart.cart_level_discount_applications.size > 0 -%}
+                      <ul class="discounts list-unstyled" aria-label="{{ 'customer.order.discount' | t }}">
+                        {%- for discount in cart.cart_level_discount_applications -%}
+                          <li class="discounts__discount discounts__discount--position">
+                            {%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'discount' -%}
+                            {{ discount.title }}
+                            (-{{ discount.total_allocated_amount | money }})
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- endif -%}
+                  </div>
+                  <small class="{{ section_prefix_class }}_taxt-note">
+                    {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
+                      {{ 'sections.cart.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                    {%- elsif cart.taxes_included -%}
+                      {{ 'sections.cart.taxes_included_but_shipping_at_checkout' | t }}
+                    {%- elsif shop.shipping_policy.body != blank -%}
+                      {{ 'sections.cart.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+                    {%- else -%}
+                      {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
+                    {%- endif -%}
+                  </small>
+                  <div class="{{ section_prefix_class }}_btns-wrap">
+                    {%- if settings.cart_min_order_value != blank -%}
+                      <div data-contents="main-cart-min-value-check">
+                        <checkout-min
+                          data-amount="{{- settings.cart_min_order_value -}}"
+                          data-cart-totals="{{- cart.total_price -}}"
+                        >
+                          <button
+                            type="submit"
+                            id="checkout"
+                            class="button button--primary"
+                            name="checkout"
+                          >
+                            {{ 'sections.cart.checkout' | t }}
+                          </button>
+                          <div class="mty cart-min-value">
+                            <p>
+                              {{- 'sections.cart.min_order_text' | t -}}
+                            </p>
+                          </div>
+                        </checkout-min>
+                      </div>
+                      {%- else -%}
+                        <button
+                          type="submit"
+                          id="checkout"
+                          class="button button--primary"
+                          name="checkout"
+                          {% if cart == empty %}
+                            disabled
+                          {% endif %}
+                        >
+                          {{ 'sections.cart.checkout' | t }}
+                        </button>
+                    {%- endif -%}
+                    <div class="cart__dynamic-checkout-buttons additional-checkout-buttons">
+                      {{ content_for_additional_checkout_buttons }}
+                    </div>
+                    {%- if section.settings.show_payment_icons -%}
+                      <ul class="list-unstyled list-payment">
+                        {%- for type in shop.enabled_payment_types -%}
+                          <li class="list-payment_item">
+                            {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- endif -%}
+                  </div>
+                </div>
+                {% if section.blocks.size > 0 %}
+                  {%- liquid
+                    assign notices_active = false
+                    
+                    for block in section.blocks
+                      case block.type
+                        when 'cart_notices'
+                          assign notices_active = true
+                          break
+                      endcase
+                    endfor
+                  -%}
+                  {% if notices_active %}
+                    <div class="{{ section_prefix_class }}_notices-wrap">
+                      {% for block in section.blocks %}
+                        {% case block.type %}
+                          {% when 'cart_notices' %}
+                            <div class="{{ section_prefix_class }}_notice" role="alert" {{ block.shopify_attributes }}>
+                              <div class="main-product_{{ block.type }}-block">
+                                <aside class="ico-description-box">
+                                  <i class="ico-description-box_icn">
+                                    {%- render 'element-image' | elem_image: block.settings.image | elem_image_class: 'image-class' | elem_image_placeholder: 'product-4' | elem_image_alt_text: block.settings.heading -%}
+                                  </i>
+                                  <div class="ico-description-box_description">
+                                    <strong class="ico-description-box_heading mty">{{ block.settings.heading }}</strong>
+                                    <div class="mty ico-description-box_text">
+                                      {{ block.settings.description }}
+                                    </div>
+                                  </div>
+                                </aside>
+                              </div>
+                            </div>
+                        {% endcase %}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </div>
+            <span class="{{ section_prefix_class }}--loader {{ section_prefix_class }}_loader">
+              <span class="visually-hidden">{{ 'accessibility.loading' | t }}</span>
+              <i class="ico-wrapper">
+                {%- render 'icons-data', width: 20, height: 20, use_icon: true, icon_reference: 'loader' -%}
+              </i>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+    {% else %}
+      <div class="container">
+        <div class="empty_case --align-center">
+          {%- render 'icons-data', width: 51, height: 51, use_icon: true, icon_reference: 'empty-cart' -%}
+          <h1 class="title d-block">{{ 'sections.cart.empty' | t }}</h1>
+          <a href="{{ routes.all_products_collection_url }}" class="button button--primary">{{ 'sections.cart.continue_shopping' | t }}
+          </a>
+          {%- if shop.customer_accounts_enabled -%}
+            {%- unless customer -%}
+            <span class="subtitle d-block">{{ 'sections.cart.login.title' | t }}</span>
+            <span class="subtext d-block">{{ 'sections.cart.login.paragraph_html' | t: link: routes.account_login_url }}</span>
+          {%- endunless -%}
+        {%- endif -%}
+        </div>
+      </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main_cart.name",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "section_heading",
+      "label": "t:sections.common.heading.label",
+      "default": "Your Shopping Cart"
+    },
+    {
+      "type": "select",
+      "id": "section_heading_size",
+      "label": "t:sections.common.heading.size.label",
+      "options": [
+        {
+          "value": "heading_xx_large",
+          "label": "t:sections.common.heading.size.options.opt_1.label"
+        },
+        {
+          "value": "heading_x_large",
+          "label": "t:sections.common.heading.size.options.opt_2.label"
+        },
+        {
+          "value": "heading_large",
+          "label": "t:sections.common.heading.size.options.opt_3.label"
+        },
+        {
+          "value": "heading_medium",
+          "label": "t:sections.common.heading.size.options.opt_4.label"
+        },
+        {
+          "value": "heading_small",
+          "label": "t:sections.common.heading.size.options.opt_5.label"
+        },
+        {
+          "value": "heading_x_small",
+          "label": "t:sections.common.heading.size.options.opt_6.label"
+        },
+        {
+          "value": "heading_xx_small",
+          "label": "t:sections.common.heading.size.options.opt_7.label"
+        }
+      ],
+      "default": "heading_large"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.style.content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "default": "scheme1",
+      "label": "t:sections.common.clr_scheme.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "secondary_color_scheme",
+      "default": "scheme4",
+      "label": "t:sections.main_cart.settings.alt_clr_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "t:sections.main_cart.settings.pay_icons.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.spacing.content"
+    },
+    {
+      "type": "range",
+      "id": "section_top_padding",
+      "label": "t:sections.common.spacing.top_spac.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_bottom_padding",
+      "label": "t:sections.common.spacing.bottom_spac.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "cart_notices",
+      "name": "t:sections.main_cart.blocks.notice.name",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "t:sections.main_cart.blocks.notice.content"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.common.image.label"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "t:sections.common.heading.label",
+          "default": "Icon with description"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "t:sections.common.description.label",
+          "default": "<p>Pair text with an icon to focus on your unique selling feature.</p>"
+        }
+      ]
+    },
+    {
+      "type": "message_box",
+      "name": "t:sections.main_cart.blocks.msg_box.name",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "t:sections.main_cart.blocks.msg_box.content"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.common.image.label"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "t:sections.common.heading.label",
+          "default": "Message box"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "subheading",
+          "label": "t:sections.common.subheading.label",
+          "default": "Subheading"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "t:sections.common.description.label",
+          "default": "<p>Pair text with an icon to focus on your unique selling feature.</p>"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.common.style.content"
+        },
+        {
+          "type": "color_scheme",
+          "id": "message_box_color_scheme",
+          "default": "scheme4",
+          "label": "t:sections.common.clr_scheme.label"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+  

@@ -1,0 +1,117 @@
+{{ 'custom-liquid.css' | asset_url | stylesheet_tag }}
+
+{% assign section_prefix_class = 'custom-liquid' %}
+{%- style -%}
+  .{{ section_prefix_class }}-{{ section.id }}{
+    --section-padding-top: {{ section.settings.section_top_padding }}px;
+    --section-padding-bottom: {{ section.settings.section_bottom_padding }}px;
+    --desktop-columns-count: {{ section.settings.number_of_columns_on_desktop }};
+  }
+{%- endstyle -%}
+
+{% liquid
+  assign section_align_class = '--align-left'
+  assign section_scheme_class = section.settings.section_color_scheme | prepend: 'scheme scheme--'
+
+  if section.settings.section_text_alignment == 'center'
+    assign section_align_class = '--align-center'
+  elsif section.settings.section_text_alignment == 'right'
+    assign section_align_class = '--align-right'
+  endif
+
+  if section.settings.mobile_text_alignment
+    assign section_align_class_mobile = '--mobile-align-center'
+  endif
+%}
+
+<div class="{{ section_prefix_class }} {{ section_scheme_class }} {{ section_prefix_class }}-{{ section.id }} {{ section_align_class_mobile }} {{ section_align_class }}">
+  <div class="container">
+    <div class="{{ section_prefix_class }}_wrapper">
+      {{ section.settings.custom_liquid }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.custom_liquid.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "liquid",
+      "id": "custom_liquid",
+      "label": "t:sections.custom_liquid.label",
+      "info": "t:sections.custom_liquid.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.layout.content"
+    },
+    {
+      "type": "select",
+      "id": "section_text_alignment",
+      "label": "t:sections.common.text_align.label",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.common.text_align.options.opt_1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.common.text_align.options.opt_2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.common.text_align.options.opt_3.label"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_text_alignment",
+      "label": "t:sections.common.cntr_mob.label",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.style.content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "default": "scheme1",
+      "label": "t:sections.common.clr_scheme.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.spacing.content"
+    },
+    {
+      "type": "range",
+      "id": "section_top_padding",
+      "label": "t:sections.common.spacing.top_spac.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_bottom_padding",
+      "label": "t:sections.common.spacing.bottom_spac.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.custom_liquid.name"
+    }
+  ]
+}
+{% endschema %}

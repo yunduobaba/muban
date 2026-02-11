@@ -1,0 +1,190 @@
+{{ 'template-404.css' | asset_url | stylesheet_tag }}
+
+{% assign section_prefix_class = 'template-404' %}
+{%- style -%}
+  .{{ section_prefix_class }}-{{ section.id }}{
+    --section-padding-top: {{ section.settings.section_top_padding }}px;
+    --section-padding-bottom: {{ section.settings.section_bottom_padding }}px;
+    --section-margin-top: {{ section.settings.section_top_margin }}px;
+    --section-margin-bottom: {{ section.settings.section_bottom_margin }}px;
+    --logo-width: {{ section.settings.logo_width }}px;
+  }
+{%- endstyle -%}
+
+{% liquid
+  assign section_scheme_class = section.settings.section_color_scheme | prepend: 'scheme scheme--'
+  
+  if section.settings.section_background_full
+    assign section_scheme_class_full = section_scheme_class
+    assign section_side_spacing_cont = ''
+  else
+    assign section_scheme_class_cont = section_scheme_class
+    assign section_side_spacing_cont = 'section_side_spacing_cont'
+  endif
+%}
+
+<div class="{{ section_prefix_class }} {{ section_scheme_class_full }} {{ section_prefix_class }}-{{ section.id }}">
+  <div class="container">
+    <div class="{{ section_prefix_class }}_wrapper {{ section_scheme_class }}  {{ section_scheme_class_cont }} {{ section_side_spacing_cont }}">
+      <div>
+        <div class="{% if section.settings.logo != blank %}site-logo{% else %} brand-name{% endif %}">
+          {%- if section.settings.logo != blank -%}
+            {%- render 'element-image' | elem_image: section.settings.logo | elem_image_class: 'image-class' | elem_image_alt_text: '404' -%}
+          {%- else -%}
+            <h1 class="mty h3">{{ shop.name }}</h1>
+          {%- endif -%}
+        </div>
+        <div class="{{ section_prefix_class }}_logo">
+          {%- if section.section.settings.logo != blank -%}
+            {{-
+              section.section.settings.logo.src |
+              image_url: width: 840 |
+              image_tag: class: 'image-class', alt: '404', widths: '540, 840', sizes: '(max-width: 767px) 540vw, 840vw', loading: 'eager' |
+              escape
+            -}}
+          {%- else -%}
+            <strong>{{ 'templates.404.subtext' | t }}</strong>
+          {%- endif -%}
+        </div>
+        <div class="{{ section_prefix_class }}_text">
+          <h1 class="mty">
+            {% if section.settings.heading == blank %}
+              {{ 'templates.404.title' | t }}
+            {% endif %}
+            {{ section.settings.heading }}
+          </h1>
+          <p>
+            {% if section.settings.text == blank %}
+              {{ 'templates.404.subtext' | t }}
+              {% else %}
+                {{ section.settings.text }}
+            {% endif %}
+          </p>
+          {% liquid
+            assign button_page_link = routes.root_url
+            
+            if section.settings.button_link != blank
+              assign button_page_link = section.settings.button_link
+            endif
+            
+            render 'element-button' | element_button_label: section.settings.button_label | element_button_link: button_page_link | element_button_new_window: section.settings.open_new_window
+          %}
+        <div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.404.name",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:settings_schema.general.settings.logo_image.label"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "t:settings_schema.general.settings.logo_size.label",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "default": 100,
+      "unit": "px"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.heading.label",
+      "default": "Something is wrong"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "text",
+      "default": "The page you are looking for was moved, removed, renamed or may have never existed!",
+      "label": "t:sections.common.description.label"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "Back to Home",
+      "label": "t:sections.404.settings.button.label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:sections.404.settings.button.link.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_new_window",
+      "label": "t:sections.common.btn_link.link.new_window.label",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.style.content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "default": "scheme1",
+      "label": "t:sections.common.clr_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "section_background_full",
+      "label": "t:sections.404.settings.make_full.label",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.spacing.content"
+    },
+    {
+      "type": "range",
+      "id": "section_top_padding",
+      "label": "t:sections.common.spacing.top_spac.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 100,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_bottom_padding",
+      "label": "t:sections.common.spacing.bottom_spac.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 100,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_top_margin",
+      "label": "t:sections.common.spacing.margin.mt.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 70,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_bottom_margin",
+      "label": "t:sections.common.spacing.margin.mb.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 100,
+      "unit": "px"
+    }
+  ]
+}
+{% endschema %}

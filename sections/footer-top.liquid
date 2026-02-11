@@ -1,0 +1,247 @@
+{{ 'newsletter-form.css' | asset_url | stylesheet_tag }}
+{{ 'footer-top.css' | asset_url | stylesheet_tag }}
+
+{% assign section_prefix_class = 'footer-top' %}
+
+{%- style -%}
+  .{{ section_prefix_class }}-{{ section.id }}{
+    --section-padding-top: {{ section.settings.section_top_padding }}px;
+    --section-padding-bottom: {{ section.settings.section_bottom_padding }}px;
+  }
+{%- endstyle -%}
+
+{% liquid
+  assign section_scheme_class = section.settings.section_color_scheme | prepend: 'scheme scheme--'
+    
+  if section.settings.section_background_full
+    assign section_scheme_class_full = section_scheme_class
+    assign section_side_spacing_cont = ''
+  else
+    assign section_scheme_class_cont = section_scheme_class
+    assign section_side_spacing_cont = 'section_side_spacing_cont'
+  endif
+
+  case section.settings.section_corner_radius
+    when 'top_corners_radius'
+      assign section_corners_radius = 'top_corners_radius'
+    when 'bottom_corners_radius'
+      assign section_corners_radius = 'bottom_corners_radius'
+    when 'both_corners_radius'
+      assign section_corners_radius = 'both_corners_radius'
+    when 'no_corners_radius'
+      assign section_corners_radius = ''
+  endcase
+%}
+
+<div class="{{ section_prefix_class }} {{ section_prefix_class }}-{{ section.id }} {{ section_scheme_class_full }} {{ section_corners_radius }}">
+  <div class="container">
+    <div class="{{ section_prefix_class }}_wrapper {{ section_scheme_class_cont }} {{ section_side_spacing_cont }}">
+      <div class="{{ section_prefix_class }}_holder">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'newsletter' -%}
+              <div class="{{ section_prefix_class }}_col" {{ block.shopify_attributes }}>
+                {%- render 'newsletter-form' | newsletter_form_scheme: 'secondary' | newsletter_form_block: block | newsletter_form_section_prefix: section_prefix_class | newsletter_form_id: 'ContactFooter' -%}
+                {%- if block.settings.show_social_media_icons -%}
+                  <div class="{{ section_prefix_class }}_socials-wrap">
+                    {%- render 'social-icons' | social_icons_prefix: section_prefix_class -%}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- when 'menu' -%}
+              <div class="{{ section_prefix_class }}_col" {{ block.shopify_attributes }}>
+                {%- render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: section_prefix_class | elem_heading_size: 'heading_x_small' | elem_heading_text: block.settings.heading | elem_heading_custom_class: 'mty' -%}
+                {% if block.settings.menu.links != blank %}
+                  <ul class="list-unstyled {{ section_prefix_class }}_links-list" aria-label="{{ 'sections.footer_top.a11y.menu_label' | t }}">
+                    {%- for link in block.settings.menu.links -%}
+                      <li class="{{ section_prefix_class }}_links-list_item">
+                        <a href="{{ link.url }}" class="{{ section_prefix_class }}_links-list_item {% if link.active %} {{ section_prefix_class }}_links-list_item--active{% endif %}">
+                          {{ link.title }}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {% endif %}
+              </div>
+            {%- when 'information' -%}
+              <div class="{{ section_prefix_class }}_col" {{ block.shopify_attributes }}>
+                {%- render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: section_prefix_class | elem_heading_size: 'heading_x_small' | elem_heading_text: block.settings.heading | elem_heading_custom_class: 'mty' -%}
+                  
+                <div class="{{ section_prefix_class }}_description">{{ block.settings.description }}</div>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.footer_top.name",
+  "tag": "aside",
+  "limit": 1,
+  "enabled_on": {
+    "groups": [
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.common.style.content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "default": "scheme2",
+      "label": "t:sections.common.clr_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "section_background_full",
+      "label": "t:sections.footer_top.settings.make_full.label",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "section_corner_radius",
+      "label": "t:sections.common.round_crnr.label",
+      "options": [
+        {
+          "value": "no_corners_radius",
+          "label": "t:sections.common.round_crnr.options.opt_1.label"
+        },
+        {
+          "value": "top_corners_radius",
+          "label": "t:sections.common.round_crnr.options.opt_2.label"
+        },
+        {
+          "value": "bottom_corners_radius",
+          "label": "t:sections.common.round_crnr.options.opt_3.label"
+        },
+        {
+          "value": "both_corners_radius",
+          "label": "t:sections.common.round_crnr.options.opt_4.label"
+        }
+      ],
+      "default": "no_corners_radius"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.spacing.content"
+    },
+    {
+      "type": "range",
+      "id": "section_top_padding",
+      "label": "t:sections.common.spacing.top_spac.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_bottom_padding",
+      "label": "t:sections.common.spacing.bottom_spac.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 60,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:sections.footer_top.blocks.newsletter.name",
+      "type": "newsletter",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "t:sections.common.heading.label",
+          "default": "Subscribe to newsletter"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "description",
+          "label": "t:sections.common.description.label",
+          "default": "Sign up for exclusive offers, original stories, events and more."
+        },
+        {
+          "type": "paragraph",
+          "content": "t:sections.footer_top.blocks.newsletter.content"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.footer_top.blocks.newsletter.settings.social_list.content",
+          "info": "t:sections.footer_top.blocks.newsletter.settings.social_list.info"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_social_media_icons",
+          "label": "t:sections.footer_top.blocks.newsletter.settings.social_list.label",
+          "default": true
+        }
+      ]
+    },
+    {
+      "name": "t:sections.footer_top.blocks.menu.name",
+      "type": "menu",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "t:sections.common.heading.label",
+          "default": "Quick links"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "t:sections.footer_top.blocks.menu.label",
+          "default": "footer"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.footer_top.blocks.information.name",
+      "type": "information",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "t:sections.common.heading.label",
+          "default": "Brand information"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "t:sections.common.description.label",
+          "default": "<p>Share store details, promotions, or brand content with your customers.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.footer_top.name",
+      "blocks": [
+        {
+          "type": "newsletter"
+        },
+        {
+          "type": "menu"
+        },
+        {
+          "type": "menu"
+        },
+        {
+          "type": "information"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

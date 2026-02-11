@@ -1,0 +1,391 @@
+{{ 'testimonial-card.css' | asset_url | stylesheet_tag }}
+{{ 'testimonials.css' | asset_url | stylesheet_tag }}
+
+{% assign section_prefix_class = 'testimonials' %}
+
+{%- style -%}
+  .{{ section_prefix_class }}-{{ section.id }}{
+    --section-padding-top: {{ section.settings.section_top_padding }}px;
+    --section-padding-bottom: {{ section.settings.section_bottom_padding }}px;
+    --desktop-columns-count: {{ section.settings.number_of_columns_on_desktop }};
+  }
+{%- endstyle -%}
+
+{% liquid
+  assign section_align_class = '--align-left'
+  assign list_align_class = '--justify-content-start'
+  assign section_scheme_class = section.settings.section_color_scheme | prepend: 'scheme scheme--'
+
+  if section.settings.section_text_alignment == 'center'
+    assign section_align_class = '--align-center'
+    assign list_align_class = '--justify-content-center'
+  elsif section.settings.section_text_alignment == 'right'
+    assign section_align_class = '--align-right'
+    assign list_align_class = '--justify-content-end'
+  endif
+
+  if section.settings.mobile_text_alignment
+    assign section_align_class_mobile = '--mobile-align-center'
+  endif
+
+  case section.settings.pagination
+    when 'dots'
+      assign slideshow_pagination_style = '--pagination_dots'
+    when 'lines'
+      assign slideshow_pagination_style = '--pagination_lines'
+    when 'numbers'
+      assign slideshow_pagination_style = '--pagination_numbers'
+    else
+      assign slideshow_pagination_style = 'none'
+  endcase
+
+  if section.settings.enable_slideshow
+    assign slideshow_enable_class = 'slideshow_enable'
+  endif
+%}
+
+<div class="{{ section_prefix_class }} {{ section_prefix_class }}-{{ section.id }} {{ section_align_class_mobile }} {{ section_align_class }} {{ section_scheme_class }} {{ slideshow_enable_class }}">
+  <div class="container">
+    <div class="{{ section_prefix_class }}_wrapper">
+      {%- liquid
+        unless section.settings.section_heading == blank
+          render 'element-header' | elem_header_heading_tag: 'h2'
+        endunless
+      -%}
+      <div class="{{ section_prefix_class }}_slider-wrap">
+        {% unless section.settings.enable_slideshow == false %}
+          <splide-slider
+            data-drag="true"
+            data-autoplay="{{ section.settings.auto_play }}"
+            data-pause-on-hover="true"
+            data-gap="100px"
+            {% if request.design_mode == false %}
+              data-type="loop"
+            {% else %}
+              data-type="slide"
+            {% endif %}
+            data-arrows="{{ section.settings.show_navigation }}"
+            {% unless slideshow_pagination_style == 'none' %}
+              data-pagination="true"
+            {% else %}
+              data-pagination="false"
+            {% endunless %}
+            data-per-page="1"
+            data-interval="{{ section.settings.change_slides_every | times: 1000 }}"
+            data-breakpoints='{"responsive": {"768": {"perPage": 2},"992": {"perPage": {{ section.settings.number_of_columns_on_desktop }}}}}'
+            {% unless slideshow_pagination_style == 'none' %}
+              data-pagination-style="{{ slideshow_pagination_style }}"
+            {% endunless %}
+          >
+            <div class="splide testimonial-slider">
+              <div class="splide__track">
+                <div class="splide__list">
+                  {%- for block in section.blocks -%}
+                    <div class="splide__slide {{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
+                      {%- render 'testimonial-card',
+                        testimonial_card_block: block,
+                        testimonial_card_Justify_class: list_align_class
+                      -%}
+                    </div>
+                  {%- endfor -%}
+                </div>
+              </div>
+              {%- if section.settings.show_navigation or section.settings.pagination != 'none' -%}
+                <div class="splide-controls">
+                  {%- if section.settings.show_navigation -%}
+                    <button class="splide__arrow splide__arrow--prev">
+                      <span class="visually-hidden">{{- 'sections.slideshow.previous_slideshow' | t -}}</span>
+                      {%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'arrow-left' -%}
+                    </button>
+                  {%- endif -%}
+                  <ul class="splide__pagination" role="tablist" aria-label="{{ 'additions.slideshow.select' | t }}"></ul>
+                  {%- if section.settings.show_navigation -%}
+                    <button class="splide__arrow splide__arrow--next">
+                      <span class="visually-hidden">{{- 'sections.slideshow.next_slideshow' | t -}}</span>
+                      {%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'arrow-right' -%}
+                    </button>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </splide-slider>
+        {% else %}
+          {%- render 'grid-columns',
+            grid_column_blocks: section.blocks,
+            grid_column_card: 'testimonials',
+            grid_column_section_prefix: section_prefix_class,
+            grid_column_Justify_class: list_align_class
+          -%}
+        {% endunless %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.testimonials.name",
+  "tag": "section",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "section_heading",
+      "label": "t:sections.common.heading.label",
+      "default": "Testimonials"
+    },
+    {
+      "type": "select",
+      "id": "section_heading_size",
+      "label": "t:sections.common.heading.size.label",
+      "options": [
+        {
+          "value": "heading_xx_large",
+          "label": "t:sections.common.heading.size.options.opt_1.label"
+        },
+        {
+          "value": "heading_x_large",
+          "label": "t:sections.common.heading.size.options.opt_2.label"
+        },
+        {
+          "value": "heading_large",
+          "label": "t:sections.common.heading.size.options.opt_3.label"
+        },
+        {
+          "value": "heading_medium",
+          "label": "t:sections.common.heading.size.options.opt_4.label"
+        },
+        {
+          "value": "heading_small",
+          "label": "t:sections.common.heading.size.options.opt_5.label"
+        },
+        {
+          "value": "heading_x_small",
+          "label": "t:sections.common.heading.size.options.opt_6.label"
+        },
+        {
+          "value": "heading_xx_small",
+          "label": "t:sections.common.heading.size.options.opt_7.label"
+        }
+      ],
+      "default": "heading_large"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "section_description",
+      "label": "t:sections.common.description.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.grid.content"
+    },
+    {
+      "type": "range",
+      "id": "number_of_columns_on_desktop",
+      "label": "t:sections.common.grid.num_col_d.label",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.layout.content"
+    },
+    {
+      "type": "select",
+      "id": "section_text_alignment",
+      "label": "t:sections.common.text_align.label",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.common.text_align.options.opt_1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.common.text_align.options.opt_2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.common.text_align.options.opt_3.label"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_text_alignment",
+      "label": "t:sections.common.cntr_mob.label",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.style.content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "default": "scheme1",
+      "label": "t:sections.common.clr_scheme.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.slideshow.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slideshow",
+      "label": "t:sections.common.slideshow.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_play",
+      "label": "t:sections.common.slideshow.auto_play.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "t:sections.common.slideshow.show_arrows.label",
+      "default": true,
+      "info": "t:sections.common.slideshow.show_arrows.info"
+    },
+    {
+      "type": "select",
+      "id": "pagination",
+      "label": "t:sections.common.slideshow.show_nav.label",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.common.slideshow.show_nav.options.opt_1.label"
+        },
+        {
+          "value": "dots",
+          "label": "t:sections.common.slideshow.show_nav.options.opt_2.label"
+        },
+        {
+          "value": "lines",
+          "label": "t:sections.common.slideshow.show_nav.options.opt_3.label"
+        },
+        {
+          "value": "numbers",
+          "label": "t:sections.common.slideshow.show_nav.options.opt_4.label"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "range",
+      "id": "change_slides_every",
+      "label": "t:sections.common.slideshow.interval.label",
+      "min": 2,
+      "max": 9,
+      "step": 1,
+      "default": 5,
+      "unit": "s",
+      "info": "t:sections.common.slideshow.interval.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.spacing.content"
+    },
+    {
+      "type": "range",
+      "id": "section_top_padding",
+      "label": "t:sections.common.spacing.top_spac.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_bottom_padding",
+      "label": "t:sections.common.spacing.bottom_spac.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:sections.testimonials.blocks.testimonial.name",
+      "type": "testimonial",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "description",
+          "label": "t:sections.common.description.label",
+          "default": "Add customer reviews and testimonials to showcase your store's happy customers."
+        },
+        {
+          "type": "select",
+          "id": "rating",
+          "label": "t:sections.testimonials.blocks.testimonial.settings.rating.label",
+          "options": [
+            {
+              "value": "none",
+              "label": "t:sections.testimonials.blocks.testimonial.settings.rating.options.opt_1.label"
+            },
+            {
+              "value": "5",
+              "label": "t:sections.testimonials.blocks.testimonial.settings.rating.options.opt_2.label"
+            },
+            {
+              "value": "4",
+              "label": "t:sections.testimonials.blocks.testimonial.settings.rating.options.opt_3.label"
+            },
+            {
+              "value": "3",
+              "label": "t:sections.testimonials.blocks.testimonial.settings.rating.options.opt_4.label"
+            },
+            {
+              "value": "2",
+              "label": "t:sections.testimonials.blocks.testimonial.settings.rating.options.opt_5.label"
+            },
+            {
+              "value": "1",
+              "label": "t:sections.testimonials.blocks.testimonial.settings.rating.options.opt_6.label"
+            }
+          ],
+          "default": "5"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:sections.testimonials.blocks.testimonial.settings.author.label",
+          "default": "Author's name"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.testimonials.name",
+      "blocks": [
+        {
+          "type": "testimonial"
+        },
+        {
+          "type": "testimonial"
+        },
+        {
+          "type": "testimonial"
+        },
+        {
+          "type": "testimonial"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

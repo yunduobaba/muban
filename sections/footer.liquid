@@ -1,0 +1,264 @@
+{{ 'footer.css' | asset_url | stylesheet_tag }}
+{% assign section_prefix_class = 'footer-bottom' %}
+{%- style -%}
+  .{{ section_prefix_class }}-{{ section.id }}{
+    --section-padding-top: {{ section.settings.section_top_padding }}px;
+    --section-padding-bottom: {{ section.settings.section_bottom_padding }}px;
+  }
+{%- endstyle -%}
+
+{% liquid
+  assign section_scheme_class = section.settings.section_color_scheme | prepend: 'scheme scheme--'
+    
+  if section.settings.section_background_full
+    assign section_scheme_class_full = section_scheme_class
+    assign section_side_spacing_cont = ''
+  else
+    assign section_scheme_class_cont = section_scheme_class
+    assign section_side_spacing_cont = 'section_side_spacing_cont'
+  endif
+
+  case section.settings.section_corner_radius
+    when 'top_corners_radius'
+      assign section_corners_radius = 'top_corners_radius'
+    when 'bottom_corners_radius'
+      assign section_corners_radius = 'bottom_corners_radius'
+    when 'both_corners_radius'
+      assign section_corners_radius = 'both_corners_radius'
+    when 'no_corners_radius'
+      assign section_corners_radius = ''
+  endcase
+
+  if section.settings.show_top_border
+    assign show_top_border = '--show_top_border' 
+  endif
+%}
+
+<div class="{{ section_prefix_class }} {{ section_prefix_class }}-{{ section.id }} {{ section_scheme_class_full }} {{ section_corners_radius }} {{ show_top_border }} --align-center">
+  <div class="container">
+    <div class="{{ section_prefix_class }}_wrapper {{ section_scheme_class_cont }} {{ section_side_spacing_cont }}">
+      {%- if shop.features.follow_on_shop? and section.settings.enable_follow_on_shop -%}
+        <div class="{{ section_prefix_class }}_follow-wrap --align-center">
+          {% # theme-check-disable %}
+            {{ shop | login_button: action: 'follow' }}
+          {% # theme-check-enable %}
+        </div>
+      {%- endif -%}
+      {%- if section.settings.enable_countryregion_selector or section.settings.enable_language_selector -%}
+        <div class="{{ section_prefix_class }}_selectors-wrap local_country-wrap">
+          {%- liquid
+            assign lfid = section.id | prepend: 'language-form'
+            assign lfid_no_script = section.id | prepend: 'language-form' | append: '-noscript'
+
+            assign resid = section.id | prepend: 'country-form'
+            assign resid_no_script = section.id | prepend: 'country-form' | append: '-noscript'
+          -%}
+          {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
+            <div class="{{ section_prefix_class }}_country-wrap footer-dropdown localization-wrap">
+              <noscript>
+                {%- form 'localization', id: lfid_no_script, class: 'localization-form' -%}
+                  <strong class="visually-hidden" id="{{ lfid_no_script }}-lang-heading">{{ 'localization.country_label' | t }}</strong>
+                  <select
+                    name="locale_code"
+                    aria-labelledby="{{ lfid_no_script }}-lang-heading"
+                  >
+                    {%- for language in localization.available_languages -%}
+                      <option
+                        value="{{ language.iso_code }}"
+                        lang="{{ language.iso_code }}"
+                        {%- if language.iso_code == localization.language.iso_code %}
+                          selected
+                        {% endif %}
+                      >
+                        {{ language.endonym_name | capitalize }}
+                      </option>
+                    {%- endfor -%}
+                  </select>
+                  <button class="button button--primary">{{ 'localization.update_language' | t }}</button>
+                {%- endform -%}
+              </noscript>
+              {%- form 'localization', id: lfid, class: 'localization-form' -%}
+                {%- render 'language-localization', localPosition: section.id, id: lfid -%}
+              {%- endform -%}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.enable_countryregion_selector and localization.available_countries.size > 1 -%}
+            <div class="{{ section_prefix_class }}_currency-wrap footer-dropdown localization-wrap">
+              <noscript>
+                {%- form 'localization', id: resid_no_script, class: 'localization-form' -%}
+                  <strong class="visually-hidden" id="{{ resid_no_script }}-country-heading">{{ 'localization.country_label' | t }}</strong>
+                  <select
+                    name="country_code"
+                    aria-labelledby="{{ resid_no_script }}-country-heading"
+                  >
+                    {%- for country in localization.available_countries -%}
+                      <option
+                        value="{{ country.iso_code }}"
+                        {%- if country.iso_code == localization.country.iso_code %}
+                          selected
+                        {% endif %}
+                      >
+                        {{ country.name }} ({{ country.currency.iso_code }}
+                        {{ country.currency.symbol }})
+                      </option>
+                    {%- endfor -%}
+                  </select>
+                  <button class="button button--tertiary">{{ 'localization.update_country' | t }}</button>
+                {%- endform -%}
+              </noscript>
+              {%- form 'localization', id: resid, class: 'localization-form' -%}
+                {%- render 'country-localization', localPosition: section.id, id: resid -%}
+              {%- endform -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      <div class="{{ section_prefix_class }}_copyright">
+        {{- 'additions.footer.copyright_text' | t }} &copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url -}} &nbsp; {{ powered_by_link -}}
+      </div>
+      {%- if section.settings.show_payment_icons -%}
+        <ul class="list-unstyled list-payment">
+          {%- for type in shop.enabled_payment_types -%}
+            <li class="list-payment_item">
+              {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      {%- if settings.enable_back_to_top -%}
+        <sticky-block class="main-product_sticky-bar" data-ref-block="#MainContent" data-page-percentage="40%" data-revealed="false" data-behavior="downwards" data-has-hidden="true" aria-hidden="true">
+          <smooth-anchor>
+            <a role="button" aria-label="{{ 'sections.footer.a11y.back_top' | t }}" href="#page-wrapper" id="back-to-top" class="button button--secondary">
+              <span class="visually-hidden">{{ 'sections.footer.a11y.back_top' | t }}</span>
+              {%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'arrow-up' -%}
+            </a>
+          </smooth-anchor>
+        </sticky-block>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.footer.name",
+  "tag": "footer",
+  "limit": 1,
+  "disabled_on": {
+    "groups": [
+      "header"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.footer_top.settings.follow_shop.content",
+      "info": "t:sections.footer_top.settings.follow_shop.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_follow_on_shop",
+      "label": "t:sections.footer_top.settings.follow_shop.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.footer.settings.count_reg_slctr.content",
+      "info": "t:sections.footer.settings.count_reg_slctr.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_countryregion_selector",
+      "label": "t:sections.footer.settings.count_reg_slctr.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.footer.settings.lang_slctr.content",
+      "info": "t:sections.footer.settings.lang_slctr.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_language_selector",
+      "label": "t:sections.footer.settings.lang_slctr.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "t:sections.footer.settings.pay_icons.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.style.content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "default": "scheme2",
+      "label": "t:sections.common.clr_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "section_background_full",
+      "label": "t:sections.footer.settings.make_full.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_top_border",
+      "label": "t:sections.footer.settings.top_bdr.label",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "section_corner_radius",
+      "label": "t:sections.common.round_crnr.label",
+      "options": [
+        {
+          "value": "no_corners_radius",
+          "label": "t:sections.common.round_crnr.options.opt_1.label"
+        },
+        {
+          "value": "top_corners_radius",
+          "label": "t:sections.common.round_crnr.options.opt_2.label"
+        },
+        {
+          "value": "bottom_corners_radius",
+          "label": "t:sections.common.round_crnr.options.opt_3.label"
+        },
+        {
+          "value": "both_corners_radius",
+          "label": "t:sections.common.round_crnr.options.opt_4.label"
+        }
+      ],
+      "default": "both_corners_radius"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.spacing.content"
+    },
+    {
+      "type": "range",
+      "id": "section_top_padding",
+      "label": "t:sections.common.spacing.top_spac.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_bottom_padding",
+      "label": "t:sections.common.spacing.bottom_spac.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 30,
+      "unit": "px"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,104 @@
+{{- 'breadcrumbs.css' | asset_url | stylesheet_tag -}}
+{{- 'customer.css' | asset_url | stylesheet_tag -}}
+{%- liquid
+  assign section_prefix_class = 'login'
+  assign section_scheme_class = settings.auth_section_color_scheme | prepend: 'scheme scheme--'
+-%}
+
+{%- style -%}
+  .{{ section_prefix_class }}-{{ section.id }}{
+    --section-padding-top: {{ settings.auth_section_top_padding }}px;
+    --section-padding-bottom: {{ settings.auth_section_bottom_padding }}px;
+  }
+{%- endstyle -%}
+
+<div class="{{ section_prefix_class }} {{ section_prefix_class }}-{{ section.id }}">
+  <div class="container">
+    {%- render 'element-breadcrumb' -%}
+    <div class="{{ section_prefix_class }}_grid">
+      <div class="{{ section_prefix_class }}_column formColumn">
+        <div class="formWrap {{ section_scheme_class }}">
+          <h1 class="{{ section_prefix_class }}_form-title mty" tabindex="-1">
+            {{ 'customer.activate_account.title' | t }}
+            <strong class="subTitle">{{ 'customer.activate_account.subtext' | t }}</strong>
+          </h1>
+          {%- form 'activate_customer_password' -%}
+            {%- if form.errors -%}
+              <h2 class="form__message mty visually-hidden" tabindex="-1" autofocus>
+                <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+                {{ 'templates.contact.form.error_heading' | t }}
+              </h2>
+              <div class="customer-login_errors-wrap">
+                <ul class="errors_list list-unstyled">
+                  {%- for field in form.errors -%}
+                    <li>
+                      {%- if field == 'form' -%}
+                        {{ form.errors.messages[field] }}
+                      {%- else -%}
+                        <a href="#{{ field }}">
+                          {{ form.errors.translated_fields[field] | capitalize }}
+                          {{ form.errors.messages[field] }}
+                        </a>
+                      {%- endif -%}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- endif -%}
+            <div class="inputWrap">
+              <div class="field">
+                <input
+                  type="password"
+                  name="customer[password]"
+                  id="password"
+                  autocomplete="new-password"
+                  {% if form.errors contains 'password' %}
+                    aria-invalid="true"
+                    aria-describedby="password-error"
+                  {% endif %}
+                  placeholder="{{ 'customer.reset_password.password' | t }}"
+                  class="form-control form-control--secondary"
+                >
+                {%- if form.errors contains 'password' -%}
+                  <small id="password-error" class="form__message loginError">
+                    {%- render 'icons-data', width: 20, height: 20, use_icon: true, icon_reference: 'error' -%}
+                    {{ form.errors.translated_fields.password | capitalize }}
+                    {{ form.errors.messages.password }}
+                  </small>
+                {%- endif -%}
+              </div>
+          
+              <div class="field">
+                <input
+                  type="password"
+                  name="customer[password_confirmation]"
+                  id="password_confirmation"
+                  autocomplete="new-password"
+                  {% if form.errors contains 'password_confirmation' %}
+                    aria-invalid="true"
+                    aria-describedby="password_confirmation-error"
+                  {% endif %}
+                  placeholder="{{ 'customer.reset_password.password_confirm' | t }}"
+                  class="form-control form-control--secondary"
+                >
+                {%- if form.errors contains 'password_confirmation' -%}
+                  <small id="password_confirmation-error" class="form__message loginError">
+                    {%- render 'icons-data', width: 20, height: 20, use_icon: true, icon_reference: 'error' -%}
+                    {{ form.errors.translated_fields.password_confirmation | capitalize }}
+                    {{ form.errors.messages.password_confirmation }}
+                  </small>
+                {%- endif -%}
+              </div>
+            </div>
+              <button class="button button--primary login-btn">
+                {{ 'customer.activate_account.submit' | t }}
+              </button>
+              <button name="decline" class="button button--secondary cancel-btn login-btn">
+                {{ 'customer.activate_account.cancel' | t }}
+              </button>
+          {%- endform -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

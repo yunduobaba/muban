@@ -1,0 +1,252 @@
+<div id="product-card-organizer">
+  <div data-request-contents="sale-tag">
+    {%- render 'price', product: product, use_variant: true, show_currency_code: settings.show_currency_code | show_discount_tag: true -%}
+  </div>
+  <strong class="product_stock-inventory" data-request-contents="inventory">
+    {%- if product.selected_or_first_available_variant.inventory_management == 'shopify' -%}
+      {% assign backordered = false %}
+      {%- if product.selected_or_first_available_variant.inventory_policy == 'continue' -%}
+        {%- liquid
+          assign inventory_text = 'sections.products.product.pre_text' | t
+          assign backordered = true
+          assign stock_bar_text = 'sections.products.product.bckorder_text' | t
+        -%}
+        {%- else -%}
+          {% liquid
+            assign inventory_count = product.selected_or_first_available_variant.inventory_quantity
+            assign inventory_container_class = '--no-stock'
+            assign inventory_text = 'sections.products.product.sold_out' | t
+            assign stock_bar_text = 'sections.products.product.alas_text' | t
+            assign stock_bar_width = inventory_count | divided_by: 1.00
+            assign stock_bar_color = 'var(--section-error-color)'
+            
+            if stock_bar_width > 0
+              assign stock_bar_color = 'var(--section-warning-color)'
+              assign stock_bar_text = 'sections.products.product.hurry_text' | t
+              assign inventory_container_class = '--low-stock'
+              assign inventory_text = 'sections.products.product.low_stock_text' | t
+            endif
+            
+            if stock_bar_width > 50.0
+              assign stock_bar_color = 'var(--section-success-color)'
+              assign stock_bar_text = 'sections.products.product.excel_text' | t
+              assign inventory_container_class = '--enough-stock'
+              assign inventory_text = 'sections.products.product.in_stock_text' | t
+            endif
+            
+            if stock_bar_width < 1.0
+              assign stock_bar_width = 100.0
+            endif
+          %}
+      {%- endif -%}
+      <span class="">
+        {{ inventory_text }}
+      </span>
+    {%- endif -%}
+  </strong>
+  <div data-request-contents="price">
+    {%- render 'price', product: product, use_variant: true, show_currency_code: settings.show_currency_code -%}
+  </div>
+  <div class="main-product_stock-col featured-product_stock-col" data-request-contents="stockbar">
+    <div class="stock-col_wrapper">
+      <strong class="main-product_stock-text featured-product_stock-text">
+        {%- render 'icons-data', width: 20, height: 20, use_icon: true, icon_reference: 'document' -%}
+        <span class="{{ inventory_container_class }}">{{ stock_bar_text }}</span>
+      </strong>
+      {% if backordered == false %}
+        {% if inventory_count < 1 %}
+          {{ 'sections.products.product.no_stock_text' | t }}
+        {% else %}
+          {% unless inventory_count > 50 or inventory_count == 0 %} {{ 'sections.products.product.only_stock_text' | t }} {% endunless %}
+          {{ 'sections.products.product.items_left_stock_text' | t: count: inventory_count }}
+        {% endif %}
+      {% endif %}
+    </div>
+    <span class="main-product_stock-progress featured-product_stock-progress {% if backordered %}hidden{% endif %}">
+      <span style="width: {{ stock_bar_width }}%; background-color: {{ stock_bar_color }};"></span>
+    </span>
+  </div>
+  <div data-request-contents="unit-price">
+    {%- unless product.selected_or_first_available_variant.unit_price_measurement == null -%}
+      <strong class="paver-list_title">Price Unit:</strong>
+      <div class="paver-list_description">
+        {%- comment -%} Unit price {%- endcomment -%}
+        <span class="visually-hidden">
+          {{- 'sections.products.product.price.unit_price' | t -}}
+        </span>
+        <span class="unit-price">
+          {%- comment -%} Price {%- endcomment -%}
+          <span>{{- product.selected_or_first_available_variant.unit_price | money -}}</span>
+          {%- comment -%} Separator {%- endcomment -%}
+          <span aria-hidden="true">/</span>
+          <span class="visually-hidden">&nbsp;{{- 'accessibility.unit_price_separator' | t -}}&nbsp;</span>
+          {%- comment -%} Unit {%- endcomment -%}
+          <span>
+            {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value != 1 -%}
+              {{- product.selected_or_first_available_variant.unit_price_measurement.reference_value -}}
+            {%- endif -%}
+            {{- product.selected_or_first_available_variant.unit_price_measurement.reference_unit -}}
+          </span>
+        </span>
+      </div>
+    {%- endunless -%}
+  </div>
+  <strong class="product_stock-inventory" data-request-contents="inventory-card">
+    {%- if product.selected_or_first_available_variant.inventory_management == 'shopify' -%}
+      {% assign backordered = false %}
+      {%- if product.selected_or_first_available_variant.inventory_policy == 'continue' -%}
+        {%- liquid
+          assign inventoryc_text = 'sections.products.product.pre_text' | t
+          assign inventoryc_container_class = ''
+        -%}
+        {%- else -%}
+          {% liquid
+            assign inventoryc_count = product.selected_or_first_available_variant.inventory_quantity
+            assign inventoryc_container_class = '--no-stock'
+            assign inventoryc_text = 'sections.products.product.soldout' | t
+            
+            if inventoryc_count > 0
+              assign inventoryc_container_class = '--low-stock'
+              assign inventoryc_text = 'sections.products.product.low_stock_text' | t
+            endif
+            
+            if inventoryc_count > 50
+              assign inventoryc_container_class = '--enough-stock'
+              assign inventoryc_text = 'sections.products.product.in_stock_text' | t
+            endif
+          %}
+      {%- endif -%}
+      <span class="{{ inventoryc_container_class }}">
+        {{ inventoryc_text }}
+      </span>
+    {%- endif -%}
+  </strong>
+  <div data-request-contents="pickup">
+    {%- assign pick_up_availabilities = product.selected_or_first_available_variant.store_availabilities
+      | where: 'pick_up_enabled', true
+    -%}
+    <div
+      {% if product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %}
+        available
+        {% else %}
+          hidden
+      {% endif %}
+    >
+      {%- liquid
+        assign closest_location = pick_up_availabilities.first
+      -%}
+      {%- if closest_location.available -%}
+        <strong class="pickup_heading">
+          {%- render 'icons-data', width: 10, height: 10, use_icon: true, icon_reference: 'check' -%}
+          {{- 'additions.product.pickup.available_at' | t }} {{ closest_location.location.name }}
+        </strong>
+        <em class="pickup_subheading">{{ closest_location.pick_up_time }}</em>
+        {%- else -%}
+          <strong class="pickup_heading">
+            {%- render 'icons-data', width: 10, height: 10, use_icon: true, icon_reference: 'cross' -%}
+            {{ 'sections.products.product.pickup.unavailable' | t }}: {{ closest_location.location.name }}
+          </strong>
+      {%- endif -%}
+    </div>
+    {% if product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %}
+      <modal-component-toggler>
+        <button
+          type="button"
+          data-expanded="false"
+          data-modal-ref="modal-pickup-drawer"
+          aria-haspopup="dialog"
+          aria-controls="{{ section.id }}-modal-pickup-drawer"
+          class="pickup-drawer_btn-opener"
+        >
+          {% if pick_up_availabilities.size == 1 %}
+            {{ 'sections.products.product.pickup.view_store' | t }}
+          {% else %}
+            {{ 'sections.products.product.pickup.other_store' | t }}
+          {% endif %}
+        </button>
+      </modal-component-toggler>
+      <modal-component
+        data-modal="modal-pickup-drawer"
+        data-container="body"
+      >
+        <div
+          class="modal modal-component modal-component--pickup-drawer --drawer"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="{{ section.id }}-modal-pickup-drawer-heading"
+          aria-describedby="{{ section.id }}-modal-pickup-drawer"
+          tabindex="-1"
+        >
+          <div class="modal-component_wrapper" id="{{ section.id }}-modal-pickup-drawer">
+            <div class="modal-component_body">
+              <div class="modal-component_head">
+                <modal-component-toggler>
+                  <button type="button"
+                    data-expanded="true"
+                    data-toggle-attribute="false"
+                    data-modal-ref="modal-pickup-drawer"
+                    class="modal-component_btn-close"
+                  >
+                    {%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'cross' -%}
+                    <span class="visually-hidden">{{ 'accessibility.close' | t }}</span>
+                  </button>
+                </modal-component-toggler>
+                <strong id="{{ section.id }}-modal-pickup-drawer-heading" class="visually-hidden">{{ product.title | escape }}</strong>
+              </div>
+              <div class="modal-component_content" data-id="pickup">
+                {%- render 'element-heading' | elem_heading_tag: 'h6' | elem_heading_text: product.title | elem_heading_custom_class: 'pick_up_availabilities-heading mty' -%}
+                {%- render 'element-heading' | elem_heading_tag: 'span' | elem_heading_text: product.vendor | elem_heading_custom_class: 'pick_up_availabilities-vendor' -%}
+                {%- unless product.has_only_default_variant -%}
+                  <ul class="list-unstyled mcpicku_options-list">
+                    {%- for option in product.options_with_values -%}
+                      <li>
+                        <strong class="mcpicku_options-list_title">{{ option.name }}:</strong>
+                        <strong class="mcpicku_options-list_value">
+                          {{ option.selected_value }}
+                        </strong>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endunless -%}
+                <ul class="list-unstyled pickup-showcase_list">
+                  {%- for availability in pick_up_availabilities -%}
+                    <li>
+                      {%- render 'element-heading' | elem_heading_tag: 'strong' | elem_heading_parent: 'pickup-showcase' | elem_heading_text: availability.location.name | elem_heading_size: block.settings.heading_size | elem_heading_custom_class: 'mty' -%}
+                      <p class="availability-available">
+                        {%- if availability.available -%}
+                          <strong class="pickup-available_heading mty yes">
+                            {%- render 'icons-data', width: 10, height: 10, use_icon: true, icon_reference: 'check' -%}
+                            {{ 'sections.products.product.pickup.available' | t }}
+                          </strong>
+                          <span>{{ availability.pick_up_time }}</span>
+                        {%- else -%}
+                          <strong class="pickup-available_heading mty no">
+                            {%- render 'icons-data', width: 10, height: 10, use_icon: true, icon_reference: 'cross' -%}
+                            {{ 'sections.products.product.pickup.unavailable' | t }}
+                          </strong>
+                        {%- endif -%}
+                      </p>
+
+                      {%- assign address = availability.location.address -%}
+                      <address class="pickup-showcase_address">
+                        {{ address | format_address }}
+
+                        {%- if address.phone.size > 0 -%}
+                          <p>{{ address.phone }}</p>
+                        {%- endif -%}
+                      </address>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </modal-component>
+    {% endif %}
+    <span class="--loader">
+      <span class="visually-hidden">{{ 'accessibility.loading' | t }}</span>
+      {%- render 'icons-data', width: 25, height: 25, use_icon: true, icon_reference: 'loader' -%}
+    </span>
+  </div>
+</div>
