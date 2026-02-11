@@ -214,6 +214,17 @@
             "open_new_window": false,
             "stencil_text": false
           }
+        },
+        "text_RxaR6m": {
+          "type": "text",
+          "settings": {
+            "text": "ZSIGA",
+            "image": "shopify://shop_images/8.webp",
+            "image_type": "circle",
+            "link": "shopify://collections/zsiga",
+            "open_new_window": false,
+            "stencil_text": false
+          }
         }
       },
       "block_order": [
@@ -223,7 +234,8 @@
         "banner4",
         "text_A6pkce",
         "text_PhK7Ni",
-        "text_Qe99kd"
+        "text_Qe99kd",
+        "text_RxaR6m"
       ],
       "settings": {
         "marquee_speed": 20,
