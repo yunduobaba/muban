@@ -47,9 +47,9 @@
         "enable_countryregion_selector": true,
         "enable_language_selector": true,
         "block_content_alignment": "middle",
-        "show_account": false,
-        "show_cart": false,
-        "show_search": false,
+        "show_account": true,
+        "show_cart": true,
+        "show_search": true,
         "enable_predictive_search_suggestions": true,
         "sticky_header": "on_scroll",
         "show_cart_on_sticky": true,
@@ -107,6 +107,7 @@
         "store2",
         "store3"
       ],
+      "disabled": true,
       "settings": {
         "button_label": "New Arrival",
         "button_link": "shopify://collections/new-arrivals",

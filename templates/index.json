@@ -81,7 +81,7 @@
         "show_navigation": true,
         "pagination": "lines",
         "change_slides_every": 5,
-        "section_top_padding": 0,
+        "section_top_padding": 20,
         "section_bottom_padding": 0
       }
     },
