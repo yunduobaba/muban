@@ -203,6 +203,17 @@
             "open_new_window": false,
             "stencil_text": false
           }
+        },
+        "text_Qe99kd": {
+          "type": "text",
+          "settings": {
+            "text": "HIRONO",
+            "image": "shopify://shop_images/1723455224339____hirono_ip.webp",
+            "image_type": "circle",
+            "link": "shopify://collections/hirono",
+            "open_new_window": false,
+            "stencil_text": false
+          }
         }
       },
       "block_order": [
@@ -211,7 +222,8 @@
         "banner3",
         "banner4",
         "text_A6pkce",
-        "text_PhK7Ni"
+        "text_PhK7Ni",
+        "text_Qe99kd"
       ],
       "settings": {
         "marquee_speed": 20,
