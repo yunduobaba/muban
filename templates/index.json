@@ -16,9 +16,9 @@
           "type": "slide",
           "settings": {
             "image_i": "shopify://shop_images/12.jpg",
-            "image_ii": "shopify://shop_images/12_899e0884-5494-4b16-8ca3-5c1d7727e917.jpg",
+            "image_ii": "shopify://shop_images/12_8f6405de-beab-4b75-a283-28af99f325cc.jpg",
             "image_iii": "shopify://shop_images/banner7503_12c877d5-0d03-4362-b554-f039c113bc81.jpg",
-            "bg_overlay_opac": 30,
+            "bg_overlay_opac": 40,
             "remove_overlay": false,
             "block_content_order": "center",
             "block_text_alignment": "left",
