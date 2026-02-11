@@ -85,6 +85,18 @@
         "section_bottom_padding": 0
       }
     },
+    "custom_liquid_bM7KWL": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom_liquid.name",
+      "settings": {
+        "custom_liquid": "<h2>Secret Restocked</h2>",
+        "section_text_alignment": "center",
+        "mobile_text_alignment": false,
+        "section_color_scheme": "",
+        "section_top_padding": 0,
+        "section_bottom_padding": 0
+      }
+    },
     "logo-list": {
       "type": "logo-list",
       "blocks": {
@@ -111,7 +123,6 @@
         "logo3",
         "logo4"
       ],
-      "disabled": true,
       "settings": {
         "number_of_columns_on_desktop": 4,
         "section_color_scheme": "scheme1",
@@ -778,64 +789,11 @@
         "section_top_padding": 26,
         "section_bottom_padding": 100
       }
-    },
-    "promotion_banners_qMwNfj": {
-      "type": "promotion-banners",
-      "blocks": {
-        "banner_d3tRkh": {
-          "type": "banner",
-          "settings": {
-            "button_label": "",
-            "button_position": "bottom_right",
-            "link": "",
-            "open_new_window": false,
-            "section_color_scheme": "",
-            "columns": 3,
-            "rows": 2
-          }
-        },
-        "banner_7PFDat": {
-          "type": "banner",
-          "settings": {
-            "button_label": "",
-            "button_position": "bottom_right",
-            "link": "",
-            "open_new_window": false,
-            "section_color_scheme": "",
-            "columns": 3,
-            "rows": 1
-          }
-        },
-        "banner_zMUerQ": {
-          "type": "banner",
-          "settings": {
-            "button_label": "",
-            "button_position": "bottom_right",
-            "link": "",
-            "open_new_window": false,
-            "section_color_scheme": "",
-            "columns": 3,
-            "rows": 1
-          }
-        }
-      },
-      "block_order": [
-        "banner_d3tRkh",
-        "banner_7PFDat",
-        "banner_zMUerQ"
-      ],
-      "name": "t:sections.promotion_banners.name",
-      "settings": {
-        "desktop_row_height": 215,
-        "mobile_row_height": 150,
-        "section_top_padding": 50,
-        "section_bottom_padding": 50
-      }
     }
   },
   "order": [
     "banner-slideshow",
-    "promotion_banners_qMwNfj",
+    "custom_liquid_bM7KWL",
     "logo-list",
     "scrolling-banner",
     "top-collection",
