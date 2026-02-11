@@ -76,6 +76,7 @@
         },
         "store2": {
           "type": "store",
+          "disabled": true,
           "settings": {
             "heading": "Our warehouse",
             "heading_size": "heading_xx_small",
@@ -88,6 +89,7 @@
         },
         "store3": {
           "type": "store",
+          "disabled": true,
           "settings": {
             "heading": "Store heading",
             "heading_size": "heading_xx_small",
@@ -106,7 +108,7 @@
       ],
       "settings": {
         "button_label": "New Arrival",
-        "button_link": "",
+        "button_link": "shopify://collections/new-arrivals",
         "open_new_window": false,
         "show_cart": true,
         "button_label_locations": "",
