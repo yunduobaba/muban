@@ -1,0 +1,98 @@
+{% comment %}
+    Renders product price info
+
+    Accepts:
+    - product: {Object} Product Liquid object (optional)
+    - use_variant: {Boolean} Renders selected or first variant price instead of overall product pricing (optional)
+    - show_badges: {Boolean} Renders 'Sale' and 'Sold Out' tags if the product matches the condition (optional)
+    - show_currency_code: {Boolean} Renders 'Currency code' (optional)
+
+    Usage:
+    {%- render 'price', product: product -%}
+{% endcomment %}
+{%- liquid
+  assign target = product
+  if use_variant
+    assign target = product.selected_or_first_available_variant
+  endif
+
+  assign compare_at_price = target.compare_at_price
+  assign price = target.price | default: 1999
+
+  assign onsale = false
+  if compare_at_price > price
+    assign onsale = true
+  endif
+
+  assign money_price = price | money
+  if settings.show_currency_code
+    assign money_price = price | money_with_currency
+  endif
+
+  if target == product and product.price_varies
+    assign money_price = money_price | prepend: 'From '
+  endif
+-%}
+
+{%- unless show_discount_tag == true -%}
+  <div class="price">
+    <div>
+      {%- if onsale -%}
+        {%- comment -%} On sale - Sale price {%- endcomment -%}
+        <span class="visually-hidden">
+          {{- 'sections.products.product.price.sale_price' | t -}}
+        </span>
+        <span class="sale-price main-price">
+          {{- money_price -}}
+        </span>
+        {%- unless product.price_varies == false and product.compare_at_price_varies -%}
+          {%- comment -%} On sale - Regular price {%- endcomment -%}
+          <span class="visually-hidden">
+            {{- 'sections.products.product.price.regular_price' | t -}}
+          </span>
+          <s class="regular-price">
+            {%- if settings.show_currency_code -%}
+              {{- compare_at_price | money_with_currency -}}
+            {%- else -%}
+              {{- compare_at_price | money -}}
+            {%- endif -%}
+          </s>
+        {%- endunless -%}
+      {%- else -%}
+        {%- comment -%} Regular price {%- endcomment -%}
+        <span class="visually-hidden">
+          {{- 'sections.products.product.price.regular_price' | t -}}
+        </span>
+        <span class="regular-price main-price">
+          {{- money_price -}}
+        </span>
+      {%- endif -%}
+    </div>
+
+    {%- unless product.selected_or_first_available_variant.unit_price_measurement == nil -%}
+      {%- comment -%} Unit price {%- endcomment -%}
+      <span class="visually-hidden">
+        {{ 'sections.products.product.price.unit_price' | t }}
+      </span>
+      <span class="unit-price">
+        {%- comment -%} Price {%- endcomment -%}
+        <span>{{- product.selected_or_first_available_variant.unit_price | money -}}</span>
+        {%- comment -%} Separator {%- endcomment -%}
+        <span aria-hidden="true">/</span>
+        <span class="visually-hidden">&nbsp;{{- 'accessibility.unit_price_separator' | t -}}&nbsp;</span>
+        {%- comment -%} Unit {%- endcomment -%}
+        <span>
+          {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value != 1 -%}
+            {{- product.selected_or_first_available_variant.unit_price_measurement.reference_value -}}
+          {%- endif -%}
+          {{- product.selected_or_first_available_variant.unit_price_measurement.reference_unit -}}
+        </span>
+      </span>
+    {%- endunless -%}
+  </div>
+  {%- else -%}
+    {%- assign dicount_amount = compare_at_price | minus: price -%}
+    <strong role="heading" aria-level="2" class="product_discount-tag {% unless onsale == true -%} hidden{%- endunless %}">
+     {{ 'sections.products.product.price.save' | t }} {{ dicount_amount | money }}
+    </strong>
+{%- endunless -%}

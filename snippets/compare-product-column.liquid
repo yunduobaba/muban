@@ -1,0 +1,173 @@
+<div class="compare-product_column {{ section.id }}-{{ product.id | default: 'product-0' }}">
+  {%- liquid
+    capture product_title
+      if product != blank
+        echo product.title
+        else
+          echo 'sections.products.product.title' | t
+      endif
+    endcapture
+    capture product_vendor
+      if product != blank
+        echo product.vendor
+        else
+          echo 'sections.products.product.vendor_name' | t
+      endif
+    endcapture
+    capture details_label
+      echo 'sections.products.product.view_details_button' | t
+    endcapture
+  -%}
+  <article class="compare-product" aria-label="product">
+    <div class="compare-product_top-wrap">
+      <div class="compare-product_image mty">
+        <span class="compare-button"> 
+          {%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'compare' -%}
+        </span>
+        {% render 'element-image' | elem_image: product.featured_media.preview_image | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: product_title %}
+      </div>
+      <strong class="mty d-block compare-product_vendor" role="heading" aria-level="2">{{- product_vendor -}}</strong>
+      {%- render 'element-heading' | elem_heading_tag: 'strong' | elem_heading_parent: 'compare-product' | elem_heading_text: product_title | elem_heading_size: '' | elem_heading_custom_class: 'mty' -%}
+    </div>
+    <div class="compare-product_row">
+      <strong class="cp_meta-list_heading mty">{{ 'sections.compare.price' | t }}</strong>
+      {%- render 'price', product: product, use_variant: false -%}
+    </div>
+    <div class="compare-product_row">
+      <strong class="cp_meta-list_heading mty">{{- 'additions.product.compare.stock' | t -}}</strong>
+      {%- liquid
+        if product.title != blank
+          if product.selected_or_first_available_variant.inventory_management == 'shopify'
+            assign backordered = false
+            if product.selected_or_first_available_variant.inventory_policy == 'continue'
+              assign inventory_text = 'sections.products.product.pre_text' | t
+              assign backordered = true
+              else
+                assign inventory_count = product.selected_or_first_available_variant.inventory_quantity
+                assign stock_bar_width = inventory_count | divided_by: 1.00
+                assign inventory_text = 'sections.products.product.sold_out' | t
+                
+                if stock_bar_width > 0
+                  assign inventory_text = 'sections.products.product.low_stock_text' | t
+                endif
+                
+                if stock_bar_width > 50.0
+                  assign inventory_text = 'sections.products.product.in_stock_text' | t
+                endif
+            endif
+            else
+              assign inventory_text = 'additions.product.compare.available' | t
+          endif
+          echo inventory_text
+          else
+            echo 'sections.compare.no_rating' | t
+        endif
+      -%}
+    </div>
+    {%- if product.title != blank -%}
+      {%- unless product.has_only_default_variant -%}
+        <div class="compare-product_row">
+          <strong class="cp_meta-list_heading mty">{{- 'additions.product.compare.variation' | t -}}</strong>
+          {%- for option in product.options_with_values -%}
+            {%- if forloop.index > 1 -%}
+              {%- assign comma = ',' -%}
+              {%- else -%}
+                {%- assign comma = '' -%}
+            {%- endif -%}
+              {{- comma }}
+              {{- option.values.size }} {{ option.name }}{% if option.values.size > 1 %}s{% endif %} {{ 'sections.products.product.available' | t -}}
+          {% endfor %}
+        </div>
+        {%- else -%}
+          <div class="compare-product_row">
+            <strong class="cp_meta-list_heading mty">{{- 'additions.product.compare.variation' | t -}}</strong>
+            {{- 'sections.compare.no_rating' | t -}}
+          </div>
+      {%- endunless -%}
+      {%- else -%}
+        <div class="compare-product_row">
+          <strong class="cp_meta-list_heading mty">{{- 'additions.product.compare.variation' | t -}}</strong>
+          {{- 'sections.compare.no_rating' | t -}}
+        </div>
+    {%- endif -%}
+    {%- unless product.type == blank -%}
+      <div class="compare-product_row">
+        <strong class="cp_meta-list_heading mty">{{- 'additions.product.compare.type' | t -}}</strong>
+        {{- product.type -}}
+      </div>
+      {%- else -%}
+        <div class="compare-product_row">
+          <strong class="cp_meta-list_heading mty">{{- 'additions.product.compare.type' | t -}}</strong>
+          {{- 'sections.compare.no_rating' | t -}}
+        </div>
+    {%- endunless -%}
+    <div class="compare-product_row">
+      {%- liquid
+        assign rating_value = product.metafields.reviews.rating.value.rating | plus: 0
+        assign rating_totals = 5 | plus: 0
+      -%}
+      <strong class="cp_meta-list_heading mty">{{ 'sections.compare.rating' | t }}</strong>
+      <strong>
+        {% if rating_value > 1 %}
+          {% for star in (1..rating_totals) %}
+            {% if rating_value >= forloop.index %}
+              <i class="product_rating-star --active">
+                {%- render 'icons-data', width: 12, height: 12, use_icon: true, icon_reference: 'star-filled' -%}
+              </i>
+              {% else %}
+                <i class="product_rating-star">
+                  {%- render 'icons-data', width: 12, height: 12, use_icon: true, icon_reference: 'star-filled' -%}
+                </i>
+            {% endif %}
+          {% endfor %}
+          <span>
+            <span class="visually-hidden">
+              {{- product.metafields.reviews.rating_count | round }} / {{ product.metafields.reviews.rating.value.scale_max -}}
+            </span>
+            <span aria-hidden="true">({{ product.metafields.reviews.rating_count }} {{ 'sections.compare.reviews' | t }})</span>
+          </span>
+          {% else %}
+            <span aria-hidden="true">{{ 'sections.compare.no_rating' | t }}</span>
+            <span class="visually-hidden">{{ 'sections.compare.no_rating' | t }}</span>
+        {% endif %}
+      </strong>
+    </div>
+    {%- unless product.selected_or_first_available_variant.sku == blank -%}
+      <div class="compare-product_row">
+        <strong class="cp_meta-list_heading mty">{{- 'customer.order.sku' | t -}}</strong>
+        {{- product.selected_or_first_available_variant.sku -}}
+      </div>
+      {%- else -%}
+        <div class="compare-product_row">
+          <strong class="cp_meta-list_heading mty">{{- 'customer.order.sku' | t -}}</strong>
+          {{- 'sections.compare.no_rating' | t -}}
+        </div>
+    {%- endunless -%}
+    {%- unless product.requires_selling_plan -%}
+      <div class="compare-product_row">
+        <strong class="cp_meta-list_heading mty">{{- 'additions.product.compare.selling_plan' | t -}}</strong>
+        {{- 'additions.product.compare.not_available' | t -}}
+      </div>
+      {%- else -%}
+        <div class="compare-product_row">
+          <strong class="cp_meta-list_heading mty">{{- 'additions.product.compare.selling_plan' | t -}}</strong>
+          {{- 'additions.product.compare.available' | t -}}
+        </div>
+    {%- endunless -%}
+    {%- if product.title != blank -%}
+      <footer class="compare-product_foot-wrap">
+        {%- render 'element-button' | element_button_label: details_label | element_button_link: product.url | element_button_custom_class: 'd-block --align-center' -%}
+        <product-card-compare-remove data-handle="{{ product.handle }}" class="d-block --align-center">
+          <a href="#" role="button" class="compare-product_btn-link">{{ 'sections.compare.remove' | t }} <span class="visually-hidden">{{ 'sections.compare.remove_description' | t: product_name: product.title }}</span></a>
+        </product-card-compare-remove>
+      </footer>
+      {%- else -%}
+        <footer class="compare-product_foot-wrap">
+          {%- render 'element-button' | element_button_label: details_label | element_button_link: product.url | element_button_custom_class: 'd-block --align-center' -%}
+          <div data-handle="{{ product.handle }}" class="d-block --align-center">
+            <a class="compare-product_btn-link">{{ 'sections.compare.remove' | t }} <span class="visually-hidden">{{ 'sections.compare.remove_description' | t: product_name: product.title }}</span></a>
+          </div>
+        </footer>
+    {%- endif -%}
+  </article>
+</div>

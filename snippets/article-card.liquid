@@ -1,0 +1,38 @@
+{% assign section_prefix_class = 'article-card' %}
+
+<article class="{{ section_prefix_class }}">
+  {% if show_image %}
+    <a href="{{ article.url }}" class="{{ section_prefix_class }}_card-media {% if settings.enable_hover_anims %}anim--shine{% endif %}">
+      {%- render 'element-image' | elem_image: article.image | elem_image_class: 'image-class' | elem_image_placeholder: 'collection-3' | elem_image_alt_text: article.title -%}
+      <span class="visually-hidden" style="color: #000;">{{ article.title }}</span>
+    </a>
+  {% endif %}
+  <div class="{{ section_prefix_class }}_card-content">
+    <div class="{{ section_prefix_class }}_info">
+      {%- if show_author -%}
+        <span class="{{ section_prefix_class }}_author">{{ article.author }}</span>
+      {%- endif -%}
+      {%- if show_date or show_comments -%}
+        <div class="{{ section_prefix_class }}_card-info">
+          {%- if show_date -%}
+            <span class="{{ section_prefix_class }}_date">{{ article.published_at | time_tag: format: 'date' }}</span>
+          {%- endif -%}
+          {%- if show_comments -%}
+            {%- if article.comments_count > 0 and blog.comments_enabled? -%}
+              <span class="{{ section_prefix_class }}_comments">{{- 'templates.blogs.article.comments' | t: count: article.comments_count -}}</span>
+            {%- endif -%}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+    {%- render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: section_prefix_class | elem_heading_size: section.settings.block_heading_size | elem_heading_text: article.title | elem_heading_custom_class: 'mty' | elem_heading_link: article.url -%}
+    {%- if show_excerpt -%}
+      {%- if article.excerpt_or_content.size > 0 -%}
+        <p class="article-card__excerpt mty">
+          {{ article.excerpt_or_content | strip_html | truncatewords: 30 }}
+        </p>
+      {%- endif -%}
+    {%- endif -%}
+    <a href="{{ article.url }}" class="{{ section_prefix_class }}_link">{{ 'templates.blogs.article.read_more' | t }}</a>
+  </div>
+</article>

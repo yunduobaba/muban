@@ -1,0 +1,80 @@
+{% unless product.title == null %}
+  {% liquid
+    assign media_to_render = product.featured_media.id
+    for variant in product.variants
+      assign media_to_render = media_to_render | append: variant.featured_media.id | append: ' '
+    endfor
+
+    assign product_url = productUrl | default: product.url
+  %}
+  <div class="product_media">
+    {%- liquid
+      if product.selected_or_first_available_variant.featured_media != null
+        assign media = product.selected_or_first_available_variant.featured_media
+        
+        else
+          for media in product.media
+            assign media = media
+            break
+          endfor
+      endif
+    -%}
+    <a href="{{ product_url }}" class="product_gallery-item {% if settings.enable_hover_anims %}anim--shine{% endif %}">
+      {% render 'element-image' | elem_image: media.preview_image | elem_image_class: 'image-class' | elem_image_placeholder: 'image' | elem_image_alt_text: '' %}
+    </a>
+    {% liquid
+      assign productTitle = product.title | escape
+      
+      render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: 'product-column' | elem_heading_text: productTitle | elem_heading_size: 'heading_x_small' | elem_heading_custom_class: 'visually-hidden'
+    %}
+  </div>
+  <div class="products_info">
+    <a href="{{ product_url }}" class="button button--primary">
+      {% liquid 
+        if settings.show_buttons_icon and element_button_icon != false
+          render 'icons-data', width: 20, height: 20, use_icon: true, icon_reference: 'cart'
+        endif
+      %}
+      {% if product.gift_card? %}
+        {{ 'sections.products.product.gift_card.buy_button' | t }}
+        {% else %}
+          {{ 'sections.products.product.view_details_button' | t }}
+      {% endif %}
+    </a>
+  </div>
+  {% else %}
+    <div class="product_media">
+      {%- liquid
+        assign placeholder_image = 'product-1'
+        case column_index
+          when 2
+            assign placeholder_image = 'product-2'
+          when 3
+            assign placeholder_image = 'product-3'
+          when 4
+            assign placeholder_image = 'product-6'
+          when 5
+            assign placeholder_image = 'product-5'
+          when 6
+            assign placeholder_image = 'product-4'
+        endcase
+      -%}
+      <div class="product_gallery-item {% if settings.enable_hover_anims %}anim--shine{% endif %}">
+        {%- render 'element-image' | elem_image: '' | elem_image_class: 'image-class' | elem_image_placeholder: placeholder_image | elem_image_alt_text: 'product image' -%}
+      </div>
+    </div>
+    <div class="products_info">
+      <a aria-disabled="true" class="button button--primary">
+        {% liquid 
+          if settings.show_buttons_icon and element_button_icon != false
+            render 'icons-data', width: 20, height: 20, use_icon: true, icon_reference: 'cart'
+          endif
+        %}
+        {% if product.gift_card? %}
+          {{ 'sections.products.product.gift_card.buy_button' | t }}
+          {% else %}
+            {{ 'sections.products.product.view_details_button' | t }}
+        {% endif %}
+      </a>
+    </div>
+{% endunless %}

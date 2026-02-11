@@ -1,0 +1,64 @@
+{{ 'compare-content.css' | asset_url | stylesheet_tag }}
+
+<div data-modal-main="compare" class="hidden scheme--{{ settings.compare_draw_color_scheme }}">
+  <modal-component-toggler>
+    <button
+      type="button"
+      data-expanded="false"
+      data-modal-ref="modal-compare-show"
+      aria-haspopup="dialog"
+      aria-controls="modal-compare-show"
+      class="button button--primary compare-show-btn"
+    >
+      {%- liquid
+        if settings.show_buttons_icon
+          render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'arrow-right'
+        endif
+      -%}
+      {{ 'sections.compare.compare_now' | t }} <span class="compare-counter"></span><span class="visually-hidden">{{ 'sections.compare.products' | t }}</span>
+    </button>
+  </modal-component-toggler>
+  <modal-component
+    data-modal="modal-compare-show"
+    data-compare="true"
+    data-section-id="compare-product-organizer"
+    data-url="{{- shop.url -}}{{- routes.root_url -}}"
+  >
+    <div
+      class="modal modal-component modal-component--compare-show scheme scheme--{{ settings.compare_draw_color_scheme }}"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-compare-show-heading"
+      aria-describedby="modal-compare-show"
+      tabindex="-1"
+    >
+      <div class="modal-component_body">
+        <div class="modal-component_head">
+          <modal-component-toggler>
+            <button type="button"
+              data-expanded="true"
+              data-toggle-attribute="false"
+              data-modal-ref="modal-compare-show"
+              class="modal-component_btn-close"
+            >
+              {%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'cross' -%}
+              <span class="visually-hidden">{{ 'accessibility.close' | t }}</span>
+            </button>
+          </modal-component-toggler>
+          <strong id="modal-compare-show-heading" class="visually-hidden">{{ 'sections.compare.products' | t }}</strong>
+        </div>
+        <div class="modal-component_content compare-popup_body" id="modal-compare-show">
+          <div class="container">
+            <div class="compare-popup_grid grid">
+              {% comment %} grid columns should be rendered here {% endcomment %}
+            </div>
+          </div>
+          <span class="--loader compare-content_loader">
+            {%- render 'icons-data', width: 70, height: 70, use_icon: true, icon_reference: 'loader' -%}
+            <span class="visually-hidden">{{ 'accessibility.loading' | t }}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </modal-component>
+</div>

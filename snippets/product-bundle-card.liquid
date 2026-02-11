@@ -1,0 +1,276 @@
+{%- assign product_title = 'templates.bundle.title' | t -%}
+{% if product.title != blank %}
+  {% liquid
+    assign media_to_render = product.featured_media.id
+    for variant in product.variants
+      assign media_to_render = media_to_render | append: variant.featured_media.id | append: ' '
+    endfor
+
+    assign variant_images = media_to_render
+
+    assign product_url = product.url
+    assign parts = product_url | split: '?'
+    assign product_clean_url = parts[0]
+
+    assign bundle_included = false
+    if product_bundle_included == true
+      assign bundle_included = true
+    endif
+
+    capture enable_swatches
+      unless settings.enable_variant_swatches == 'none'
+        echo 'true'
+      endunless
+    endcapture
+
+    capture is_color_option
+      for option in product.options_with_values
+        if option.name == 'Color' or option.name == 'color' or option.name == 'Colour' or option.name == 'colour'
+          echo 'true'
+          break
+        endif
+      endfor
+    endcapture
+  %}
+  <product-card 
+    data-id="product-card-organizer"
+    data-variant-show-case="radio"
+    data-prefix="{{ js_contents_prefix }}"
+    data-url="{{ product_clean_url }}"
+    data-media-gallery="static"
+    data-except-query="true"
+    data-bundle-included="{{ bundle_included }}"
+    {% if settings.enable_variant_swatches == 'images' %}
+      data-swatch-images="true"
+    {% endif %}
+    >
+    <div class="product_media {{ js_contents_prefix }}static-gallery">
+      {% if product.media.size > 0 %}
+        {% render 'product-gallery-static' variant_images: variant_images, product: product, media: media | layout: 'static' | prefix: js_contents_prefix | column_index: column_index %}
+        {% else %}
+          <div class="product_gallery-item--no-image product_gallery-item">
+            {%- render 'element-image' | elem_image: '' | elem_image_class: 'image-class' | elem_image_placeholder: 'image' | elem_image_alt_text: product.title -%}
+          </div>
+      {% endif %}
+      {% if section.settings.show_savings_badge or section.settings.show_product_rating or section.settings.show_inventory %}
+        <div class="product-column_stats-wrap">
+          {% if section.settings.show_savings_badge %}
+            <div data-request-contents="sale-tag">
+              {%- render 'price', product: product, use_variant: price_variant, show_currency_code: settings.show_currency_code | show_discount_tag: true -%}
+            </div>
+          {% endif %}
+          {% if section.settings.show_product_rating %}
+            {% liquid
+              assign rating_actual = product.metafields.reviews.rating.value.rating | round | plus: 0
+            %}
+            <div class="product_rating-tag {% if rating_actual == 0 %} hidden{% endif %}">
+              <strong aria-hidden="true">
+                <i class="product_rating-star">
+                  {%- render 'icons-data', width: 12, height: 12, use_icon: true, icon_reference: 'star-filled' -%}
+                </i>
+                {{- rating_actual }}
+                <span class="visually-hidden">
+                  {{- product.metafields.reviews.rating_count | round }} / {{ product.metafields.reviews.rating.value.scale_max -}}
+                  <span aria-hidden="true">{{ 'accessibility.total_reviews' | t }} ({{ product.metafields.reviews.rating_count }})</span>
+                </span>
+              </strong>
+            </div>
+          {% endif %}
+          {% if section.settings.show_inventory %}
+            {%- if product.selected_or_first_available_variant.inventory_management == 'shopify' -%}
+              <div class="product_inventory-tag">
+                {%- if product.selected_or_first_available_variant.inventory_policy == 'continue' -%}
+                  {%- liquid
+                    assign inventoryc_text = 'sections.products.product.pre_text' | t
+                    assign inventoryc_container_class = ''
+                  -%}
+                  {%- else -%}
+                    {% liquid
+                      assign inventoryc_count = product.selected_or_first_available_variant.inventory_quantity
+                      assign inventoryc_container_class = '--no-stock'
+                      assign inventoryc_text = 'sections.products.product.soldout' | t
+                      
+                      if inventoryc_count > 0
+                        assign inventoryc_container_class = '--low-stock'
+                        assign inventoryc_text = 'sections.products.product.low_stock_text' | t
+                      endif
+                      
+                      if inventoryc_count > 50
+                        assign inventoryc_container_class = '--enough-stock'
+                        assign inventoryc_text = 'sections.products.product.in_stock_text' | t
+                      endif
+                    %}
+                {%- endif -%}
+                <strong class="product_stock-inventory" data-request-contents="inventory-card">
+                  <span class="{{ inventoryc_container_class }}">
+                    {{ inventoryc_text }}
+                  </span>
+                </strong>
+              </div>
+              {% else %}
+                <div class="product_inventory-tag hidden">
+                  <strong class="product_stock-inventory" data-request-contents="inventory-card"></strong>
+                </div>
+            {%- endif -%}
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if section.settings.enable_compare_button %}
+        <ul class="list-unstyled poroduct-colulmn_cw-actions-list">
+          {% if section.settings.enable_compare_button %}
+            <li>
+              <product-compare-button data-product="{{ product.title | escape }}" data-handle="{{ product.handle }}">
+                <a href="#" role="button" data-title="{{- 'additions.product.compare.label' | t -}}" class="compare-btn">
+                  <span class="visually-hidden pwb-text">{{ 'sections.products.product.comparelist.add' | t: product: product.title | escape }}</span>
+                  {%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'compare' -%}
+                </a>
+              </product-compare-button>
+            </li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </div>
+    <div class="products_info {% unless section.settings.enable_quick_add_button %}products_info--no-cart{% endunless %}">
+      <div class="product_statuses-wrapper">
+        <div class="product_price-wrap">
+          <div data-request-contents="price">
+            {%- render 'price', product: product, use_variant: true, show_currency_code: settings.show_currency_code -%}
+          </div>
+        </div>
+      </div>
+      {% liquid
+        assign productTitle = product.title | escape
+        
+        render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: 'product-column' | elem_heading_text: productTitle | elem_heading_size: 'heading_x_small' | elem_heading_link: product_clean_url | elem_heading_custom_class: 'mty'
+      %}
+      {% if product.vendor %}
+        {% if section.settings.show_vendor %}
+          <div class="product_vendor mty">
+            <strong class="product_name-name">{{ product.vendor }}</strong>
+          </div>
+        {% endif %}
+      {% endif %}
+      {%- unless product.has_only_default_variant -%}
+        <product-card-variants>
+          <div class="product-card-variant-wrap">
+          {%- for option in product.options_with_values -%}
+            {%- liquid
+              capture has_color_variant
+                if option.name == 'color' or option.name == 'Color' or option.name == 'colour' or option.name == 'Colour'
+                  echo 'true'
+                endif
+              endcapture
+            -%}
+            <div class="{{ js_contents_prefix }}variant-row variant-row--pills {% if has_color_variant == 'true' and enable_swatches == 'true' %} variant-row--pills-color{% endif %}">
+              <legend class="variant-element_title">{{ option.name | append: 's' }}</legend>
+              <div class="variant-options-holder">
+                {% render 'product-variant-options', product: product, option: option, product_form_id: product_form_id %}
+              </div>
+            </div>
+          {% endfor %}
+          </div>
+        </product-card-variants>
+      {% endunless %}
+      <input
+        class="quantity__input"
+        type="hidden"
+        name="quantity"
+        value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+        form="{{ product_form_id }}"
+      />
+      {%- form 'product', product, data-productid: product.id, id: product_form_id, class: 'js-contents-complementary--form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+        <input
+          type="hidden"
+          name="id" data-productid="{{ product.id }}"
+          value="{{ product.selected_or_first_available_variant.id }}"
+        >
+        {%- liquid
+          assign check_against_inventory = true
+          if product.selected_or_first_available_variant.inventory_management != 'shopify' or  product.selected_or_first_available_variant.inventory_policy == 'continue'
+            assign check_against_inventory = false
+          endif
+          if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
+            assign quantity_rule_soldout = true
+          endif
+        -%}
+      {%- endform -%}
+    </div>
+    <span class="{{ js_contents_prefix }}loader product-column_loader">
+      {%- render 'icons-data', width: 16, height: 16, use_icon: true, icon_reference: 'loader' -%}
+    </span>
+    {%- unless product.requires_selling_plan -%}
+      <span
+        data-add-text="{{- 'sections.products.product.add_to_bundle' | t -}}"
+        data-remove-text="{{- 'sections.products.product.remove_from_bundle' | t -}}"
+        data-plan-text="{{- 'sections.products.product.requires_selling_plan' | t -}}"
+        class="bundle-check-product product-card_check-btn button button--primary --align-center {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}--disabled{% endif %}"
+      >
+        {% comment %} text by css content method {% endcomment %}
+      </span>
+      {%- else -%}
+        <span
+          data-add-text="{{- 'sections.products.product.add_to_bundle' | t -}}"
+          data-remove-text="{{- 'sections.products.product.remove_from_bundle' | t -}}"
+          data-plan-text="{{- 'sections.products.product.requires_selling_plan' | t -}}"
+          class="bundle-check-product product-card_check-btn button button--primary --align-center --disabled --plan-active"
+        >
+          {% comment %} text by css content method {% endcomment %}
+        </span>
+    {%- endunless -%}
+    <div class="{{ js_contents_prefix }}error product-bundle-card_error-message hidden">
+      {% comment %} errors should be rendered here {% endcomment %}
+    </div>
+    {% assign productJsonId = 'ProductCardJson-' | append: product.id | append: '-' | append: section.id %}
+    <script id="{{ productJsonId }}" type="application/json">
+      {{ product | json }}
+    </script>
+  </product-card>
+  {% else %}
+    <div
+      class="product-bundle--card-placeholder"
+      >
+      <div class="product_media {{ js_contents_prefix }}static-gallery">
+        {%- render 'element-image' | elem_image: '' | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: product_title -%}
+      </div>
+      <div class="products_info">
+        <div class="product_statuses-wrapper">
+          <div class="product_price-wrap">
+            <div data-request-contents="price">
+              {%- render 'price', product: product, use_variant: true, show_currency_code: settings.show_currency_code -%}
+            </div>
+          </div>
+        </div>
+        {%- liquid
+          render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: 'product-column' | elem_heading_text: product_title | elem_heading_size: 'heading_x_small' | elem_heading_custom_class: 'mty'
+        -%}
+        <div class="product_vendor mty">
+          <strong class="product_name-name">{{ 'templates.bundle.vendor_name' | t }}</strong>
+        </div>
+        <div class="product-card-variant-wrap">
+          {%- for option in product.options_with_values -%}
+            {%- liquid
+              capture has_color_variant
+                if option.name == 'color' or option.name == 'Color' or option.name == 'colour' or option.name == 'Colour'
+                  echo 'true'
+                endif
+              endcapture
+            -%}
+            <div class="{{ js_contents_prefix }}variant-row variant-row--pills {% if has_color_variant == 'true' and enable_swatches == 'true' %} variant-row--pills-color{% endif %}">
+              <legend class="variant-element_title">{{ option.name | append: 's' }}</legend>
+              <div class="variant-options-holder">
+                {% comment %} {% render 'product-variant-options', product: product, option: option, product_form_id: product_form_id %} {% endcomment %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <span
+        data-add-text="{{- 'sections.products.product.add_to_bundle' | t -}}"
+        data-remove-text="{{- 'sections.products.product.remove_from_bundle' | t -}}"
+        data-plan-text="{{- 'sections.products.product.requires_selling_plan' | t -}}"
+        class="bundle-check-product product-card_check-btn button button--primary --align-center"
+      >
+        {% comment %} text by css content method {% endcomment %}
+      </span>
+    </div>
+{% endif %}

@@ -1,0 +1,274 @@
+<strong id="{{ link.title | replace: ' ', '' | escape }}-{{ view }}-heading" class="visually-hidden">{{ link.title | escape }}</strong>
+<dropdown-component data-dropdown-level="1">
+  {%- assign badge_iteration = 0 -%}
+  <button
+    type="button"
+    class="dropdown-component_opener main-navigation_dropdown-opener"
+    aria-expanded="false"
+    aria-controls="{{ link.title | replace: ' ', '' }}-{{ view }}-dropdown"
+    aria-describedby="{{ link.title | replace: ' ', '' | escape }}-{{ view }}-heading"
+  >
+    {{ link.title | escape }}
+    {% for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'menu_badge' -%}
+          {%- assign curr_badge_index = block.settings.badge_item_index | times: 1 -%}
+          {% if block.settings.menu_item_badge_label != blank and curr_badge_index == main_item_index and badge_iteration != 1 %}
+            <strong class="main-navigation_badge" style="--menu-badge-bg: {{ block.settings.background_color }}; --menu-badge-text: {{ block.settings.text_color }};" {{ block.shopify_attributes }}>{{- block.settings.menu_item_badge_label -}}</strong>
+            {%- assign badge_iteration = 1 -%}
+          {% endif %}
+      {%- endcase -%}
+    {%- endfor %}
+    {%- render 'icons-data', width: 8, height: 8, use_icon: true, icon_reference: 'caret-down' -%}
+  </button>
+  <div class="dropdown-component_wrapper --mega-dropdown-wrapper" id="{{ link.title | replace: ' ', '' }}-{{ view }}-dropdown">
+    <div class="container">
+      <div class="mega-dropdown_media-wrap-sliders">
+        <ul class="list-unstyled mega-dropdown_list">
+          {% assign mega_product_media_count = 0 %}
+          {%- for childlink in link.links -%}
+            <li class="mega-dropdown_item {% if childlink.links != blank %}--has-dropdown{% endif %}">
+              {%- if childlink.links == blank -%}
+                <strong class="mega-dropdown_heading">{{ childlink.title | escape }}</strong>
+                <ul class="list-unstyled mega-dropdown_inner-links-list">
+                  <li class="mdll_list-item">
+                    <a
+                      href="{{ childlink.url }}"
+                      class="mdll_list-link {% if childlink.current %}mdll_list-link--active{% endif %}"
+                      {% if childlink.current %} aria-current="page"{% endif %}
+                    >
+                      {{ childlink.title | escape }}
+                    </a>
+                  </li>
+                </ul>
+                {%- else -%}
+                  <strong class="mega-dropdown_heading">{{ childlink.title | escape }}</strong>
+                  <ul class="list-unstyled mega-dropdown_inner-links-list">
+                    {%- for grandchildlink in childlink.links -%}
+                      <li class="mdll_list-item">
+                        {% liquid
+                          if grandchildlink.url contains '/products/'
+                            assign handle = grandchildlink.url | split: '/' | last
+                            assign mega_product = all_products[handle]
+                            assign mega_product_media_count = mega_product_media_count | plus: 1
+                          endif
+                          
+                          assign media_count = 0
+                        %}
+                        <a
+                          href="{{ grandchildlink.url }}"
+                          class="mdll_list-link {% if grandchildlink.current %}mdll_list-link--active{% endif %}"
+                          {% if grandchildlink.current %} aria-current="page"{% endif %}
+                        >
+                          {% if grandchildlink.url contains '/products/' %}
+                            <div class="mega-dropdown_item-wrap">
+                              <div class="mdiw_thumbnail">
+                                {% liquid
+                                  if mega_product.selected_or_first_available_variant.featured_media.id
+                                    render 'element-image' | elem_image: mega_product.selected_or_first_available_variant.featured_media.preview_image | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: mega_product.title
+                                    assign media_count = 1
+                                    else
+                                      for media in mega_product.media
+                                        if media.preview_image != null
+                                          if media_count != 1
+                                            render 'element-image' | elem_image: media.preview_image | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: mega_product.title
+                                          
+                                            assign media_count = 1
+                                          endif
+                                        endif
+                                      endfor
+                                  endif
+                              
+                                  if media_count != 1
+                                    render 'element-image' | elem_image: '' | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: mega_product.title
+                                  endif
+                                %}
+                              </div>
+                              <div class="mdiw_description">
+                                {%- render 'element-heading' | elem_heading_tag: 'strong' | elem_heading_parent: 'mdiw' | elem_heading_text: grandchildlink.title | elem_heading_size: '' | elem_heading_custom_class: 'mty' -%}
+                                {% render 'price', product: mega_product %}
+                              </div>
+                            </div>
+                            {% else %}
+                              {{ grandchildlink.title | escape }}
+                          {% endif %}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+        <div class="mdmws_wrapper --square-media">
+          <div class="mdmws_left-right mdmws_col {{ play_state_class }}">
+            <marquee-component data-rotation="up" data-direction="forward" data-pause-on-hover="{{ pause_on_hover }}" data-speed="{{ scroll_speed }}">
+              <div class="marquee-component">
+                {%- for childlink in link.links -%}
+                  {%- if childlink.links == blank -%}
+                    {% liquid
+                      if grandchildlink.url contains '/products/'
+                        assign handle = grandchildlink.url | split: '/' | last
+                        assign mega_product = all_products[handle]
+                      endif
+                    %}
+                    {% if grandchildlink.url contains '/products/' %}
+                      {% if mega_product.selected_or_first_available_variant.featured_media != null %}
+                        {%- assign featured_media = mega_product.selected_or_first_available_variant.featured_media -%}
+                        <div class="marquee-component_col mdmws_item">
+                          <a
+                            href="{{ grandchildlink.url }}"
+                            class="mdll_list-link"
+                          >
+                            <div class="mega-dropdown_slider-thumbnail">
+                              {% render 'element-image' | elem_image: featured_media.preview_image | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: mega_product.title %}
+                            </div>
+                          </a>
+                        </div>
+                        {% else %}
+                          {% for media in mega_product.media %}
+                            <div class="marquee-component_col mdmws_item">
+                              <a
+                                href="{{ grandchildlink.url }}"
+                                class="mdll_list-link"
+                              >
+                                <div class="mega-dropdown_slider-thumbnail">
+                                  {% render 'element-image' | elem_image: media.preview_image | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: mega_product.title %}
+                                </div>
+                              </a>
+                            </div>
+                            {% break %}
+                          {% endfor %}
+                      {% endif %}
+                    {% endif %}
+                  {%- else -%}
+                    {%- for grandchildlink in childlink.links -%}
+                      {% liquid
+                        if grandchildlink.url contains '/products/'
+                          assign handle = grandchildlink.url | split: '/' | last
+                          assign mega_product = all_products[handle]
+                        endif
+                      %}
+                        {% if grandchildlink.url contains '/products/' %}
+                          {% if mega_product.selected_or_first_available_variant.featured_media != null %}
+                            {%- assign featured_media = mega_product.selected_or_first_available_variant.featured_media -%}
+                            <div class="marquee-component_col mdmws_item">
+                              <a
+                                href="{{ grandchildlink.url }}"
+                                class="mdll_list-link"
+                              >
+                                <div class="mega-dropdown_slider-thumbnail">
+                                  {% render 'element-image' | elem_image: featured_media.preview_image | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: mega_product.title %}
+                                </div>
+                              </a>
+                            </div>
+                            {% else %}
+                              {% for media in mega_product.media %}
+                                <div class="marquee-component_col mdmws_item">
+                                  <a
+                                    href="{{ grandchildlink.url }}"
+                                    class="mdll_list-link"
+                                  >
+                                    <div class="mega-dropdown_slider-thumbnail">
+                                      {% render 'element-image' | elem_image: media.preview_image | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: mega_product.title %}
+                                    </div>
+                                  </a>
+                                </div>
+                                {% break %}
+                              {% endfor %}
+                          {% endif %}
+                        {% endif %}
+                    {%- endfor -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </marquee-component>
+          </div>
+          <div class="mdmws_left-right mdmws_col {{ play_state_class }}">
+            <marquee-component data-rotation="down" data-direction="backward" data-pause-on-hover="{{ pause_on_hover }}" data-speed="{{ scroll_speed }}">
+              <div class="marquee-component">
+                {%- for childlink in link.links -%}
+                  {%- if childlink.links == blank -%}
+                    {% liquid
+                      if grandchildlink.url contains '/products/'
+                        assign handle = grandchildlink.url | split: '/' | last
+                        assign mega_product = all_products[handle]
+                      endif
+                    %}
+                    {% if grandchildlink.url contains '/products/' %}
+                      {% if mega_product.selected_or_first_available_variant.featured_media != null %}
+                        {%- assign featured_media = mega_product.selected_or_first_available_variant.featured_media -%}
+                        <div class="marquee-component_col mdmws_item">
+                          <a
+                            href="{{ grandchildlink.url }}"
+                            class="mdll_list-link"
+                          >
+                            <div class="mega-dropdown_slider-thumbnail">
+                              {% render 'element-image' | elem_image: featured_media.preview_image | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: mega_product.title %}
+                            </div>
+                          </a>
+                        </div>
+                        {% else %}
+                          {% for media in mega_product.media %}
+                            <div class="marquee-component_col mdmws_item">
+                              <a
+                                href="{{ grandchildlink.url }}"
+                                class="mdll_list-link"
+                              >
+                                <div class="mega-dropdown_slider-thumbnail">
+                                  {% render 'element-image' | elem_image: media.preview_image | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: mega_product.title %}
+                                </div>
+                              </a>
+                            </div>
+                            {% break %}
+                          {% endfor %}
+                      {% endif %}
+                    {% endif %}
+                  {%- else -%}
+                    {%- for grandchildlink in childlink.links -%}
+                      {% liquid
+                        if grandchildlink.url contains '/products/'
+                          assign handle = grandchildlink.url | split: '/' | last
+                          assign mega_product = all_products[handle]
+                        endif
+                      %}
+                        {% if grandchildlink.url contains '/products/' %}
+                          {% if mega_product.selected_or_first_available_variant.featured_media != null %}
+                            {%- assign featured_media = mega_product.selected_or_first_available_variant.featured_media -%}
+                            <div class="marquee-component_col mdmws_item">
+                              <a
+                                href="{{ grandchildlink.url }}"
+                                class="mdll_list-link"
+                              >
+                                <div class="mega-dropdown_slider-thumbnail">
+                                  {% render 'element-image' | elem_image: featured_media.preview_image | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: mega_product.title %}
+                                </div>
+                              </a>
+                            </div>
+                            {% else %}
+                              {% for media in mega_product.media %}
+                                <div class="marquee-component_col mdmws_item">
+                                  <a
+                                    href="{{ grandchildlink.url }}"
+                                    class="mdll_list-link"
+                                  >
+                                    <div class="mega-dropdown_slider-thumbnail">
+                                      {% render 'element-image' | elem_image: media.preview_image | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: mega_product.title %}
+                                    </div>
+                                  </a>
+                                </div>
+                                {% break %}
+                              {% endfor %}
+                          {% endif %}
+                        {% endif %}
+                    {%- endfor -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </marquee-component>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dropdown-component>

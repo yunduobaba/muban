@@ -1,0 +1,65 @@
+<strong id="{{ link.title | replace: ' ', '' | escape }}-{{ view }}-heading" class="visually-hidden">{{ link.title | escape }}</strong>
+<dropdown-component data-dropdown-level="1">
+  {%- assign badge_iteration = 0 -%}
+  <button
+    type="button"
+    class="dropdown-component_opener main-navigation_dropdown-opener"
+    aria-expanded="false"
+    aria-controls="{{ link.title | replace: ' ', '' }}-{{ view }}-dropdown"
+    aria-describedby="{{ link.title | replace: ' ', '' | escape }}-{{ view }}-heading"
+  >
+    {{ link.title | escape }}
+    {% for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'menu_badge' -%}
+          {%- assign curr_badge_index = block.settings.badge_item_index | times: 1 -%}
+          {% if block.settings.menu_item_badge_label != blank and curr_badge_index == main_item_index and badge_iteration != 1 %}
+            <strong class="main-navigation_badge" style="--menu-badge-bg: {{ block.settings.background_color }}; --menu-badge-text: {{ block.settings.text_color }};" {{ block.shopify_attributes }}>{{- block.settings.menu_item_badge_label -}}</strong>
+            {%- assign badge_iteration = 1 -%}
+          {% endif %}
+      {%- endcase -%}
+    {%- endfor %}
+    {%- render 'icons-data', width: 8, height: 8, use_icon: true, icon_reference: 'caret-down' -%}
+  </button>
+  <div class="dropdown-component_wrapper --mega-dropdown-wrapper" id="{{ link.title | replace: ' ', '' }}-{{ view }}-dropdown">
+    <div class="container">
+      <div class="mega-dropdown_wrap-columns">
+        <ul class="list-unstyled mega-dropdown_list">
+          {%- for childlink in link.links -%}
+            <li class="mega-dropdown_item {% if childlink.links != blank %}--has-dropdown{% endif %}">
+              {%- if childlink.links == blank -%}
+                <strong class="mega-dropdown_heading">{{ childlink.title | escape }}</strong>
+                <ul class="list-unstyled mega-dropdown_inner-links-list">
+                  <li class="mdll_list-item">
+                    <a
+                      href="{{ childlink.url }}"
+                      class="mdll_list-link {% if childlink.current %}mdll_list-link--active{% endif %}"
+                      {% if childlink.current %} aria-current="page"{% endif %}
+                    >
+                      {{ childlink.title | escape }}
+                    </a>
+                  </li>
+                </ul>
+                {%- else -%}
+                  <strong class="mega-dropdown_heading">{{ childlink.title | escape }}</strong>
+                  <ul class="list-unstyled mega-dropdown_inner-links-list">
+                    {%- for grandchildlink in childlink.links -%}
+                      <li class="mdll_list-item">
+                        <a
+                          href="{{ grandchildlink.url }}"
+                          class="mdll_list-link {% if grandchildlink.current %}mdll_list-link--active{% endif %}"
+                          {% if grandchildlink.current %} aria-current="page"{% endif %}
+                        >
+                          {{ grandchildlink.title | escape }}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+  </div>
+</dropdown-component>

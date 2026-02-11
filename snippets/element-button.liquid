@@ -1,0 +1,50 @@
+{% comment %} 
+  usage:
+    this snippet is used to render button link element
+    
+  code: 
+    {%- render 'element-button' | element_button_label: settings.label | element_button_link: settings.url -%}
+    
+    - optional attributes
+        | elem_button_type: 'secondary' , 'primary'
+        | element_button_new_window: true
+        | element_button_custom_class: true
+        | element_button_block: block
+        | elem_button_icon_width: 30
+        | elem_button_icon_height: 30
+        | element_button_icon: true , false
+{% endcomment %}
+
+{%- liquid
+  assign elem_button_scheme_class = 'button button--primary'
+  
+  if elem_button_type == 'secondary'
+    assign elem_button_scheme_class = 'button button--secondary'
+  endif
+  
+  if element_button_custom_class != blank
+    assign elem_button_classes = elem_button_classes | append: ' '
+    assign elem_button_classes = elem_button_classes | append: element_button_custom_class
+  endif
+  
+  assign elem_button_classes = elem_button_classes | append: ' ' | append: elem_button_scheme_class
+  assign icon_width = elem_button_icon_width | default: 14
+  assign icon_height = elem_button_icon_height | default: 14
+-%}
+
+<a
+  {% if element_button_link == blank %} aria-disabled="true" {% else %} href="{{ element_button_link }}" {% endif %}
+  {% if element_button_new_window %} target="_blank" {% endif %}
+  class="{{ elem_button_classes }}"
+  {% if element_button_block != blank %}
+    {{ element_button_block.shopify_attributes }}
+  {% endif %}
+>
+  {% liquid
+    if settings.show_buttons_icon and element_button_icon != false
+      render 'icons-data', width: icon_width, height: icon_height, use_icon: true, icon_reference: 'arrow-right'
+    endif
+    
+    echo element_button_label
+  %}
+</a>

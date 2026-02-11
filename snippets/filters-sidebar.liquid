@@ -1,0 +1,198 @@
+{%- liquid
+  assign default_presentation = 'text'
+-%}
+<filters-form data-preserver="true" data-section="{{ section.id }}">
+  <form class="--align-left" aria-label="{{ 'sections.products.facets.filter_and_sort' | t }}">
+    {% if filter_default %}
+      <input
+        id="Search-In-Template"
+        type="hidden"
+        name="q"
+        value="{{ search.terms | escape }}"
+      >
+      <input name="options[prefix]" type="hidden" value="last">
+    {% endif %}
+    {% if section.settings.enable_sorting %}
+      {%- liquid
+        assign sort_by = results.sort_by | default: results.default_sort_by
+        capture sort_value
+          for option in results.sort_options
+            if option.value == sort_by
+              echo option.value
+            endif
+          endfor
+        endcapture
+      -%}
+      <input id="sorting-input" type="hidden" name="sort_by" value="{{- sort_value -}}">
+    {% endif %}
+    {%- for filter in results.filters -%}
+      {%- liquid
+        assign presentation = filter.presentation | default: default_presentation
+      -%}
+      {% case filter.type %}
+        {% when 'price_range' %}
+          {%- liquid
+            assign currencies_using_comma_decimals = 'ANG,ARS,BRL,BYN,BYR,CLF,CLP,COP,CRC,CZK,DKK,EUR,HRK,HUF,IDR,ISK,MZN,NOK,PLN,RON,RUB,SEK,TRY,UYU,VES,VND' | split: ','
+            assign uses_comma_decimals = false
+            if currencies_using_comma_decimals contains cart.currency.iso_code
+              assign uses_comma_decimals = true
+            endif
+            
+            assign max_price_amount = filter.range_max | money | strip_html | escape
+          -%}
+          {% if filter.range_max > 0 %}
+            <div class="filter-widget filter-widget--{{ filter.type }}">
+              <strong class="filter-widget_title">{{ filter.label | escape }}</strong>
+              <div class="filter-widget_content">
+                <p data-range-text="update" class="mty fwc_text">{{ 'sections.products.facets.max_price' | t : price : max_price_amount }}</p>
+                <range-slider id="price-range" data-load="false">
+                  <label class="visually-hidden" for="Filter-{{ filter.label | escape }}-{{ filter.min_value.param_name }}">
+                    {{ 'sections.products.facets.from' | t }}
+                  </label>
+                  <input
+                    id="Filter-{{ filter.label | escape }}-{{ filter.min_value.param_name }}"
+                    class="min"
+                    name="{{ filter.min_value.param_name }}"
+                    type="range"
+                    min="0"
+                    step="0.01"
+                    {% if filter.min_value.value %}
+                      {% if uses_comma_decimals %}
+                        value="{{ filter.min_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+                        {% else %}
+                          value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                      {% endif %}
+                      {% else %}
+                        value="0"
+                    {% endif %}
+                    {% if uses_comma_decimals %}
+                      max="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+                      {% else %}
+                        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                    {% endif %}
+                  >
+                  <label class="visually-hidden" for="Filter-{{ filter.label | escape }}-{{ filter.max_value.param_name }}">
+                    {{ 'sections.products.facets.to' | t }}
+                  </label>
+                  <input
+                    id="Filter-{{ filter.label | escape }}-{{ filter.max_value.param_name }}"
+                    class="max"
+                    name="{{ filter.max_value.param_name }}"
+                    type="range"
+                    min="0"
+                    step="0.01"
+                    {% if filter.max_value.value %}
+                      {% if uses_comma_decimals %}
+                        value="{{ filter.max_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+                        {% else %}
+                          value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                      {% endif %}
+                      {% else %}
+                        {% if uses_comma_decimals %}
+                          value="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+                          {% else %}
+                            value="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                        {% endif %}
+                    {% endif %}
+                    {% if uses_comma_decimals %}
+                      max="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+                      {% else %}
+                        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                    {% endif %}
+                  >
+                  <div class="range_wrapper">
+                    <span class="range_min light left">
+                      {%- liquid
+                        if filter.min_value.value
+                          echo filter.min_value.value | money
+                          else
+                            echo 0 | money
+                        endif
+                      -%}
+                    </span>
+                    <span class="range_sep">
+                      {%- render 'icons-data', width: 8, height: 8, use_icon: true, icon_reference: 'minus' -%}
+                    </span>
+                    <span class="range_max light right">
+                      {%- liquid
+                        if filter.max_value.value
+                          if uses_comma_decimals
+                            echo filter.max_value.value | money
+                            else
+                              echo filter.max_value.value | money
+                          endif
+                          else
+                            if uses_comma_decimals
+                              echo filter.range_max | money
+                              else
+                                echo filter.range_max | money
+                            endif
+                        endif
+                      -%}
+                    </span>
+                  </div>
+                </range-slider>
+              </div>
+            </div>
+          {% endif %}
+        {% when 'boolean' or 'list' %}
+          <div class="filter-widget filter-widget--{{ filter.type }}">
+            <fieldset>
+              <legend class="visually-hidden">{{ filter.label | escape }}</legend>
+              <strong class="filter-widget_title" aria-hidden="true">{{ filter.label | escape }}</strong>
+              <ul class="list-unstyled filter-widget_list filter-widget--update">
+                {%- for value in filter.values -%}
+                  {%- liquid
+                    assign swatch_value = null
+                    if value.swatch.image
+                      assign image_url = value.swatch.image | image_url: width: 50
+                      assign swatch_value = 'url(' | append: image_url | append: ')'
+                      assign swatch_focal_point = value.swatch.image.presentation.focal_point
+                      elsif value.swatch.color
+                        assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+                    endif
+                  -%}
+                  <li>
+                    <input
+                      type="checkbox"
+                      class="form-control--resest"
+                      name="{{ value.param_name }}"
+                      value="{{ value.value }}"
+                      id="Filter-{{ filter.label | replace: ' ', '' | escape }}-{{ value.label | replace: ' ', '' }}"
+                      {% if value.active %}
+                        checked
+                      {% endif %}
+                      {% if value.count == 0 and value.active == false %}
+                        disabled
+                      {% endif %}
+                    >
+                    <label class="custom-form-label custom-form-label--checkbox" for="Filter-{{ filter.label | replace: ' ', '' | escape }}-{{ value.label | replace: ' ', '' }}">
+                      {%- if presentation == 'swatch' -%}
+                        <i class="cfl_icn-check cfl_icn-check--swatch" style="--swatch--background: {{ swatch_value }}; {% if swatch_focal_point %}--swatch-focal-point: {{ swatch_focal_point }};{% endif %}">
+                          {%- render 'icons-data', width: 10, height: 10, use_icon: true, icon_reference: 'check' -%}
+                        </i>
+                        {%- else -%}
+                          {%- if presentation == 'image' -%}
+                            <i class="cfl_icn-check cfl_icn-check--swatch  --image-active">
+                              {%- if value.image -%}
+                                {{- value.image | image_url: width: 300 | image_tag: class: '', alt: value.alt -}}
+                              {%- endif -%}
+                              {%- render 'icons-data', width: 10, height: 10, use_icon: true, icon_reference: 'check' -%}
+                            </i>
+                            {%- else -%}
+                              <i class="cfl_icn-check" {% if filter.label == 'Color' %} style="background-color: {{ value.label | escape | downcase }}; border-color: {{ value.label | escape | downcase }};" {% endif %}>
+                                {%- render 'icons-data', width: 10, height: 10, use_icon: true, icon_reference: 'check' -%}
+                              </i>
+                          {%- endif -%}
+                      {%- endif -%}
+                      {{ value.label | escape }} ({{ value.count }})
+                    </label>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </fieldset>
+          </div>
+      {% endcase %}
+    {%- endfor -%}
+  </form>
+</filters-form>

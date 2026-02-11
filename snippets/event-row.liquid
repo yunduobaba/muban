@@ -1,0 +1,81 @@
+{%- liquid
+  assign card_scheme_class = card.settings.block_color_scheme | prepend: 'scheme scheme--'
+-%}
+<article class="event-row {{ prefix_class }}_event-row {{ card_scheme_class }} --align-left mty">
+  <div class="event-row_first-col event-row_image-col">
+    <div class="event-row_image {% if settings.enable_hover_anims %}anim--shine{% endif %}">
+      {%- render 'element-image' | elem_image: card.settings.image | elem_image_class: '' | elem_image_placeholder: 'collection-1' -%}
+      {%- if card.settings.link_label != blank -%}
+        <div class="event-row_buttons-wrap ">
+          <a {% if card.settings.link != blank %}href="{{ card.settings.link }}" {% if card.settings.open_new_window %}target="_blank"{% endif %}{% else %}aria-disabled="true"{% endif %} class="button button--primary event-row_button-desktop">
+            {{- card.settings.link_label -}}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+  <div class="event-row_second-col mty">
+    {%- render 'element-heading' | elem_heading_tag: 'h2' | elem_heading_parent: 'event-row' | elem_heading_text: card.settings.heading | elem_heading_size: section.settings.column_heading_size | elem_heading_custom_class: 'mty' -%}
+    <ul class="list-unstyled event-row_list">
+      {%- if card.settings.location != blank -%}
+        <li class="event-row_list-items">
+          <span class="event-row_list-title">
+            {{- 'events_list.field_label_1' | t -}}
+          </span>
+          <span class="event-row_list-description">
+            {{- card.settings.location -}}
+          </span>
+        </li>
+      {%- endif -%}
+      {%- if card.settings.start_date != blank -%}
+        <li class="event-row_list-items">
+          <span class="event-row_list-title">
+            {{- 'events_list.field_label_2' | t -}}
+          </span>
+          <span class="event-row_list-description">
+            {{- card.settings.start_date -}}</span>
+        </li>
+      {%- endif -%}
+      {%- if card.settings.end_date != blank -%}
+        <li class="event-row_list-items">
+          <span class="event-row_list-title">
+            {{- 'events_list.field_label_3' | t -}}
+          </span>
+          <span class="event-row_list-description">
+            {{- card.settings.end_date -}}</span>
+        </li>
+      {%- endif -%}
+      {%- if card.settings.organizer != blank -%}
+        <li class="event-row_list-items">
+          <span class="event-row_list-title">
+            {{- 'events_list.field_label_4' | t -}}
+          </span>
+          <span class="event-row_list-description">
+            {{- card.settings.organizer -}}</span>
+        </li>
+      {%- endif -%}
+      {%- if card.settings.details_link != blank -%}
+        <li class="event-row_list-items">
+          <span class="event-row_list-title">
+            {{- 'events_list.field_label_5' | t -}}
+          </span>
+          <span class="event-row_list-description">
+            <a target="_blank" href="{{- card.settings.details_link -}}">
+              {{- 'events_list.view_details' | t -}}
+            </a>
+          </span>
+        </li>
+      {%- endif -%}
+    </ul>
+    {%- if card.settings.link_label != blank and card.settings.link != blank -%}
+      <div class="event-row_button-wrap">
+        <a
+          {% if card.settings.link_label != blank %}href="{{ card.settings.link }}" {% if card.settings.open_new_window %}target="_blank"{% endif %}{% else %}aria-disabled="true"{% endif %}
+          class=" button button--primary event-row_button-mbl"
+        >
+          {{- card.settings.link_label -}}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</article>

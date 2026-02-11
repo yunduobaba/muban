@@ -1,0 +1,106 @@
+{% style %}
+  {% liquid
+    assign gen_font_100 = settings.body_font | font_modify: 'weight', '100'
+    assign gen_font_200 = settings.body_font | font_modify: 'weight', '200'
+    assign gen_font_300 = settings.body_font | font_modify: 'weight', '300'
+    assign gen_font_400 = settings.body_font | font_modify: 'weight', '400'
+    assign gen_font_500 = settings.body_font | font_modify: 'weight', '500'
+    assign gen_font_600 = settings.body_font | font_modify: 'weight', '600'
+    assign gen_font_700 = settings.body_font | font_modify: 'weight', '700'
+    assign gen_font_800 = settings.body_font | font_modify: 'weight', '800'
+    assign gen_font_900 = settings.body_font | font_modify: 'weight', '900'
+  %}
+  {{ gen_font_100 | font_face: font_display: 'swap' }}
+  {{ gen_font_200 | font_face: font_display: 'swap' }}
+  {{ gen_font_300 | font_face: font_display: 'swap' }}
+  {{ gen_font_400 | font_face: font_display: 'swap' }}
+  {{ gen_font_500 | font_face: font_display: 'swap' }}
+  {{ gen_font_600 | font_face: font_display: 'swap' }}
+  {{ gen_font_700 | font_face: font_display: 'swap' }}
+  {{ gen_font_800 | font_face: font_display: 'swap' }}
+  {{ gen_font_900 | font_face: font_display: 'swap' }}
+
+  
+  {% if settings.headings_font.family != settings.body_font.family %}
+    {% liquid
+      assign heading_font_100 = settings.headings_font | font_modify: 'weight', '100'
+      assign heading_font_200 = settings.headings_font | font_modify: 'weight', '200'
+      assign heading_font_300 = settings.headings_font | font_modify: 'weight', '300'
+      assign heading_font_400 = settings.headings_font | font_modify: 'weight', '400'
+      assign heading_font_500 = settings.headings_font | font_modify: 'weight', '500'
+      assign heading_font_600 = settings.headings_font | font_modify: 'weight', '600'
+      assign heading_font_700 = settings.headings_font | font_modify: 'weight', '700' 
+      assign heading_font_800 = settings.headings_font | font_modify: 'weight', '800' 
+      assign heading_font_900 = settings.headings_font | font_modify: 'weight', '900' 
+    %}
+    {{ heading_font_100 | font_face: font_display: 'swap' }}
+    {{ heading_font_200 | font_face: font_display: 'swap' }}
+    {{ heading_font_300 | font_face: font_display: 'swap' }}
+    {{ heading_font_400 | font_face: font_display: 'swap' }}
+    {{ heading_font_500 | font_face: font_display: 'swap' }}
+    {{ heading_font_600 | font_face: font_display: 'swap' }}
+    {{ heading_font_700 | font_face: font_display: 'swap' }}
+    {{ heading_font_800 | font_face: font_display: 'swap' }}
+    {{ heading_font_900 | font_face: font_display: 'swap' }}
+  {% endif %}
+  
+  :root {
+    --font-general-family: {{ settings.body_font.family }}, {{ settings.body_font.fallback_families }};
+    --font-general-weight: {{ settings.body_font.weight }};
+    --font-general-style: {{ settings.body_font.style }};
+    --font-general-sacle: {{ settings.font_scale | divided_by: 100.0 }};
+    
+    --font-headings-family: {{ settings.headings_font.family }}, {{ settings.headings_font.fallback_families }};
+    --font-headings-weight: {{ settings.headings_font.weight }};
+    --font-headings-style: {{ settings.headings_font.style }};
+    
+    --color-white: #fff;
+    --color-black: #000;
+    --color-error: red;
+    --color-success: green;
+    
+    --page-width: {{ settings.page_width }}px;
+    --grid-gutter-x: {{ settings.grid_gutter_x }}px;
+    --grid-gutter-y: {{ settings.grid_gutter_y }}px;
+    
+    --button-border-width: {{ settings.buttons_bdr_width }}px;
+    --button-corner-radius: {{ settings.buttons_bdr_radius }}px;
+    
+    --input-border-width: {{ settings.inputs_bdr_width }}px;
+    --input-corner-radius: {{ settings.inputs_bdr_radius }}px;
+    
+    --section-top-radius: {{ settings.top_corner_radius }}px;
+    --section-bottom-radius: {{ settings.bottom_corner_radius }}px;
+  }
+  
+  {% for scheme in settings.color_schemes %}
+    .scheme--{{ scheme.id }} {
+      --section-background-color: {{ scheme.settings.background }};
+      --section-text-color: {{ scheme.settings.text }};
+      --section-shadow-hover-rgba: rgba({{ scheme.settings.text | color_to_rgb | remove: 'rgb(' | remove: ')' }}, 0.15);
+      --section-links-color: {{ scheme.settings.links }};
+      --section-border-color: {{ scheme.settings.border }};
+      --section-primary-bg: {{ scheme.settings.primary_bg }};
+      --section-primary-bg-rgb: {{ scheme.settings.primary_bg | color_to_rgb }};
+      --section-primary-text-color: {{ scheme.settings.primary_text }};
+      --section-primary-text-color-rgb: {{ scheme.settings.primary_text | color_to_rgb }};
+      --section-primary-text-color-rgba: {{ scheme.settings.primary_text | hex_to_rgba: 0 }};
+      --section-primary-border-color: {{ scheme.settings.primary_bdr }};
+      --section-secondary-bg-rgb: {{ scheme.settings.secondary_bg }};
+      --section-secondary-bg: {{ scheme.settings.secondary_bg | color_to_rgb }};
+      --section-secondary-text-color: {{ scheme.settings.secondary_text }};
+      --section-secondary-border-color: {{ scheme.settings.secondary_bdr }};
+      --section-secondary-text-color-rgb: {{ scheme.settings.secondary_text | color_to_rgb }};
+      --section-secondary-text-color-rgba: {{ scheme.settings.secondary_text | hex_to_rgba: 0 }};
+      --section-alternative-color: {{ scheme.settings.alter_clr }};
+      --section-active-hover-color: {{ scheme.settings.hover_active }};
+      --section-input-background-color: {{ scheme.settings.input_background }};
+      --section-input-text-color: {{ scheme.settings.input_text }};
+      --section-input-bdr-color: {{ scheme.settings.input_bdr }};
+      --section-error-color: {{ scheme.settings.form_error }};
+      --section-warning-color: {{ scheme.settings.form_warning }};
+      --section-success-color: {{ scheme.settings.form_success }};
+      --section-focus-outline-color: {{ scheme.settings.element_focus }};
+    }
+  {% endfor %}
+{% endstyle %}

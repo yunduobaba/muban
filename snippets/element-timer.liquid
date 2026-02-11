@@ -1,0 +1,36 @@
+{% comment %} 
+  usage:
+    this snippet is used to render offer timer count element
+    
+  code: 
+    {%- render 'element-timer' | elem_timer_date: section.settings.end_date -%}
+{% endcomment %}
+{%- liquid
+  capture end_message
+    echo elem_time_message | default: section.settings.end_message
+  endcapture
+-%}
+
+{% unless elem_timer_date == blank %}
+  <countdown-timer class="offer-time" end-date="{{- elem_timer_date -}}">
+    {%- if block.settings.end_date == blank -%}
+      <div class="block">
+        <span class="time">0</span>
+        <span class="text">{{- 'additions.countdown_timer.days_label' | t -}}</span>
+      </div>
+      <div class="block">
+        <span class="time">0</span>
+        <span class="text">{{- 'additions.countdown_timer.hours_label' | t -}}</span>
+      </div>
+      <div class="block">
+        <span class="time">0</span>
+        <span class="text">{{- 'additions.countdown_timer.min_label' | t -}}</span>
+      </div>
+      <div class="block">
+        <span class="time">0</span>
+        <span class="text">{{- 'additions.countdown_timer.sec_label' | t -}}</span>
+      </div>
+    {%- endif -%}
+  </countdown-timer>
+  <div class="hidden countdown-timer_message">{{- end_message -}}</div>
+{% endunless %}

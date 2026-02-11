@@ -1,0 +1,41 @@
+{% comment %} 
+  usage:
+    this snippet is used to render column card
+    
+  code: 
+    {%- render 'column-card', column_card_block: block -%}
+{% endcomment %}
+{%- liquid
+  capture loading_attr
+    if section.index > 1
+      echo 'lazy'
+      else
+        echo 'eager'
+    endif
+  endcapture
+-%}
+
+<div class="{{ section.id }}-{{ column_card_block.id }}" {{ column_card_block.shopify_attributes }}>
+  <article class="column-card">
+    {% unless column_card_block.settings.image == blank %}
+      <div class="column-card_image {% if settings.enable_hover_anims %}anim--shine{% endif %} mty {{ column_card_align_class }}">
+        <div class="img-holder">
+          {{-
+            column_card_block.settings.image.src |
+            image_url: width: column_card_block.settings.image.width |
+            image_tag: class: '', alt: '', widths: '540, 840', sizes: '(max-width: 767px) 540vw, 840vw', loading: loading_attr |
+            escape
+          -}}
+        </div>
+      </div>
+    {% endunless %}
+    
+    {%- render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: 'column-card' | elem_heading_text: column_card_block.settings.heading | elem_heading_size: section.settings.column_heading_size | elem_heading_custom_class: 'column-card_heading mty' -%}
+    <p class="column-card_description text-subtitle mty">{{ column_card_block.settings.description }}</p>
+    {% unless column_card_block.settings.link_label == blank %}
+      <div class="column-card_buttons-wrap mty {{ column_card_align_class }}">
+        {%- render 'element-button' | element_button_label: column_card_block.settings.link_label | element_button_link: column_card_block.settings.link | element_button_new_window: column_card_block.settings.open_new_window -%}
+      </div>
+    {% endunless %}
+  </article>
+</div>

@@ -1,0 +1,42 @@
+{% comment %} 
+  usage:
+    this snippet is used to render testimonial quote card
+    
+  code: 
+    {%- render 'testimonial-card', testimonial_card_block: block -%}
+{% endcomment %}
+
+<div class="{{ section.id }}-{{ testimonial_card_block.id }}">
+  <blockquote class="testimonial-card">
+    <q class="testimonial-card_quote mty">{{ testimonial_card_block.settings.description }}</q>
+    <div class="testimonial-card_info">
+      {%- if testimonial_card_block.settings.heading -%}
+        <strong class="testimonial-card_author-name mty">{{ testimonial_card_block.settings.heading }}</strong>
+      {%- endif -%}
+      {%- if testimonial_card_block.settings.rating != 'none' -%}
+        <ul class="list-unstyled rating-list {{ testimonial_card_Justify_class }}" aria-label="{{ 'sections.testimonials.a11y.rating_list.aria_label' | t }}">
+          {% liquid
+            assign ratings = testimonial_card_block.settings.rating | plus: 1
+            assign total_ratings = 5
+          %}
+          <li class="visually-hidden">
+            {{ 'sections.testimonials.a11y.rating_list.raring' | t: name: testimonial_card_block.settings.heading, count: testimonial_card_block.settings.rating }}
+          </li>
+          {%- for i in (1..total_ratings) -%}
+            {% assign index = forloop.index %}
+            
+            {% if index < ratings %}
+              <li class="rating-list_filled">
+                {%- render 'icons-data', width: 16, height: 16, use_icon: true, icon_reference: 'star-filled' -%}
+              </li>
+              {% else %}
+                <li>
+                  {%- render 'icons-data', width: 16, height: 16, use_icon: true, icon_reference: 'star-filled' -%}
+                </li> 
+            {% endif %}
+          {%- endfor -%}
+        </ul>                            
+      {%- endif -%}
+    </div>
+  </blockquote>
+</div>

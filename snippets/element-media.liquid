@@ -1,0 +1,158 @@
+{% comment %} 
+  usage:
+    this snippet is used to render element media e,g image, video
+    
+  code: 
+    {%- render 'element-media', elem_media_parent: section_prefix_class -%}
+    
+    - optional attributes
+        | elem_media_block: block
+{% endcomment %}
+
+{% liquid
+  assign wrapper_classes = 'elem-media' | append: ' ' | append: elem_media_parent | append: '_elem-media' | append: ' ' | append: elem_media_custom_class
+  assign placeholder_image = 'collection-1'
+  
+  case block_index
+    when 2
+      assign placeholder_image = 'collection-2'
+    when 3
+      assign placeholder_image = 'collection-3'
+    when 4
+      assign placeholder_image = 'collection-6'
+    when 5
+      assign placeholder_image = 'collection-5'
+    when 6
+      assign placeholder_image = 'collection-4'
+  endcase
+  
+  capture loading_attr
+    if section.index > 1
+      echo 'lazy'
+      else
+        echo 'eager'
+    endif
+  endcapture
+
+  capture image_background 
+    if elem_media_block.settings.image != blank
+      echo 'elem-media_img-pic'
+      else
+        echo 'elem-media_img'
+    endif
+  endcapture
+%}
+
+<div class="{{ wrapper_classes }}">
+  {% if elem_media_block == null %}
+    {% if section.settings.video != null %}
+      <div class="elem-media_img elem-media_img--deferred">
+        {% liquid
+          assign poster = section.settings.image | default: section.settings.video.preview_image
+        %}
+        <deferred-media class="deferred-media elem-media_deferred-image" style="--ratio-percent: {{ 1 | divided_by: poster.aspect_ratio | times: 100 }}%;" data-media-id="{{ section.id }}">
+          <button id="Deferred-Poster-Modal-{{ section.id }}" class="deferred-media__poster" type="button">
+            {%- if poster != blank -%}
+              {{-
+                poster.src |
+                image_url: width: 1350 |
+                image_tag: class: 'elem-media', alt: '', widths: '540, 840, 1240', sizes: '(max-width: 767px) 540vw, (max-width: 1199px) 840vw, 1350vw', loading: loading_attr |
+                escape
+              -}}
+              {%- else -%}
+                {{- 'lifestyle-2' | placeholder_svg_tag: 'img--placeholder' -}}
+            {%- endif -%}
+            <span class="dmp_btn-play">
+              {%- render 'icons-data', width: 24, height: 24, use_icon: true, icon_reference: 'play' -%}
+            </span>
+            <span class="visually-hidden">play</span>
+          </button>
+          <template>
+            {{ section.settings.video | video_tag: image_size: "1100px", autoplay: true, loop: false, controls: true, muted: false }}
+          </template>
+        </deferred-media>
+      </div>
+      {% else %}
+        <div class="elem-media_img">
+          {%- if section.settings.image != blank -%}
+            {{-
+              section.settings.image.src |
+              image_url: width: 1350 |
+              image_tag: class: 'elem-media', alt: '', widths: '540, 840, 1240', sizes: '(max-width: 767px) 540vw, (max-width: 1199px) 840vw, 1350vw', loading: loading_attr |
+              escape
+            -}}
+            {%- else -%}
+              {{- 'collection-1' | placeholder_svg_tag: 'img--placeholder' -}}
+          {%- endif -%}
+        </div>
+    {% endif %}
+    {% else %}
+    {% case elem_media_block.type %}
+      {% when 'video' %}
+        {% liquid
+          assign video_id = elem_media_block.settings.upload_video.id | default: elem_media_block.settings.video_url.id
+          assign video_alt = elem_media_block.settings.alt_text | default: elem_media_block.settings.upload_video.alt
+          assign poster = elem_media_block.settings.cover_image | default: elem_media_block.settings.upload_video.preview_image
+        %}
+        <div class="elem-media_img elem-media_img--deferred">
+          <deferred-media class="deferred-media elem-media_deferred-image" style="--ratio-percent: {{ 1 | divided_by: poster.aspect_ratio | times: 100 }}%;" data-media-id="{{ video_id }}-{{ elem_media_block.id }}-{{ section.id }}">
+            <button id="Deferred-Poster-Modal-{{ video_id }}-{{ elem_media_block.id }}-{{ section.id }}" class="deferred-media__poster" type="button" aria-label="Load video: {{ video_alt }}">
+              {%- if poster != blank -%}
+                {{-
+                  poster.src |
+                  image_url: width: 1350 |
+                  image_tag: class: 'elem-media', alt: video_alt, widths: '540, 840, 1240', sizes: '(max-width: 767px) 540vw, (max-width: 1199px) 840vw, 1350vw', loading: loading_attr |
+                  escape
+                -}}
+                {%- else -%}
+                  {{- 'lifestyle-1' | placeholder_svg_tag: 'img--placeholder' -}}
+              {%- endif -%}
+              <span class="dmp_btn-play">
+                {%- render 'icons-data', width: 24, height: 24, use_icon: true, icon_reference: 'play' -%}
+              </span>
+              <span class="visually-hidden">play</span>
+            </button>
+            <template>
+              {%- if elem_media_block.settings.upload_video != null -%}
+                {{ elem_media_block.settings.upload_video | video_tag: image_size: "1100px", title: video_alt, autoplay: true, loop: false, controls: true, muted: false }}
+                {% else %}
+                  {%- if elem_media_block.settings.video_url.type == 'youtube' -%}
+                    <iframe
+                      src="https://www.youtube.com/embed/{{ video_id }}?enablejsapi=1&autoplay=1"
+                      class="js-youtube"
+                      allow="autoplay; encrypted-media"
+                      allowfullscreen
+                      title="{{ video_alt }}"
+                      loading="lazy"
+                    ></iframe>
+                  {%- else -%}
+                    <iframe
+                      src="https://player.vimeo.com/video/{{ video_id }}?autoplay=1"
+                      class="js-vimeo"
+                      allow="autoplay; encrypted-media"
+                      allowfullscreen
+                      title="{{ video_alt }}"
+                      loading="lazy"
+                    ></iframe>
+                  {%- endif -%}
+              {%- endif -%}
+            </template>
+          </deferred-media>
+        </div>
+      {% else %}
+        <div class="{{ image_background }}">
+          {%- if elem_media_block.settings.image != blank -%}
+            {%- assign image_alt = elem_media_block.settings.image.alt | default: '' -%}
+            {{-
+              elem_media_block.settings.image.src |
+              image_url: width: 1350 |
+              image_tag: class: 'elem-media', alt: image_alt, widths: '540, 840, 1240', sizes: '(max-width: 767px) 540vw, (max-width: 1199px) 840vw, 1350vw', loading: loading_attr |
+              escape
+            -}}
+            {%- else -%}
+              {{- placeholder_image | placeholder_svg_tag: 'img--placeholder' -}}
+          {%- endif -%}
+        </div>
+    {% endcase %}
+  {% endif %}
+</div>

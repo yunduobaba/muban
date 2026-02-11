@@ -1,0 +1,100 @@
+{%- liquid
+  capture button_1_text
+    if settings.age_button_label_1 != blank
+      echo settings.age_button_label_1
+      else
+        echo 'age_verifier.button_1' | t
+    endif
+  endcapture
+  capture button_2_text
+    if settings.age_button_label_2 != blank
+      echo settings.age_button_label_2
+      else
+        echo 'age_verifier.button_2' | t
+    endif
+  endcapture
+  assign buttons_align_class = '--justify-content-start'
+
+  if settings.age_text_alignment == 'center'
+    assign buttons_align_class = '--justify-content-center'
+  elsif settings.age_text_alignment == 'right'
+    assign buttons_align_class = '--justify-content-end'
+  endif
+
+  capture age_title
+    echo 'age_verifier.heading' | t
+  endcapture
+-%}
+<modal-component
+  data-modal="modal-age-verifier"
+  data-trigger="self"
+  data-storage="true"
+  data-storage-key="age_verfication"
+  data-storage-value="true"
+>
+  <div
+    class="modal modal-component modal-component--age-verifier modal-component--{{ settings.age_position }} scheme--{{ settings.age_color_scheme }}"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-age-verifier-heading"
+    aria-describedby="modal-age-verifier"
+    tabindex="-1"
+  >
+    <div class="modal-component_spacer">
+      <div class="modal-component_wrapper" id="modal-age-verifier">
+        <div class="modal-component_body">
+          <div class="modal-component_content">
+            <div class="age-verifier --align-{{ settings.age_text_alignment }}">
+              <strong id="modal-age-verifier-heading" class="visually-hidden">
+                {{ 'age_verifier.heading' | t }}
+              </strong>
+              {%- if settings.age_image != blank -%}
+                <div
+                  class="age-verifier_image {% if settings.age_hide_image_on_mobile %}--mobile-hidden{% endif %} mty"
+                  style="--block-spacing: 30px"
+                >
+                  {%- render 'element-image' | elem_image: settings.age_image | elem_image_class: 'image-class' | elem_image_placeholder: 'image' | elem_image_alt_text: age_title -%}
+                </div>
+              {%- endif -%}
+              {%- liquid
+                if settings.age_heading != blank
+                  render 'element-heading' | elem_heading_tag: 'h1' | elem_heading_parent: 'age-verifier' | elem_heading_text: settings.age_heading | elem_heading_size: settings.age_heading_size | elem_heading_spacing: 10 | elem_heading_custom_class: 'mty'
+                endif
+              -%}
+              {%- if settings.age_description != blank -%}
+                <div
+                  class="{% unless settings.age_text_size == 'body' %} text-subtitle {% endunless %} age-verifier_description mty"
+                  style="--block-spacing: 20px"
+                >
+                  {{- settings.age_description -}}
+                </div>
+              {%- endif -%}
+              <div class="age-verifier_btns-wrap {{ buttons_align_class }} mty">
+                <modal-component-toggler
+                  data-storage="true"
+                  data-storage-key="age_verfication"
+                  data-storage-value="true"
+                >
+                  <button type="button"
+                    data-expanded="true"
+                    data-toggle-attribute="false"
+                    data-modal-ref="modal-age-verifier"
+                    class="button age-verifier_btn button--primary"
+                  >
+                    {{- button_1_text -}}
+                  </button>
+                </modal-component-toggler>
+                <button id="age-validator-fail" type="button" class="button age-verifier_btn button--secondary">
+                  {{- button_2_text -}}
+                </button>
+              </div>
+              <div id="age-error-container" class="hidden age-error-container">
+                <p>{{- 'age_verifier.error_text' | t -}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal-component>

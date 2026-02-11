@@ -1,0 +1,49 @@
+{% comment %}
+  Renders share button.
+  Accepts:
+  - share_link: {String} url to be added to the input the user will get/copy.
+  - hide_outside: {Bolean} details disclosure to prevent hide outside click
+
+  Usage:
+  {% render 'share-button', share_link: share_url %}
+{% endcomment %}
+<strong id="share-heading-{{ section.id }}" class="visually-hidden">{{ 'general.share.title' | t }}</strong>
+<dropdown-component data-share="true" data-dropdown-level="1" class="dropdown-component--share">
+  <button
+    type="button"
+    class="dropdown-component_opener share-button__button {% if disabled %}disabled{% endif %}"
+    aria-expanded="false"
+    aria-controls="share-dropdown-{{ section.id }}"
+    aria-describedby="share-heading-{{ section.id }}"
+    data-title="{{ 'general.share.title' | t }}"
+  >
+    {%- render 'icons-data', width: 20, height: 20, use_icon: true, icon_reference: 'share-link' -%}
+    {{ block.settings.share_label | escape }}
+    <span class="visually-hidden">{{ 'general.share.title' | t }}</span>
+  </button>
+  <div class="dropdown-component_wrapper" id="share-dropdown-{{ section.id }}">
+    <div class="share-content_wrapper">
+      <div class="field">
+        <span class="share-button__message hidden shareMessage" role="status"> </span>
+        <input
+          type="text"
+          class="field__input shareUrl"
+          value="{{ share_link }}"
+          placeholder="{{ 'general.share.share_url' | t }}"
+          onclick="this.select();"
+          readonly
+          id="shareUrl-{{ section.id }}"
+        >
+        <label class="field__label" for="shareUrl-{{ section.id }}">{{ 'general.share.share_url' | t }}</label>
+      </div>
+      <button class="share-button__close hidden">
+        {%- render 'icons-data', width: 16, height: 16, use_icon: true, icon_reference: 'cross' -%}
+        <span class="visually-hidden">{{ 'general.share.close' | t }}</span>
+      </button>
+      <button class="share-button__copy">
+        {% render 'icons-data', width: 16, height: 16, use_icon: true, icon_reference: 'clipboard' %}
+        <span class="visually-hidden">{{ 'general.share.copy_to_clipboard' | t }}</span>
+      </button>
+    </div>
+  </div>
+</dropdown-component>

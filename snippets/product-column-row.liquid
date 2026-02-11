@@ -1,0 +1,37 @@
+{% unless product.title == null %}
+  {% liquid
+    assign product_url = product.url
+    assign parts = product_url | split: '?'
+    assign product_clean_url = parts[0]
+    
+    if product.selected_or_first_available_variant.featured_media != null
+      assign media = product.selected_or_first_available_variant.featured_media
+      
+      else
+        for media in product.media
+          assign media = media
+          break
+        endfor
+    endif
+  %}
+  <div class="product-column-row_image">
+    {% render 'element-image' | elem_image: media.preview_image | elem_image_class: 'image-class' | elem_image_placeholder: 'image' | elem_image_alt_text: product.title %}
+  </div>
+  <div class="product-column-row_description">
+    {%- render 'element-heading' | elem_heading_tag: 'p' | elem_heading_parent: 'product-column-row' | elem_heading_text: product.title | elem_heading_size: heading_size_class | elem_heading_custom_class: 'mty' | elem_heading_link: product_clean_url -%}
+    <div class="product-column-row_price mty">
+      {%- render 'price', product: product, use_variant: false -%}
+    </div>
+  </div>
+  <div class="product-column-row_btn-wrap mty">
+    {% assign clean_button_label = 'sections.products.product.view_product' | t %}
+    {% if prevent_btn %}
+      <a href="{{ product_clean_url }}">
+        {% render 'icons-data', width: 12, height: 12, use_icon: true, icon_reference: 'arrow-right' %}
+        {{ clean_button_label }}
+      </a>
+      {% else %}
+        {%- render 'element-button' | element_button_label: clean_button_label | element_button_link: product_clean_url -%}
+    {% endif %}
+  </div>
+{% endunless %}

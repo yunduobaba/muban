@@ -1,0 +1,6 @@
+<article class="page-card" data-render-columns="">
+  <a class="page-card_link--absolute" href="{{ page.url }}">
+    {%- render 'element-heading' | elem_heading_tag: 'h2' | elem_heading_parent: 'page-card' | elem_heading_text: page.title | elem_heading_size: 'heading_x_small' | elem_heading_custom_class: 'mty' -%}
+    <span class="page-card_tag">Page</span>
+  </a>
+</article>

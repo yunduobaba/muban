@@ -1,0 +1,187 @@
+{% comment %} 
+  usage:
+    this snippet is used to render any of ( choosen ) h1-h6 element
+    
+  code: 
+    {%- render 'grid-columns' grid_column_blocks: section.blocks, grid_column_card: 'multicolumn', grid_column_section_prefix: section_prefix_class -%}
+{% endcomment %}
+
+{% case grid_column_card %}
+  {% when 'multicolumn' %}
+    <div class="grid {{ grid_column_section_prefix }}_grid">
+      {% liquid
+        for block in grid_column_blocks
+          render 'column-card', column_card_block: block, column_card_align_class: grid_column_align_class
+        endfor
+      %}
+    </div>
+  {% when 'testimonials' %}
+    <div class="grid {{ grid_column_section_prefix }}_grid">
+      {% liquid
+        for block in grid_column_blocks
+          render 'testimonial-card', testimonial_card_block: block, testimonial_card_Justify_class: grid_column_Justify_class
+        endfor
+      %}
+    </div>
+  {% when 'logos' %}
+    <div class="grid {{ grid_column_section_prefix }}_grid">
+      {% for block in grid_column_blocks %}
+        <div class="{{ section.id }}-{{ block.id }}" {{ column_card_block.shopify_attributes }}>
+          {%- render 'logo-card', logo_card_block: block -%}
+        </div>
+      {% endfor %}
+    </div>
+  {% when 'collection' %}
+    <div class="grid {{ grid_column_section_prefix }}_grid">
+      {% for block in grid_column_blocks %}
+        <div class="{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
+          {%- render 'collection-card', collection_card_block: block, column_card_align_class: grid_column_align_class, block_index: forloop.index, show_title: section.settings.show_title -%}
+        </div>
+      {% endfor %}
+    </div>
+  {% when 'banners' %}
+    <div class="collage-grid {{ grid_column_section_prefix }}_grid">
+      {% for block in grid_column_blocks %}
+        <div
+          class="{{ section.id }}-{{ block.id }} {{ grid_column_section_prefix }}_col"
+          style="--block-row-span: {{ block.settings.rows }}; --block-column-span: {{ block.settings.columns }};"
+          {{ block.shopify_attributes }}
+        >
+          {%- render 'banner-card', banner_card_block: block, block_index: forloop.index -%}
+        </div>
+      {% endfor %}
+    </div>
+  {% when 'product-thumbnail' %}
+    <div class="load-content-area">
+      {%- liquid
+        assign loopCount = section.settings.number_of_products_on_desktop
+      -%}
+      <div class="{{ grid_column_section_prefix }}_head-wrap">
+        {%- render 'element-heading' | elem_heading_tag: 'strong' | elem_heading_parent: grid_column_section_prefix | elem_heading_text: grid_column_collection_name | elem_heading_size: 'heading_small' | elem_heading_custom_class: 'mty' -%}
+        {% if grid_column_blocks.size > loopCount and section.settings.enable_show_more_button %}
+          <a href="{{ grid_column_more_link }}" class="{{ grid_column_section_prefix }}_link">
+            {% render 'icons-data', width: 16, height: 16, use_icon: true, icon_reference: 'arrow-right' %}
+            {{ 'sections.featured_collection_tabs.view' | t }}
+          </a>
+        {% endif %}
+      </div>
+      <div class="grid {{ grid_column_section_prefix }}_grid">
+        {% unless grid_column_blocks.size == 0 or grid_column_blocks == null %}
+          {% for thumbnail in grid_column_blocks limit: loopCount %}
+            <div class="{{ section.id }}-{{ thumbnail.id }} product-col-tab">
+              {%- render 'product-thumbnail', product_thumbnail_block: thumbnail, block_index: forloop.index -%}
+            </div>
+          {% endfor %}
+          {% else %}
+            {% for thumbnail in (1..loopCount) %}
+              <div class="{{ section.id }}-{{ thumbnail.id }} product-col-tab">
+                {%- render 'product-thumbnail', product_thumbnail_block: thumbnail, block_index: forloop.index -%}
+              </div>
+            {% endfor %}
+        {% endunless %}
+      </div>
+    </div>
+  {% when 'product' %}
+    <div class="grid {{ grid_column_section_prefix }}_grid">
+      {% liquid
+        assign collection_all_products_count = section.settings.collection.all_products_count
+        assign products_to_show = section.settings.number_of_columns_on_desktop | times: section.settings.number_of_rows
+      %}
+      {% unless collection_all_products_count == 0 or grid_column_blocks == null %}
+        {% for product in grid_column_blocks limit: products_to_show %}
+          {% liquid
+            assign productJson = all_products[product]
+            assign js_contents_prefix = 'js-contents--'
+            assign product_form_id = section.id | append: product.id | append: forloop.index
+          %}
+          <article class="product-column {% if section.settings.hide_info_bar_on_mob %}--hide-infos-mob{% endif %} {% if section.settings.hide_qty_field_on_mob %}--hide-qty-mob{% endif %} {{ section.id }}-{{ thumbnail.id }} {% if section.settings.section_view_layout != 'section_layout_i' %}product-column--card{% endif %}">
+            {% if section.settings.section_view_layout == 'section_layout_ii' %}
+              {% render 'product-column-card' product: product, product_form_id: product_form_id, js_contents_prefix: js_contents_prefix, productJson: productJson, column_index: forloop.index %}
+              {% else %}
+                {% render 'product-card' product: product, product_form_id: product_form_id, js_contents_prefix: js_contents_prefix, productJson: productJson, column_index: forloop.index %}
+            {% endif %}
+          </article>
+        {% endfor %}
+        {% else %}
+          {% for product in (1..products_to_show) %}
+            {% liquid
+              assign js_contents_prefix = 'js-contents--'
+            %}
+            <article class="product-column {% if section.settings.hide_info_bar_on_mob %}--hide-infos-mob{% endif %} {% if section.settings.hide_qty_field_on_mob %}--hide-qty-mob{% endif %} {{ section.id }}-{{ thumbnail.id }} {% if section.settings.section_view_layout != 'section_layout_i' %}product-column--card{% endif %}">
+              {% if section.settings.section_view_layout == 'section_layout_ii' %}
+                {% render 'product-column-card' product: product, js_contents_prefix: js_contents_prefix, column_index: forloop.index %}
+                {% else %}
+                  {% render 'product-card' product: product, js_contents_prefix: js_contents_prefix, column_index: forloop.index %}
+              {% endif %}
+            </article>
+          {% endfor %}
+      {% endunless %}
+    </div>
+    {% if section.settings.enable_show_more_button %}
+      {% if collection_all_products_count > products_to_show %}
+        <footer class="button-wrap">
+          {%- render 'element-button' | element_button_label: section.settings.show_more_button_label | element_button_link: section.settings.collection.url | elem_button_type: 'secondary' -%}
+        </footer>
+      {% endif %}
+    {% endif %}
+  {% when 'post-card' %}
+    <div class="grid {{ grid_column_section_prefix }}_grid">
+      {%- liquid
+        assign blog_all_posts_count = section.settings.blog.articles_count
+        assign posts_to_show = section.settings.number_of_columns_on_desktop | times: section.settings.number_of_rows
+        
+        capture show_more_label
+          if section.settings.show_more_button_label != blank
+            echo section.settings.show_more_button_label
+            else 
+              echo 'templates.blogs.show_more' | t
+          endif
+        endcapture
+      -%}
+      {% unless blog_all_posts_count == 0 or grid_column_blocks == null %}
+        {% for article in grid_column_blocks limit: posts_to_show %}
+          <div class="{{ section_prefix_class }}_col">
+            {%- render 'post-card',
+              article: article,
+              show_image: section.settings.show_image,
+              show_date: section.settings.show_date,
+              show_author: section.settings.show_author,
+              show_excerpt: section.settings.show_excerpt,
+              show_comments: section.settings.show_comments
+            -%}
+          </div>
+        {% endfor %}
+        {% else %}
+          {% for article in (1..posts_to_show) %}
+            <div class="{{ section_prefix_class }}_col">
+              {%- render 'post-card',
+                article: article,
+                show_image: section.settings.show_image,
+                show_date: section.settings.show_date,
+                show_author: section.settings.show_author,
+                show_excerpt: section.settings.show_excerpt,
+                show_comments: section.settings.show_comments
+              -%}
+            </div>
+          {% endfor %}
+      {% endunless %}
+    </div>
+    {% if section.settings.enable_show_more_button %}
+      {% if blog_all_posts_count > posts_to_show %}
+        <footer class="button-wrap">
+          {%- render 'element-button' | element_button_label: show_more_label | element_button_link: section.settings.blog.url | elem_button_type: 'secondary' -%}
+        </footer>
+      {% endif %}
+    {% endif %}
+  {% when 'event' %}
+    <div class="grid {{ grid_column_section_prefix }}_grid">
+      {% for block in grid_column_blocks %}
+        <div
+          class="{{ section.id }}-{{ block.id }} {{ grid_column_section_prefix }}_col"
+          {{ block.shopify_attributes }}
+        >
+          {%- render 'event-row', card: block, prefix_class: section_prefix_class -%}
+        </div>
+      {% endfor %}
+    </div>
+{% endcase %}

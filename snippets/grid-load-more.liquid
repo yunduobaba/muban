@@ -1,0 +1,24 @@
+{%- if paginate.parts.size > 0 -%}
+  {%- if paginate.next -%}
+    <script src="{{ 'pagination.js' | asset_url }}" defer="defer"></script>
+    <div class="pagination-wrapper" data-loader-parent="">
+      <grid-load-more
+        data-url="{{- paginate.next.url -}}"
+        data-render-grid-load-more=""
+        {% if infinite %}
+          data-infinite="true"
+        {% endif %}
+      >
+        <button class="button button--secondary grid-load-more_button" type="button">
+          {{- 'general.pagination.load_more' | t -}}
+          <span class="--loader load-more_loader">
+            <span class="visually-hidden">{{ 'accessibility.loading' | t }}</span>
+            <i class="ico-wrapper">
+              {%- render 'icons-data', width: 20, height: 20, use_icon: true, icon_reference: 'loader' -%}
+            </i>
+          </span>
+        </button>
+      </grid-load-more>
+    </div>
+  {%- endif -%}
+{%- endif -%}

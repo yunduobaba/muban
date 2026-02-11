@@ -1,0 +1,151 @@
+<strong id="{{ link.title | replace: ' ', '' | escape }}-{{ view }}-heading" class="visually-hidden">{{ link.title | escape }}</strong>
+<dropdown-component data-dropdown-level="1">
+  {%- assign badge_iteration = 0 -%}
+  <button
+    type="button"
+    class="dropdown-component_opener main-navigation_dropdown-opener"
+    aria-expanded="false"
+    aria-controls="{{ link.title | replace: ' ', '' }}-{{ view }}-dropdown"
+    aria-describedby="{{ link.title | replace: ' ', '' | escape }}-{{ view }}-heading"
+  >
+    {{ link.title | escape }}
+    {% for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'menu_badge' -%}
+          {%- assign curr_badge_index = block.settings.badge_item_index | times: 1 -%}
+          {% if block.settings.menu_item_badge_label != blank and curr_badge_index == main_item_index and badge_iteration != 1 %}
+            <strong class="main-navigation_badge" style="--menu-badge-bg: {{ block.settings.background_color }}; --menu-badge-text: {{ block.settings.text_color }};" {{ block.shopify_attributes }}>{{- block.settings.menu_item_badge_label -}}</strong>
+            {%- assign badge_iteration = 1 -%}
+          {% endif %}
+      {%- endcase -%}
+    {%- endfor %}
+    {%- render 'icons-data', width: 8, height: 8, use_icon: true, icon_reference: 'caret-down' -%}
+  </button>
+  <div class="dropdown-component_wrapper --mega-dropdown-wrapper" id="{{ link.title | replace: ' ', '' }}-{{ view }}-dropdown">
+    <div class="container">
+      <div class="mega-dropdown_media-wrap-banners">
+        <ul class="list-unstyled mega-dropdown_list">
+          {%- for childlink in link.links -%}
+            <li class="mega-dropdown_item {% if childlink.links != blank %}--has-dropdown{% endif %}">
+              {%- if childlink.links == blank -%}
+                <strong class="mega-dropdown_heading">{{ childlink.title | escape }}</strong>
+                <ul class="list-unstyled mega-dropdown_inner-links-list">
+                  <li class="mdll_list-item">
+                    <a
+                      href="{{ childlink.url }}"
+                      class="mdll_list-link {% if childlink.current %}mdll_list-link--active{% endif %}"
+                      {% if childlink.current %} aria-current="page"{% endif %}
+                    >
+                      {{ childlink.title | escape }}
+                    </a>
+                  </li>
+                </ul>
+                {%- else -%}
+                  <strong class="mega-dropdown_heading">{{ childlink.title | escape }}</strong>
+                  <ul class="list-unstyled mega-dropdown_inner-links-list">
+                    {%- for grandchildlink in childlink.links -%}
+                      <li class="mdll_list-item">
+                        {% liquid
+                          if grandchildlink.url contains '/products/'
+                            assign handle = grandchildlink.url | split: '/' | last
+                            assign mega_product = all_products[handle]
+                          endif
+                          
+                          assign media_count = 0
+                        %}
+                        <a
+                          href="{{ grandchildlink.url }}"
+                          class="mdll_list-link {% if grandchildlink.current %}mdll_list-link--active{% endif %}"
+                          {% if grandchildlink.current %} aria-current="page"{% endif %}
+                        >
+                          {% if grandchildlink.url contains '/products/' %}
+                            <div class="mega-dropdown_item-wrap">
+                              <div class="mdiw_thumbnail">
+                                {% liquid
+                                  if mega_product.selected_or_first_available_variant.featured_media.id
+                                    render 'element-image' | elem_image: mega_product.selected_or_first_available_variant.featured_media.preview_image | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: mega_product.title
+                                    assign media_count = 1
+                                    else
+                                      for media in mega_product.media
+                                        if media.preview_image != null
+                                          if media_count != 1
+                                            render 'element-image' | elem_image: media.preview_image | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: mega_product.title
+                                          
+                                            assign media_count = 1
+                                          endif
+                                        endif
+                                      endfor
+                                  endif
+                                  
+                                  if media_count != 1
+                                    render 'element-image' | elem_image: '' | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: mega_product.title
+                                  endif
+                                %}
+                              </div>
+                              <div class="mdiw_description">
+                                {%- render 'element-heading' | elem_heading_tag: 'strong' | elem_heading_parent: 'mdiw' | elem_heading_text: grandchildlink.title | elem_heading_size: '' | elem_heading_custom_class: 'mty' -%}
+                                {% render 'price', product: mega_product %}
+                              </div>
+                            </div>
+                            {% else %}
+                              {{ grandchildlink.title | escape }}
+                          {% endif %}
+                      
+                          {% assign mega_product = null %}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+        {% if block.settings.banner_image_i != blank or block.settings.banner_image_ii != blank or block.settings.banner_image_iii != blank %}
+          <div class="mdmws_wrapper">
+            <div class="mdmws_banners-wrap collage-grid">
+              {% if block.settings.banner_image_i != blank %}
+                {%- assign banner_alt = 'mega_menu.banners.link_label' | t: index: 1 -%}
+                {%- if block.settings.banner_link_i == blank -%}
+                  <figure class="mdmws_banner">
+                    {%- render 'element-image' | elem_image: block.settings.banner_image_i | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: banner_alt -%}
+                  </figure>
+                  {%- else -%}
+                    <a href="{{- block.settings.banner_link_i -}}" class="mdmws_banner {% if settings.enable_hover_anims %}anim--shine{% endif %}" {% if block.settings.open_new_window_first %} target="_blank" {% endif %}>
+                      {%- render 'element-image' | elem_image: block.settings.banner_image_i | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: banner_alt -%}
+                      <span class="visually-hidden">{{- banner_alt -}}</span>
+                    </a>
+                {%- endif -%}
+              {% endif %}
+              {% if block.settings.banner_image_ii != blank %}
+                {%- assign banner_alt = 'mega_menu.banners.link_label' | t: index: 2 -%}
+                {%- if block.settings.banner_link_ii == blank -%}
+                  <figure class="mdmws_banner">
+                    {%- render 'element-image' | elem_image: block.settings.banner_image_ii | elem_image_class: 'image-class' | elem_image_placeholder: 'product-2' | elem_image_alt_text: banner_alt -%}
+                  </figure>
+                  {%- else -%}
+                    <a href="{{- block.settings.banner_link_ii -}}" class="mdmws_banner {% if settings.enable_hover_anims %}anim--shine{% endif %}" {% if block.settings.open_new_window_second %} target="_blank" {% endif %}>
+                      {%- render 'element-image' | elem_image: block.settings.banner_image_ii | elem_image_class: 'image-class' | elem_image_placeholder: 'product-2' | elem_image_alt_text: banner_alt -%}
+                      <span class="visually-hidden">{{- banner_alt -}}</span>
+                    </a>
+                {%- endif -%}
+              {% endif %}
+              {% if block.settings.banner_image_iii != blank %}
+                {%- assign banner_alt = 'mega_menu.banners.link_label' | t: index: 3 -%}
+                {%- if block.settings.banner_link_iii == blank -%}
+                  <figure class="mdmws_banner">
+                    {%- render 'element-image' | elem_image: block.settings.banner_image_iii | elem_image_class: 'image-class' | elem_image_placeholder: 'product-3' | elem_image_alt_text: banner_alt -%}
+                  </figure>
+                  {%- else -%}
+                    <a href="{{- block.settings.banner_link_iii -}}" class="mdmws_banner {% if settings.enable_hover_anims %}anim--shine{% endif %}" {% if block.settings.open_new_window_third %} target="_blank" {% endif %}>
+                      {%- render 'element-image' | elem_image: block.settings.banner_image_iii | elem_image_class: 'image-class' | elem_image_placeholder: 'product-3' | elem_image_alt_text: banner_alt -%}
+                      <span class="visually-hidden">{{- banner_alt -}}</span>
+                    </a>
+                {%- endif -%}
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</dropdown-component>

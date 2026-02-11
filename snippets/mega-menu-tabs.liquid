@@ -1,0 +1,134 @@
+<strong id="{{ link.title | replace: ' ', '' | escape }}-{{ view }}-heading" class="visually-hidden">{{ link.title | escape }}</strong>
+<dropdown-component data-dropdown-level="1">
+  {%- assign badge_iteration = 0 -%}
+  <button
+    type="button"
+    class="dropdown-component_opener main-navigation_dropdown-opener"
+    aria-expanded="false"
+    aria-controls="{{ link.title | replace: ' ', '' }}-{{ view }}-dropdown"
+    aria-describedby="{{ link.title | replace: ' ', '' | escape }}-{{ view }}-heading"
+  >
+    {{ link.title | escape }}
+    {% for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'menu_badge' -%}
+          {%- assign curr_badge_index = block.settings.badge_item_index | times: 1 -%}
+          {% if block.settings.menu_item_badge_label != blank and curr_badge_index == main_item_index and badge_iteration != 1 %}
+            <strong class="main-navigation_badge" style="--menu-badge-bg: {{ block.settings.background_color }}; --menu-badge-text: {{ block.settings.text_color }};" {{ block.shopify_attributes }}>{{- block.settings.menu_item_badge_label -}}</strong>
+            {%- assign badge_iteration = 1 -%}
+          {% endif %}
+      {%- endcase -%}
+    {%- endfor %}
+    {%- render 'icons-data', width: 8, height: 8, use_icon: true, icon_reference: 'caret-down' -%}
+  </button>
+  <div class="dropdown-component_wrapper --mega-dropdown-wrapper" id="{{ link.title | replace: ' ', '' }}-{{ view }}-dropdown">
+    <div class="container">
+      <div class="mega-dropdown_media-wrap-tabs">
+        <strong role="heading" aria-level="2" id="{{ link.title | replace: ' ', '' }}-mega-dropdown-tablist-{{ view }}" class="visually-hidden">{{ link.title }} dropdown tabset</strong>
+        <tabset-component class="mega-dropdown_tablist" role="tablist" aria-labelledby="{{ link.title | replace: ' ', '' }}-mega-dropdown-tablist-{{ view }}">
+          {%- for childlink in link.links -%}
+            {%- if childlink.links == blank -%}
+              <a href="{{ childlink.url }}" class="mdtl_link">
+                <div class="mdtl_link-thumbnail">
+                  {% liquid
+                    if childlink.url contains '/collections/'
+                      assign handle = childlink.url | split: '/' | last
+                      assign mega_collection = collections[handle]
+                    endif
+                  %}
+                  {% if mega_collection.featured_image and childlink.url contains '/collections/' %}
+                    {%- render 'element-image' | elem_image: mega_collection.featured_image | elem_image_class: 'image-class' | elem_image_placeholder: 'collection-1' | elem_image_alt_text: mega_collection.title -%}
+                    {% else %}
+                      <div class="mdtl_link-caption">
+                        {{ childlink.title }}
+                      </div>
+                  {% endif %}
+                </div>
+                {% if mega_collection.featured_image and childlink.url contains '/collections/' %}
+                  <strong class="mdtl_link-heading">{{ childlink.title }}</strong>
+                {% endif %}
+                {% assign mega_collection = null %}
+              </a>
+              {%- else -%}
+              <button class="tabset-component_opener mdtl_tab-opener" id="{{ childlink.title | replace: ' ', '-' | append: forloop.index }}-{{ view }}" type="button" role="tab" aria-selected="true" aria-controls="{{ childlink.title | replace: ' ', '-' }}-tab-content-{{ forloop.index }}-{{ view }}">
+                {%- liquid
+                  if childlink.url contains '/collections/'
+                    assign handle = childlink.url | split: '/' | last
+                    assign mega_collection = collections[handle]
+                  endif
+                -%}
+                {%- if mega_collection.featured_image -%}
+                  <span class="mdtl_link-thumbnail">
+                    {%- render 'element-image' | elem_image: mega_collection.featured_image | elem_image_class: 'image-class' | elem_image_placeholder: 'collection-1' | elem_image_alt_text: mega_collection.title -%}
+                  </span>
+                  {%- else -%}
+                    <span class="mdtl_link-thumbnail">
+                      <span class="mdtl_link-caption">
+                        {{ childlink.title }}
+                      </span>
+                    </span>
+                {%- endif -%}
+                {%- if mega_collection.featured_image -%}
+                  <strong class="mdtl_link-heading">{{- childlink.title -}}</strong>
+                {%- endif -%}
+                {%- assign mega_collection = null -%}
+              </button>
+            {%- endif -%}
+          {%- endfor -%}
+        </tabset-component>
+        <div class="mdtl_area-wrap">
+          {%- for childlink in link.links -%}
+            {%- if childlink.links != blank -%}
+              <div id="{{ childlink.title | replace: ' ', '-' }}-tab-content-{{ forloop.index }}-{{ view }}" class="{%- if forloop.index != 1 -%}hidden{%- endif -%}" role="tabpanel" tabindex="0" aria-labelledby="{{ childlink.title | replace: ' ', '-' | append: forloop.index }}-{{ view }}">
+                <div class="mdtl_tab-content-wrap">
+                  <strong class="mdtl_tab-title mty">{{- childlink.title -}}</strong>
+                  <ul class="list-unstyled mdtl_links-list">
+                    {%- for grandchildlink in childlink.links -%}
+                      <li>
+                        <a
+                          href="{{ grandchildlink.url }}"
+                          class="mdll_list-link {% if grandchildlink.current %}mdll_list-link--active{% endif %}"
+                          {% if grandchildlink.current %} aria-current="page"{% endif %}
+                        >{{ grandchildlink.title }}</a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+          {% if block.settings.banner_image_i != blank or block.settings.banner_image_ii != blank %}
+            <div class="mdtl_banners-wrap">
+              {% if block.settings.banner_image_i != blank %}
+                {%- assign banner_alt = 'mega_menu.banners.link_label' | t: index: 1 -%}
+                {%- if block.settings.banner_link_i == blank -%}
+                  <figure class="mdtl_banner">
+                    {%- render 'element-image' | elem_image: block.settings.banner_image_i | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: banner_alt -%}
+                  </figure>
+                  {%- else -%}
+                    <a href="{{- block.settings.banner_link_i -}}" class="mdtl_banner {% if settings.enable_hover_anims %}anim--shine{% endif %}" {% if block.settings.open_new_window_first %} target="_blank" {% endif %}>
+                      {%- render 'element-image' | elem_image: block.settings.banner_image_i | elem_image_class: 'image-class' | elem_image_placeholder: 'product-1' | elem_image_alt_text: banner_alt -%}
+                      <span class="visually-hidden">{{- banner_alt -}}</span>
+                    </a>
+                {%- endif -%}
+              {% endif %}
+              {% if block.settings.banner_image_ii != blank %}
+                {%- assign banner_alt = 'mega_menu.banners.link_label' | t: index: 2 -%}
+                {%- if block.settings.banner_link_ii == blank -%}
+                  <figure class="mdtl_banner">
+                    {%- render 'element-image' | elem_image: block.settings.banner_image_ii | elem_image_class: 'image-class' | elem_image_placeholder: 'product-2' | elem_image_alt_text: banner_alt -%}
+                  </figure>
+                  {%- else -%}
+                    <a href="{{- block.settings.banner_link_ii -}}" class="mdtl_banner {% if settings.enable_hover_anims %}anim--shine{% endif %}" {% if block.settings.open_new_window_second %} target="_blank" {% endif %}>
+                      {%- render 'element-image' | elem_image: block.settings.banner_image_ii | elem_image_class: 'image-class' | elem_image_placeholder: 'product-2' | elem_image_alt_text: banner_alt -%}
+                      <span class="visually-hidden">{{- banner_alt -}}</span>
+                    </a>
+                {%- endif -%}
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</dropdown-component>

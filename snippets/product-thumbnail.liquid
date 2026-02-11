@@ -1,0 +1,83 @@
+{% comment %} 
+  usage:
+    this snippet is used to render collection card
+    
+  code: 
+    {%- render 'product-thumbnail', product_thumbnail_block: thumbnail -%}
+{% endcomment %}
+
+{% liquid
+  assign placeholder_image = 'product-1'
+  
+  case block_index
+    when 2
+      assign placeholder_image = 'product-2'
+    when 3
+      assign placeholder_image = 'product-3'
+    when 4
+      assign placeholder_image = 'product-6'
+    when 5
+      assign placeholder_image = 'product-5'
+    when 6
+      assign placeholder_image = 'product-4'
+  endcase
+  
+  assign media_count = 0
+  
+  capture loading_attr
+    if section.index > 1
+      echo 'lazy'
+      else
+        echo 'eager'
+    endif
+  endcapture
+
+  capture product_title
+    if product_thumbnail_block.title != blank
+      echo product_thumbnail_block.title
+      else
+        echo 'sections.products.product.title' | t
+    endif
+  endcapture
+%}
+
+<figure class="product-thumbnail">
+  <a class="product-thumbnail_link {% if settings.enable_hover_anims %}anim--shine{% endif %}" {% if product_thumbnail_block.title != blank %}href="{{ product_thumbnail_block.url }}"{% else %}aria-disabled="true"{% endif %}>
+    {%- liquid
+      unless product_thumbnail_block.title == blank
+        if product_thumbnail_block.selected_or_first_available_variant.featured_media.id
+          render 'element-image' | elem_image: product_thumbnail_block.selected_or_first_available_variant.featured_media.preview_image | elem_image_class: 'image-class' | elem_image_placeholder: placeholder_image | ''
+          assign media_count = 1
+          else
+            for media in product_thumbnail_block.media
+              if media.preview_image != null
+                if media_count != 1
+                  render 'element-image' | elem_image: media.preview_image | elem_image_class: 'image-class' | elem_image_placeholder: placeholder_image | ''
+                
+                  assign media_count = 1
+                endif
+              endif
+            endfor
+            
+            if media_count != 1
+              render 'element-image' | elem_image: '' | elem_image_class: 'image-class' | elem_image_placeholder: 'image' | ''
+            endif
+        endif
+        else
+          render 'element-image' | elem_image: '' | elem_image_class: 'image-class' | elem_image_placeholder: placeholder_image | elem_image_alt_text: product_title
+      endunless
+      
+      assign heading_hidden_class = 'heading--caption'
+      if media_count > 0
+        assign heading_hidden_class = 'visually-hidden'
+      endif
+      
+      unless product_thumbnail_block.title == blank
+        render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: 'product-thumbnail' | elem_heading_text: product_thumbnail_block.title | elem_heading_size: '' | elem_heading_custom_class: heading_hidden_class
+        
+        else
+          render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: 'product-thumbnail' | elem_heading_text: product_title | elem_heading_size: '' | elem_heading_custom_class: 'visually-hidden'
+      endunless
+    -%}
+  </a>
+</figure>

@@ -1,0 +1,85 @@
+{% comment %} 
+  usage:
+    this snippet is used to render banner card
+    
+  code: 
+    {%- render 'banner-card', banner_card_block: block -%}
+{% endcomment %}
+
+{% liquid
+  assign section_scheme_class = banner_card_block.settings.section_color_scheme | prepend: 'scheme scheme--'
+  assign placeholder_image = 'collection-1'
+    
+  case block_index
+    when 2
+      assign placeholder_image = 'collection-2'
+    when 3
+      assign placeholder_image = 'collection-3'
+    when 4
+      assign placeholder_image = 'collection-6'
+  endcase
+  
+  capture loading_attr
+    if section.index > 1
+      echo 'lazy'
+      else
+        echo 'eager'
+    endif
+  endcapture
+%}
+
+{%- if banner_card_block.settings.button_label != blank -%}
+  <figure class="banner-card">
+    <div class="banner-card_img {% if settings.enable_hover_anims %}anim--shine{% endif %} {{ section_scheme_class }}">
+      {%- liquid
+        unless banner_card_block.settings.button_label == blank
+          assign button_position_class = 'banner-card_button--' | append: banner_card_block.settings.button_position
+          render 'element-button' | element_button_label: banner_card_block.settings.button_label | element_button_link: banner_card_block.settings.link | element_button_custom_class: button_position_class | element_button_new_window: banner_card_block.settings.open_new_window
+        endunless
+      -%}
+      {%- if banner_card_block.settings.image != blank -%}
+        {{-
+          banner_card_block.settings.image.src |
+          image_url: width: 2160 |
+          image_tag: class: 'image-class', alt: '', widths: '1680, 2160', sizes: '(max-width: 767px) 1680vw, 2160vw', loading: loading_attr |
+          escape
+        -}}
+        {%- else -%}
+          {{- placeholder_image | placeholder_svg_tag: 'img--placeholder' -}}
+      {%- endif -%}
+    </div>
+  </figure>
+  {%- else -%}
+    {%- if banner_card_block.settings.link != blank -%}
+      <a class="banner-card {% if settings.enable_hover_anims %}anim--shine{% endif %} {{ section_scheme_class }}" href="{{- banner_card_block.settings.link -}}" {% if banner_card_block.settings.open_new_window %}target="_blank"{% endif %}>
+        <div class="banner-card_img">
+          {%- if banner_card_block.settings.image != blank -%}
+            {{-
+              banner_card_block.settings.image.src |
+              image_url: width: 2160 |
+              image_tag: class: 'image-class', alt: '', widths: '1680, 2160', sizes: '(max-width: 767px) 1680vw, 2160vw', loading: loading_attr |
+              escape
+            -}}
+            {%- else -%}
+              {{- placeholder_image | placeholder_svg_tag: 'img--placeholder' -}}
+          {%- endif -%}
+        </div>
+        <span class="visually-hidden">{{- 'promotion_banners.alt_label' | t: index: block_index -}}</span>
+      </a>
+      {%- else -%}
+        <figure class="banner-card {% if settings.enable_hover_anims %}anim--shine{% endif %} {{ section_scheme_class }}">
+          <div class="banner-card_img {% if banner_card_block.settings.button_label == blank %}anim--shine{% endif %} {{ section_scheme_class }}">
+            {%- if banner_card_block.settings.image != blank -%}
+              {{-
+                banner_card_block.settings.image.src |
+                image_url: width: 2160 |
+                image_tag: class: 'image-class', alt: '', widths: '1680, 2160', sizes: '(max-width: 767px) 1680vw, 2160vw', loading: loading_attr |
+                escape
+              -}}
+              {%- else -%}
+                {{- placeholder_image | placeholder_svg_tag: 'img--placeholder' -}}
+            {%- endif -%}
+          </div>
+        </figure>
+    {%- endif -%}
+{%- endif -%}

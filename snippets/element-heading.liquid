@@ -1,0 +1,63 @@
+{% comment %} 
+  usage:
+    this snippet is used to render any of ( choosen ) h1-h6 element
+    
+  code: 
+    {%- render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: 'parent_class' | elem_heading_text: section.settings.headingc -%}
+    
+    - optional attributes
+        | elem_heading_custom_class: 'custom-class'
+        | elem_heading_block: block
+        | elem_heading_link: section.settings.url
+        | elem_heading_spacing: block.settings.block_spacing
+{% endcomment %}
+
+{%-liquid
+  case elem_heading_size
+    when 'heading_xx_large'
+      assign heading_size_class = 'h1'
+    when 'heading_x_large'
+      assign heading_size_class = 'h2'
+    when 'heading_large'
+      assign heading_size_class = 'h3'
+    when 'heading_medium'
+      assign heading_size_class = 'h4'
+    when 'heading_small'
+      assign heading_size_class = 'h5'
+    when 'heading_x_small'
+      assign heading_size_class = 'h6'
+    when 'heading_xx_small'
+      assign heading_size_class = 'h-small'
+  else
+    assign heading_size_class = 'h'
+  endcase
+  
+  assign heading_classes = heading_size_class
+  
+  assign heading_classes = heading_classes | append: ' ' | append: elem_heading_parent | append: '_heading'
+  
+  if elem_heading_custom_class != blank
+    assign heading_classes = heading_classes | append: ' ' | append: elem_heading_custom_class
+  endif
+-%}
+
+<{{ elem_heading_tag }}
+  {% if elem_heading_tag == 'strong' %}
+    role="heading" aria-level="2"
+  {% endif %}
+  {% if elem_heading_block != blank %}
+    {{ elem_heading_block.shopify_attributes }}
+  {% endif %}
+  class="{{ heading_classes }}"
+  {% unless elem_heading_spacing == null %}
+    style="--block-spacing: {{ elem_heading_spacing }}px"
+  {% endunless %}
+>
+  {%- if elem_heading_link == blank -%}
+    {{ elem_heading_text }}
+    {%- else -%}
+      <a href="{{ elem_heading_link }}" {{ elem_heading_block.shopify_attributes }}>
+        {{ elem_heading_text }}
+      </a>
+  {%- endif -%}
+</{{ elem_heading_tag }}>

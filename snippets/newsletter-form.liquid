@@ -1,0 +1,93 @@
+{% comment %}
+  usage:
+    this snippet is used to render newsletter / subscribe form
+  
+  code:
+    {%- render 'newsletter-form' -%}
+    
+    - optional attributes
+        | newsletter_form_scheme: 'secondary' , 'primary'
+{% endcomment %}
+
+{%- liquid
+  assign prefix_class = 'newsletter-form'
+  assign form_control_scheme = newsletter_form_scheme | default: 'primary'
+-%}
+
+{% form 'customer', id: newsletter_form_id, class: 'newsletter-form' %}
+  <input type="hidden" name="contact[tags]" value="newsletter">
+  <label class="{{ prefix_class }}_label h6 mty {{ newsletter_form_section_prefix }}_heading" for="{{ section.id }}NewsletterForm-input">
+    {% if newsletter_form_block.settings.heading == blank %}
+      {{ 'newsletter.label' | t }}
+      {% else %}
+        {{ newsletter_form_block.settings.heading }}
+    {% endif %}
+  </label>
+  <div class="{{ prefix_class }}_form-group">
+    <input
+      id="{{ section.id }}NewsletterForm-input"
+      type="email"
+      name="contact[email]"
+      class="form-control form-control--{{ form_control_scheme }}"
+      value="{{ form.email }}"
+      aria-required="true"
+      onkeydown="validation()"
+      autocapitalize="off"
+      autocomplete="email"
+      title="{{ 'newsletter.label' | t }}"
+      {% if form.errors %}
+        autofocus
+        aria-invalid="true"
+        aria-describedby="Newsletter-error--{{ section.id }}"
+      {% elsif form.posted_successfully? %}
+        aria-describedby="Newsletter-success--{{ section.id }}"
+      {% endif %}
+      placeholder="{{ 'newsletter.label' | t }}"
+      required
+    >
+      {% if newsletter_form_button == 'button' %}
+        <button
+          type="submit"
+          class="{{ prefix_class }}_submit-button button button--primary"
+          name="commit"
+          id="Notify"
+          aria-label="{{ 'newsletter.notify' | t }}"
+        >
+        {{ 'newsletter.notify' | t }}
+        </button>
+      {% else %}
+        <button
+          type="submit"
+          class="{{ prefix_class }}_submit-button"
+          name="commit"
+          id="Subscribe-{{ section.id }}"
+          aria-label="{{ 'newsletter.button_label' | t }}"
+        >
+          <span class="visually-hidden">{{ 'newsletter.button_label' | t }}</span>
+          {%- render 'icons-data', width: 21, height: 8, use_icon: true, icon_reference: 'arrow-submit' -%}
+        </button>
+      {% endif %}
+  </div>
+  <div class="{{ prefix_class }}_results-wrap results-wrap_message">
+    <div class="{{ prefix_class }}_errors-wrap">
+      {%- if form.errors -%}
+        <small id="Newsletter-error--{{ section.id }}">
+          {%- render 'icons-data', width: 17, height: 17, use_icon: true, icon_reference: 'error' -%}
+          {{- form.errors.translated_fields.email | capitalize }}
+          {{ form.errors.messages.email -}}
+        </small>
+      {%- endif -%}
+    </div>
+    <div class="{{ prefix_class }}_success-wrap">
+      {%- if form.posted_successfully? -%}
+        <small id="Newsletter-success--{{ section.id }}" tabindex="-1" autofocus>
+          {%- render 'icons-data', width: 18, height: 18, use_icon: true, icon_reference: 'check-circle' -%}
+          {{- 'newsletter.success' | t }}
+        </small>
+      {%- endif -%}
+    </div>
+  </div>
+  {% unless newsletter_form_block.settings.description == blank %}
+    <p class="mty {{ prefix_class }}_description">{{ newsletter_form_block.settings.description }}</p>
+  {% endunless %}
+{% endform %}

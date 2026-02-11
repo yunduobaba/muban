@@ -1,0 +1,48 @@
+{%- comment -%}
+  Renders the language picker for the localization form
+
+  Accepts:
+    - localPosition: pass in the position in which the form is coming up to create specific IDs
+{%- endcomment -%}
+{%- liquid
+  capture icon_caret
+    echo arrow | default: 'caret-up'
+  endcapture
+-%}
+
+<div class="dropdown-component dropdown-component--localization dropdown-component--lang">
+  <strong id="{{ localPosition }}-{{ id }}-lang-heading" class="visually-hidden">{{ 'localization.language_label' | t }}</strong>
+  <dropdown-component data-submission="true" data-form-id="{{ id }}">
+    <button
+      type="button"
+      class="dropdown-component_opener --align-left"
+      aria-expanded="false"
+      aria-controls="{{ localPosition }}-{{ id }}-lang-dropdown"
+      aria-describedby="{{ localPosition }}-{{ id }}-lang-heading"
+    >
+      {{ localization.language.name }}
+      {%- render 'icons-data', width: 9, height: 9, use_icon: true, icon_reference: icon_caret -%}
+    </button>
+    <div class="dropdown-component_wrapper">
+      <ul id="{{ localPosition }}-{{ id }}-lang-dropdown" class="list-unstyled --align-left">
+        {%- for language in localization.available_languages -%}
+          <li>
+            <a
+              class="dropdown-component_link dropdown-component_btn-submit {% if language.iso_code == localization.language.iso_code %}active{% endif %}"
+              href="#"
+              hreflang="{{ language.iso_code }}"
+              lang="{{ language.iso_code }}"
+              {% if language.iso_code == localization.language.iso_code %}
+                aria-current="true"
+              {% endif %}
+              data-value="{{ language.iso_code }}"
+            >
+              {{ language.endonym_name }}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+    <input type="hidden" name="locale_code" value="{{ localization.language.iso_code }}">
+  </dropdown-component>
+</div>

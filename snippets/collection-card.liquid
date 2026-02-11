@@ -1,0 +1,105 @@
+{% comment %} 
+  usage:
+    this snippet is used to render collection card
+    
+  code: 
+    {%- render 'collection-card', collection_card_block: block, show_title: section.settings.show_title -%}
+{% endcomment %}
+
+{% liquid
+  assign block_scheme_class = collection_card_block.settings.block_color_scheme | prepend: 'scheme scheme--'
+
+  assign card_collection = collection_card_block.settings.collection | default: card_collection
+  assign placeholder_image = 'collection-1'
+  
+  case block_index
+    when 2
+      assign placeholder_image = 'collection-2'
+    when 3
+      assign placeholder_image = 'collection-3'
+    when 4
+      assign placeholder_image = 'collection-6'
+    when 5
+      assign placeholder_image = 'collection-5'
+    when 6
+      assign placeholder_image = 'collection-4'
+    when 7
+      assign placeholder_image = 'collection-3'
+    when 8
+      assign placeholder_image = 'collection-6'
+  endcase
+  
+  capture loading_attr
+    if section.index > 1
+      echo 'lazy'
+      else
+        echo 'eager'
+    endif
+  endcapture
+
+  capture collection_title
+    if card_collection.title != blank
+     echo card_collection.title
+     else
+      echo 'additions.collection.title' | t
+    endif
+  endcapture
+%}
+
+<article class="collection-card data-hover-parent --view-{{ section.settings.card_view_layout }} {{ column_card_align_class }} {% if section.settings.animate_on_hover %}--animate-media{% endif %}">
+  {% unless card_collection.title == blank %}
+    <a href="{{ card_collection.url }}" class="collection-card_link">
+      <div class="collection-card_img {% if settings.enable_hover_anims %}anim--shine{% endif %} {{ block_scheme_class }} {% if collection_card_block.settings.image or card_collection.featured_image %}mty --has-image{% endif %}">
+        {% if collection_card_block.settings.image or card_collection.featured_image %}
+          {% liquid
+            assign featured_image = collection_card_block.settings.image | default: card_collection.featured_image
+          %}
+          {{-
+            featured_image.src |
+            image_url: width: 840 |
+            image_tag: class: 'image-class', alt: '', widths: '540, 840', sizes: '(max-width: 767px) 540vw, 840vw', loading: loading_attr |
+            escape
+          -}}
+          {% else %}
+            <div class="collection-card_caption">
+              {%- render 'element-heading' | elem_heading_tag: 'h2' | elem_heading_parent: 'collection-card' | elem_heading_text: collection_title | elem_heading_size: section.settings.column_heading_size | elem_heading_custom_class: 'mty' -%}
+            </div>
+        {% endif %}
+        {% unless collection_card_block.settings.badge_label == blank %}
+          <div class="collection-card_tag" style="--cltag-bg: {{ collection_card_block.settings.badge_bg }}; --cltag-text: {{ collection_card_block.settings.badge_text }};">
+            <strong role="heading" aria-level="2">{{ collection_card_block.settings.badge_label }}</strong>
+          </div>
+        {% endunless %}
+      </div>
+      {% if collection_card_block.settings.image or card_collection.featured_image %}
+        {% if show_title %}
+          <div class="collection-card_heading-wrap">
+            {%- render 'element-heading' | elem_heading_tag: 'h2' | elem_heading_parent: 'collection-card' | elem_heading_text: card_collection.title | elem_heading_size: section.settings.column_heading_size | elem_heading_custom_class: 'mty --hover-underline' -%}
+          </div>
+          {% else %}
+            <h2 class="visually-hidden">
+              {{- collection_title -}}
+            </h2>
+        {% endif %}
+      {% endif %}
+    </a>
+    {% else %}
+      <div class="collection-card_img mty {{ block_scheme_class }} --has-image {% if settings.enable_hover_anims %}anim--shine{% endif %}">
+        {% unless collection_card_block.settings.badge_label == blank %}
+          <div class="collection-card_tag" style="--cltag-bg: {{ collection_card_block.settings.badge_bg }}; --cltag-text: {{ collection_card_block.settings.badge_text }};">
+            <strong role="heading" aria-level="2">{{ collection_card_block.settings.badge_label }}</strong>
+          </div>
+        {% endunless %}
+        {{- placeholder_image | placeholder_svg_tag: 'img--placeholder' -}}
+      </div>
+      {% if show_title %}
+        <div class="collection-card_heading-wrap">
+          {%- render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: 'collection-card' | elem_heading_text: collection_title | elem_heading_size: section.settings.column_heading_size | elem_heading_custom_class: 'mty' | elem_heading_custom_class: 'mty --hover-underline' -%}
+        </div>
+        {% else %}
+          <h3 class="visually-hidden">
+            {{- collection_title -}}
+          </h3>
+      {% endif %}
+  {% endunless %}
+</article>

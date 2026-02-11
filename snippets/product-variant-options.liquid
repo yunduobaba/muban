@@ -1,0 +1,100 @@
+{%- liquid
+  assign variants_available_arr = product.variants | map: 'available'
+  assign variants_option1_arr = product.variants | map: 'option1'
+  assign variants_option2_arr = product.variants | map: 'option2'
+  assign variants_option3_arr = product.variants | map: 'option3'
+  
+  if limit
+    assign limit_count_init = 1
+  endif
+
+  capture enable_swatches
+    unless settings.enable_variant_swatches == 'none'
+      echo 'true'
+    endunless
+  endcapture
+
+  capture is_color_option
+    if option.name == 'Color' or option.name == 'color' or option.name == 'Colour' or option.name == 'colour'
+      echo 'true'
+      else
+        echo 'false'
+    endif
+  endcapture
+-%}
+{%- for value in option.values -%}
+  {%- unless limit_count_init > limit -%}
+    {%- liquid
+      assign option_disabled = true
+
+      for option1_name in variants_option1_arr
+        case option.position
+          when 1
+            if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+              assign option_disabled = false
+            endif
+          when 2
+            if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+              assign option_disabled = false
+            endif
+          when 3
+            if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+              assign option_disabled = false
+            endif
+        endcase
+      endfor
+    -%}
+    <div class="variant-options-wrap">
+      <input
+        type="radio"
+        id="{{ section.id }}-{{ product.id }}-{{ option.position }}-{{ forloop.index0 }}{% if label_change %}-{{ label_change }}{% endif %}"
+        name="{{ product.id }}-{{ option.name }}-{{ label_change }}"
+        value="{{ value | escape }}"
+        form="{{ product_form_id }}"
+        {% if is_color_option == 'true' and enable_swatches == 'true' %}title="{{ section.id }}-{{ product.id }}-{{ option.position }}-{{ forloop.index0 }}"{% endif %}
+        {% if option.selected_value == value %}
+          checked
+        {% endif %}
+        {% if option_disabled %}
+          class="disabled"
+        {% endif %}
+      >
+      {%- liquid
+        assign color_code = value | downcase | replace: ' ', ''
+      -%}
+      <label
+        data-option-name="{{ value }}"
+        class="variant-element_label"
+        for="{{ section.id }}-{{ product.id }}-{{ option.position }}-{{ forloop.index0 }}{% if label_change %}-{{ label_change }}{% endif %}" {% if is_color_option == 'true' and enable_swatches == 'true' %}style="--variant-clr: {{ color_code }}"{% endif %}
+      >
+        <span class="variant-element_span">
+          {%- if is_color_option == 'true' -%}
+            {%- unless enable_swatches == 'true' -%}
+              <span>
+                {{- value -}}
+              </span>
+            {%- endunless -%}
+            {%- else -%}
+              <span>
+                {{- value -}}
+              </span>
+          {%- endif -%}
+          {%- if is_color_option == 'true' and enable_swatches == 'true' -%}
+            <i class="label_show-disabled" aria-hidden="true">
+              {%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'disabled' -%}
+            </i>
+          {%- endif -%}
+        </span>
+        {%- if is_color_option == 'true' and enable_swatches == 'true' -%}
+          <span class="visually-hidden" style="background-color: #fff; color: #000;">
+            {{- value -}}
+          </span>
+        {%- endif -%}
+        <span style="color: #000; background-color: #fff;" class="label-text-sibling {% if option_disabled %}visually-hidden{% else %}hidden{% endif %}">
+          {{- 'sections.products.product.sold_or_unavailable' | t -}}
+        </span>
+      </label>
+    </div>
+  {%- endunless -%}
+  {%- assign limit_count_init = limit_count_init | plus: 1 -%}
+{%- endfor -%}

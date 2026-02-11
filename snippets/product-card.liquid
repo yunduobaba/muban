@@ -1,0 +1,506 @@
+{%- unless product.title == null -%}
+  {%- liquid
+    assign productJsonId = 'ProductCardJson-' | append: product.id | append: '-' | append: section.id
+
+    assign media_to_render = product.featured_media.id
+    for variant in product.variants
+      assign media_to_render = media_to_render | append: variant.featured_media.id | append: ' '
+    endfor
+
+    assign variant_images = media_to_render
+    
+    assign product_url = product.url
+    
+    if product_url contains '?'
+      assign parts = product_url | split: '?'
+      assign product_clean_url = parts[0]
+    endif
+    
+    assign price_variant = true
+    
+    if product_price_variation == false
+      assign price_variant = false
+    endif
+
+    assign product_variants_count = product.options_with_values.size
+
+    capture enable_swatches
+      unless settings.enable_variant_swatches == 'none'
+        echo 'true'
+      endunless
+    endcapture
+
+    capture is_color_option
+      for option in product.options_with_values
+        if option.name == 'Color' or option.name == 'color' or option.name == 'Colour' or option.name == 'colour'
+          echo 'true'
+          break
+        endif
+      endfor
+    endcapture
+  -%}
+  <product-card
+    data-id="product-card-organizer"
+    data-variant-show-case="radio"
+    data-prefix="{{ js_contents_prefix }}"
+    {% if settings.enable_variant_swatches == 'images' %}
+      data-swatch-images="true"
+    {% endif %}
+    {% if product_clean_url != blank %}
+      data-url="{{ product_clean_url }}"
+      {% else %}
+        data-url="{{ product_url }}"
+    {% endif %}
+    data-media-gallery="static"
+  >
+    <div class="product_media {{ js_contents_prefix }}static-gallery">
+      {%- if product.media.size > 0 -%}
+        {%- render 'product-gallery-static' variant_images: variant_images, product: product, media: media | layout: 'static' | prefix: js_contents_prefix | column_index: column_index -%}
+        {%- else -%}
+          <div class="product_gallery-item--no-image product_gallery-item">
+            {%- render 'element-image' | elem_image: '' | elem_image_class: 'image-class' | elem_image_placeholder: 'image' | elem_image_alt_text: product.title -%}
+          </div>
+      {%- endif -%}
+      {%- if section.settings.enable_compare_button -%}
+        <ul class="list-unstyled poroduct-colulmn_cw-actions-list">
+          {%- if section.settings.enable_compare_button -%}
+            <li>
+              <product-compare-button data-product="{{ product.title | escape }}" data-handle="{{ product.handle }}">
+                <a href="#" role="button" data-title="{{- 'additions.product.compare.label' | t -}}" class="compare-btn">
+                  <span class="visually-hidden pwb-text">{{- 'sections.products.product.comparelist.add' | t: product: product.title | escape -}}</span>
+                  {%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'compare' -%}
+                </a>
+              </product-compare-button>
+            </li>
+          {%- endif -%}
+        </ul>
+      {%- endif -%}
+      {%- if section.settings.enable_quick_add_button and enable_swatches == 'true' -%}
+        {%- unless product.requires_selling_plan -%}
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              {%- liquid
+                capture has_color_variant
+                  if option.name == 'color' or option.name == 'Color' or option.name == 'colour' or option.name == 'Colour'
+                    echo 'true'
+                  endif
+                endcapture
+              -%}
+              {%- if has_color_variant == 'true' -%}
+                {%- liquid
+                  assign variant_count_limiter = null
+                  if section.settings.number_of_columns_on_desktop == 4
+                    if section.settings.filter_type == 'vertical'
+                      if option.values.size > 1
+                        assign variant_count_limiter = option.values.size | minus: 1
+                      endif
+                      else
+                        assign variant_count_limiter = option.values.size | minus: 3
+                    endif
+                    else
+                      assign variant_count_limiter = option.values.size | minus: 3
+                  endif
+                -%}
+                <div class="product-card_colors-switcher">
+                  <product-card-colors>
+                    <div class="product-card-variant-wrap" {% if variant_count_limiter and variant_count_limiter > 0 %}data-vartiants-count="+{{- variant_count_limiter -}}"{% endif %}>
+                      <div class="variant-row--pills variant-row--pills-color">
+                        <div class="variant-options-holder">
+                          {%- render 'product-variant-options', product: product, option: option, product_form_id: product_form_id, label_change: "colors", limit: 3 -%}
+                        </div>
+                      </div>
+                    </div>
+                  </product-card-colors>
+                </div>
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endunless -%}
+        {%- endunless -%}
+      {%- endif -%}
+    </div>
+    {%- if section.settings.show_savings_badge or section.settings.show_product_rating or section.settings.show_inventory -%}
+      <div class="product-column_stats-wrap">
+        {%- if section.settings.show_savings_badge -%}
+          <div data-request-contents="sale-tag">
+            {%- render 'price', product: product, use_variant: price_variant, show_currency_code: settings.show_currency_code | show_discount_tag: true -%}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.show_product_rating -%}
+          {%- liquid
+            assign rating_actual = product.metafields.reviews.rating.value.rating | round | plus: 0
+            assign rating_decimal = 0
+            assign decimal = product.metafields.reviews.rating.value.rating | modulo: 1
+            if decimal >= 0.3 and decimal <= 0.7
+              assign rating_decimal = 0.5
+            elsif decimal > 0.7
+              assign rating_decimal = 1
+            endif
+          -%}
+          <div class="product_rating-tag {% if rating_actual == 0 %} hidden{% endif %}">
+            <strong aria-hidden="true">
+              <i class="product_rating-star">
+                {%- render 'icons-data', width: 12, height: 12, use_icon: true, icon_reference: 'star-filled' -%}
+              </i>
+              {{- rating_actual }}
+              <span class="visually-hidden">
+                {{- product.metafields.reviews.rating_count | round }} / {{ product.metafields.reviews.rating.value.scale_max -}}
+                <span aria-hidden="true">{{ 'accessibility.total_reviews' | t }} ({{ product.metafields.reviews.rating_count }})</span>
+              </span>
+            </strong>
+          </div>
+        {%- endif -%}
+        {%- if section.settings.show_inventory -%}
+          {%- if product.selected_or_first_available_variant.inventory_management == 'shopify' -%}
+            <div class="product_inventory-tag">
+              {%- if product.selected_or_first_available_variant.inventory_policy == 'continue' -%}
+                {%- liquid
+                  assign inventoryc_text = 'sections.products.product.pre_text' | t
+                  assign inventoryc_container_class = ''
+                -%}
+                {%- else -%}
+                  {%- liquid
+                    assign inventoryc_count = product.selected_or_first_available_variant.inventory_quantity
+                    assign inventoryc_container_class = '--no-stock'
+                    assign inventoryc_text = 'sections.products.product.soldout' | t
+                    
+                    if inventoryc_count > 0
+                      assign inventoryc_container_class = '--low-stock'
+                      assign inventoryc_text = 'sections.products.product.low_stock_text' | t
+                    endif
+                    
+                    if inventoryc_count > 50
+                      assign inventoryc_container_class = '--enough-stock'
+                      assign inventoryc_text = 'sections.products.product.in_stock_text' | t
+                    endif
+                  -%}
+              {%- endif -%}
+              <strong class="product_stock-inventory" data-request-contents="inventory-card">
+                <span class="{{ inventoryc_container_class }}">
+                  {{- inventoryc_text -}}
+                </span>
+              </strong>
+            </div>
+            {%- else -%}
+              <div class="product_inventory-tag hidden">
+                <strong class="product_stock-inventory" data-request-contents="inventory-card"></strong>
+              </div>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    <div class="products_info {% unless section.settings.enable_quick_add_button %}products_info--no-cart{% endunless %}">
+      <div class="product_statuses-wrapper">
+        <div class="product_price-wrap">
+          <div data-request-contents="price">
+            {%- render 'price', product: product, use_variant: price_variant, show_currency_code: settings.show_currency_code -%}
+          </div>
+        </div>
+      </div>
+      {%- liquid
+        assign productTitle = product.title | escape
+        render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: 'product-column' | elem_heading_text: productTitle | elem_heading_size: 'heading_x_small' | elem_heading_link: product_url | elem_heading_custom_class: 'mty'
+      -%}
+      {%- if section.settings.show_vendor -%}
+        <div class="product_vendor mty">
+          <strong class="product_name-name">{{- product.vendor -}}</strong>
+        </div>
+      {%- endif -%}
+      <div class="product_foot">
+        {%- if section.settings.enable_quick_add_button -%}
+          {%- if product.requires_selling_plan -%}
+            {%- liquid
+              assign sel_btn_label = 'sections.products.product.view_product' | t
+              render 'element-button' | element_button_label: sel_btn_label | element_button_link: product_url | element_button_custom_class: '--align-center view-product'
+            -%}
+            {%- else -%}
+              {%- unless product.has_only_default_variant -%}
+                {%- assign show_variant_drawer = true -%}
+                <div class="prdkwrap prdkwrap--has-simple">
+                  <div class="product_variation-wrap">
+                    <a href="#" role="button" class="{{ js_contents_prefix }}variants-toggler variants-toggler--back">
+                      {%- render 'icons-data', width: 12, height: 12, use_icon: true, icon_reference: 'cross' -%}
+                      <span class="visually-hidden">{{- 'accessibility.close' | t -}}</span>
+                    </a>
+                    <div class="product_statuses-wrapper">
+                      <div class="{{ js_contents_prefix }}price-duplicator product_price-wrap">
+                        {%- render 'price', product: product, use_variant: true, show_currency_code: settings.show_currency_code -%}
+                      </div>
+                    </div>
+                    <product-card-variants>
+                      <div class="product-card-variant-wrap">
+                        {%- for option in product.options_with_values -%}
+                          {%- liquid
+                            capture has_color_variant
+                              if option.name == 'color' or option.name == 'Color' or option.name == 'colour' or option.name == 'Colour'
+                                echo 'true'
+                              endif
+                            endcapture
+                          -%}
+                          <div class="{{ js_contents_prefix }}variant-row variant-row--pills {% if has_color_variant == 'true' and enable_swatches == 'true' %} variant-row--pills-color{% endif %}">
+                            <legend class="variant-element_title">{{ option.name }}</legend>
+                            <div class="variant-options-holder">
+                              {%- render 'product-variant-options', product: product, option: option, product_form_id: product_form_id -%}
+                            </div>
+                            {%- if section.settings.number_of_columns_on_desktop == 4 -%}
+                              {%- if section.settings.filter_type == 'vertical' -%}
+                                {%- if is_color_option == 'true' and option.values.size > 1 -%}
+                                  <strong class="variants-row_totals">
+                                    +{{- option.values.size | minus: 1 -}}
+                                  </strong>
+                                {%- endif -%}
+                                {%- else -%}
+                                  {%- if is_color_option == 'true' and option.values.size > 3 -%}
+                                    <strong class="variants-row_totals">
+                                      +{{ option.values.size | minus: 3 }}
+                                    </strong>
+                                  {%- endif -%}
+                              {%- endif -%}
+                            {%- endif -%}
+                          </div>
+                        {%- endfor -%}
+                      </div>
+                      <div class="product_variant-scopes-wrap {% if product_variants_count > 1 %}product_variant-slideshow {% else %}product_variant--single{% endif %}">
+                        {%- for option in product.options_with_values -%}
+                          <strong class="product_variants-count">
+                            {%- liquid
+                              assign option_name = option.name
+                              assign option_size = option.values.size
+                              
+                              if option_size > 1
+                                assign option_name = option_name
+                              endif
+                            -%}
+                            {{ option_size }} {{ option_name }} {{ 'sections.products.product.available' | t }}
+                          </strong>
+                        {%- endfor -%}
+                      </div>
+                    </product-card-variants>
+                  </div>
+                  <div class="product-column_button-wrap">
+                    <button type="button" class="{{ js_contents_prefix }}variants-toggler button--variants-toggler button button--product-action button--primary">
+                      {%- liquid 
+                        if settings.show_buttons_icon and element_button_icon != false
+                          render 'icons-data', width: 16, height: 16, use_icon: true, icon_reference: 'cart'
+                        endif
+                      -%}
+                      <span class="product-column_quick-btn-text">
+                        {{- 'sections.products.product.quick_add' | t -}}
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              {%- endunless -%}
+              <div class="prdkwrap2 {% if show_variant_drawer %} show-variant-drawer{% endif %}">
+                <quantity-input class="quantity">
+                  <label class="visually-hidden" for="Quantity-{{ section.id }}-{{ product.id }}-{{ forloop.index | plus: 1 }}">{{- 'sections.products.product.quantity.label' | t -}}</label>
+                  <button class="quantity_button" name="minus" type="button">
+                    <span class="visually-hidden">
+                      {{- 'sections.products.product.quantity.decrease' | t: product: product.title | escape -}}
+                    </span>
+                    {%- render 'icons-data', width: 8, height: 8, use_icon: true, icon_reference: 'minus' -%}
+                  </button>
+                  <input
+                    class="quantity__input"
+                    type="number"
+                    name="quantity"
+                    id="Quantity-{{ section.id }}-{{ product.id }}-{{ forloop.index | plus: 1 }}"
+                    data-cart-quantity="{{ cart_qty }}"
+                    data-min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                    min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                    {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
+                      data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                      max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                    {% endif %}
+                    step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
+                    aria-label="{{ 'sections.products.product.quantity.input_label' | t: product: product.title | escape }}"
+                    value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                    form="{{ product_form_id }}"
+                  />
+                  <button class="quantity_button" name="plus" type="button">
+                    <span class="visually-hidden">
+                      {{- 'sections.products.product.quantity.increase' | t: product: product.title | escape -}}
+                    </span>
+                    {%- render 'icons-data', width: 8, height: 8, use_icon: true, icon_reference: 'plus' -%}
+                  </button>
+                </quantity-input>
+                <div class="product-column_button-wrap">
+                  {%- form 'product', product, data-productid: product.id, id: product_form_id, class: 'js-contents--form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                    <input
+                      type="hidden"
+                      name="id" data-productid="{{ product.id }}"
+                      value="{{ product.selected_or_first_available_variant.id }}"
+                    >
+                    {%- liquid
+                      assign check_against_inventory = true
+                      if product.selected_or_first_available_variant.inventory_management != 'shopify' or  product.selected_or_first_available_variant.inventory_policy == 'continue'
+                        assign check_against_inventory = false
+                      endif
+                      if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
+                        assign quantity_rule_soldout = true
+                      endif
+                    -%}
+                    <button
+                      id = "ProductSubmitButton-{{ section.id }}-{{ product.id }}"
+                      type="submit"
+                      name="add"
+                      class="button button--product-action button--primary"
+                      {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
+                        disabled
+                      {% endif %}
+                    >
+                      {%- liquid 
+                        if settings.show_buttons_icon and element_button_icon != false
+                          render 'icons-data', width: 16, height: 16, use_icon: true, icon_reference: 'cart'
+                        endif
+                      -%}
+                      <span class="button--text">
+                        {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
+                          {{- 'sections.products.product.sold_out' | t -}}
+                        {%- else -%}
+                          {{- 'sections.products.product.add_to_cart' | t -}}
+                        {%- endif -%}
+                      </span>
+                    </button>
+                  {%- endform -%}
+                </div>
+              </div>
+          {%- endif -%}
+        {%- endif -%}
+        <span class="{{ js_contents_prefix }}loader product-column_loader">
+          {%- render 'icons-data', width: 16, height: 16, use_icon: true, icon_reference: 'loader' -%}
+        </span>
+        <div class="product-card_error-message hidden --align-center {{ js_contents_prefix }}errors">
+          {% comment %} errors should be rendered here {% endcomment %}
+        </div>
+      </div>
+    </div>
+    <script id="{{ productJsonId }}" type="application/json">
+      {{- product | json -}}
+    </script>
+  </product-card>
+  {%- else -%}
+    <product-card
+      data-media-gallery="static"
+    >
+      <div class="product_media {{ js_contents_prefix }}static-gallery">
+        {%- liquid
+          assign placeholder_image = 'product-1'
+          case column_index
+            when 2
+              assign placeholder_image = 'product-2'
+            when 3
+              assign placeholder_image = 'product-3'
+            when 4
+              assign placeholder_image = 'product-6'
+            when 5
+              assign placeholder_image = 'product-5'
+            when 6
+              assign placeholder_image = 'product-4'
+          endcase
+          
+          render 'element-image' | elem_image: '' | elem_image_class: 'image-class' | elem_image_placeholder: placeholder_image | elem_image_alt_text: product.title
+        -%}
+        {%- if section.settings.enable_compare_button -%}
+          <ul class="list-unstyled poroduct-colulmn_cw-actions-list">
+            {%- if section.settings.enable_compare_button -%}
+              <li>
+                <a aria-disabled="true" role="button" data-title="{{- 'additions.product.compare.label' | t -}}" class="compare-btn">
+                  <span class="visually-hidden pwb-text">{{- 'sections.products.product.comparelist.add' | t: product: product.title | escape -}}</span>
+                  {%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'compare' -%}
+                </a>
+              </li>
+            {%- endif -%}
+          </ul>
+        {%- endif -%}
+        {%- if section.settings.enable_quick_add_button and enable_swatches == 'true' -%}
+          <div class="product-card_colors-switcher">
+            <div class="product-card-colors">
+              <span class="product-card_colors-dot"></span>
+              <span class="product-card_colors-dot"></span>
+              <span class="product-card_colors-dot"></span>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.show_savings_badge or section.settings.show_product_rating or section.settings.show_inventory -%}
+        <div class="product-column_stats-wrap">
+          {%- if section.settings.show_savings_badge -%}
+            {%- assign dicount_amount = 600 -%}
+            <div>
+              <strong class="product_discount-tag">
+                {{- 'sections.products.product.price.save' | t }} {{ dicount_amount | money -}}
+              </strong>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.show_product_rating -%}
+            <div class="product_rating-tag">
+              <strong aria-hidden="true">
+                <i class="product_rating-star">
+                  {%- render 'icons-data', width: 12, height: 12, use_icon: true, icon_reference: 'star-filled' -%}
+                </i>
+                4.5
+              </strong>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.show_inventory -%}
+            <div class="product_inventory-tag">
+              <strong class="product_stock-inventory --no-stock" data-request-contents="inventory">{{- 'sections.products.product.soldout' | t -}}</strong>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      <div class="products_info {% unless section.settings.enable_quick_add_button %}products_info--no-cart{% endunless %}">
+        <div class="product_statuses-wrapper">
+          <div class="product_price-wrap">
+            <div data-request-contents="price">
+              {%- render 'price', product: product, use_variant: price_variant, show_currency_code: settings.show_currency_code -%}
+            </div>
+          </div>
+        </div>
+        {%- liquid
+          capture product_title
+            if product.title != blank
+              echo product.title
+              else
+                echo 'sections.products.product.title' | t
+            endif
+          endcapture
+        -%}
+        {%- render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: 'product-column' | elem_heading_text: product_title | elem_heading_size: 'heading_x_small' | elem_heading_custom_class: 'mty' -%}
+        {% if section.settings.show_vendor %}
+          <div class="product_vendor">
+            <strong class="product_name-name">{{ 'sections.products.product.vendor_name' | t }}</strong>
+          </div>
+        {% endif %}
+        <div class="product_foot">
+          {%- if section.settings.enable_quick_add_button -%}
+            <div class="prdkwrap prdkwrap--has-simple">
+              <div class="product_variation-wrap">
+                <div class="product_variant-scopes-wrap product_variant-slideshow">
+                  <strong class="product_variants-count">
+                    3 {{ 'sections.products.product.colors_available' | t }}
+                  </strong>
+                  <strong class="product_variants-count">
+                    4 {{ 'sections.products.product.colors_available' | t }}
+                  </strong>
+                </div>
+              </div>
+              <div class="product-column_button-wrap">
+                <button type="button" disabled aria-disabled="true" class="button--variants-toggler button button--product-action button--primary">
+                  {%- liquid 
+                    if settings.show_buttons_icon and element_button_icon != false
+                      render 'icons-data', width: 16, height: 16, use_icon: true, icon_reference: 'cart'
+                    endif
+                  -%}
+                  <span class="product-column_quick-btn-text">
+                    {{- 'sections.products.product.quick_add' | t -}}
+                  </span>
+                </button>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </product-card>
+{%- endunless -%}

@@ -1,0 +1,72 @@
+{% comment %} 
+  usage:
+    this snippet is used to render section heading / description header element
+    
+  code: 
+    {%- render 'element-header' | elem_header_heading_tag: 'h2' | elem_header_heading_spacing: settings.block_spacing -%}
+    
+    - optional attributes
+        | elem_header_custom_class: 'custom-class'
+        | elem_header_offer: boolean { true, false }
+        | elem_header_heading_spacing: settings.block_spacing
+        | elem_header_text_spacing: settings.block_spacing
+        | elem_header_button_label: settings.button_label
+        | elem_header_button_link: settings.button_link
+{% endcomment %}
+
+{%-liquid
+  assign elem_header_classes = 'elem-header'
+  
+  if elem_header_custom_class != blank
+    assign elem_header_classes = elem_header_classes | append: ' '
+    assign elem_header_classes = elem_header_classes | append: elem_header_custom_class
+  endif
+  
+  if elem_header_offer_enabled
+    assign elem_header_classes = elem_header_classes | append: ' ' | append: 'elem-header--offer-enabled'
+  endif
+  
+  if elem_header_button_label != blank
+    assign elem_header_classes = elem_header_classes | append: ' ' | append: 'elem-header--link-enabled'
+  endif
+  
+  if section.settings.section_description != blank
+    assign description = section.settings.section_description
+  endif
+  
+  if section.settings.show_collection_description_from_the_admin and section.settings.collection.description != empty
+    assign description = section.settings.collection.description
+  endif
+-%}
+
+<header class="{{ elem_header_classes }} mty">
+  {% if elem_header_offer_enabled or elem_header_button_label != blank %}
+    <div class="elem-header_col">
+      {%- if section.settings.section_heading != blank -%}
+        {%- render 'element-heading' | elem_heading_tag: elem_header_heading_tag | elem_heading_parent: 'elem-header' | elem_heading_text: section.settings.section_heading | elem_heading_size: section.settings.section_heading_size | elem_heading_custom_class: 'mty' -%}
+      {%- endif -%}
+      {%- if section.settings.section_description != blank -%}
+        <div>
+          {{ description }}
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="elem-header_col">
+      {% if section.settings.end_date != blank %}
+        {%- render 'element-timer' | elem_timer_date: section.settings.end_date -%}
+      {% endif %}
+      {% if elem_header_button_label != blank %}
+        <a {% if elem_header_button_link != blank %}href="{{ elem_header_button_link }}"{% else %}aria-disabled="true"{% endif %} class="element-header_btn-link" title="{{ elem_header_button_label }}">{{ elem_header_button_label }}</a>
+      {% endif %}
+    </div>
+  {% else %}
+    {%- if section.settings.section_heading != blank -%}
+      {%- render 'element-heading' | elem_heading_tag: elem_header_heading_tag | elem_heading_parent: 'elem-header' | elem_heading_text: section.settings.section_heading | elem_heading_size: section.settings.section_heading_size | elem_heading_custom_class: 'mty' -%}
+    {%- endif -%}
+    {% unless description == blank %}
+      <div>
+        {{ description }}
+      </div>
+    {% endunless %}
+  {% endif %}
+</header>

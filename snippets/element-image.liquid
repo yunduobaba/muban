@@ -1,0 +1,44 @@
+{% comment %}
+  usage:
+    this snippet is used to render image tag and placeholder image tag ( if image not set )
+    
+  code:
+    {%- render 'element-image' | elem_image: section.settings.image | elem_image_class: 'image-class' | elem_image_placeholder: 'collection-3' -%}
+{% endcomment %}
+
+{%- unless elem_image == blank -%}
+  {%- liquid
+    assign elem_image_alt = ''
+    
+    if elem_image_alt_text != blank
+      assign elem_image_alt = elem_image_alt_text
+      else
+        assign elem_image_alt = elem_image.alt | default: ''
+    endif
+  
+    capture loading_attr
+      if section.index > 1
+        echo 'lazy'
+        else
+          echo 'eager'
+      endif
+    endcapture
+  -%}
+  {% if elem_image_aria_hidden %}
+    {{-
+      elem_image.src |
+      image_url: width: 840 |
+      image_tag: class: elem_image_class, alt: elem_image_alt, aria-hidden: true, widths: '540, 840', sizes: '(max-width: 767px) 540vw, 840vw', loading: loading_attr |
+      escape
+    -}}
+    {% else %}
+      {{-
+        elem_image.src |
+        image_url: width: 840 |
+        image_tag: class: elem_image_class, alt: elem_image_alt, widths: '540, 840', sizes: '(max-width: 767px) 540vw, 840vw', loading: loading_attr |
+        escape
+      -}}
+  {% endif %}
+{%- else -%}
+  {{- elem_image_placeholder | placeholder_svg_tag: 'img--placeholder' -}}
+{%- endunless -%}
