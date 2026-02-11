@@ -27,9 +27,12 @@
         {%- for childlink in link.links -%}
           <li class="main-dropdown_item {% if childlink.links != blank %}--has-dropdown{% endif %}">
             {%- if childlink.links == blank -%}
+              {% if show_collection_image and childlink.type == 'collection_link' and childlink.object.featured_image != blank %}
+                {% assign is_show_collection_image = true %}
+              {% endif %}
               <a
                 href="{{ childlink.url }}"
-                class="main-dropdown_link {% if childlink.current %} main-dropdown_link--active{% endif %}"{% if childlink.current %} aria-current="page"{% endif %}
+                class="main-dropdown_link {% if is_show_collection_image %} main-dropdown_has-collection-image{% endif %}{% if childlink.current %} main-dropdown_link--active{% endif %}"{% if childlink.current %} aria-current="page"{% endif %}
                 data-level="1"
               >
                 {{ childlink.title | escape }}
