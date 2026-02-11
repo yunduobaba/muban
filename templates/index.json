@@ -85,36 +85,32 @@
         "section_bottom_padding": 0
       }
     },
-    "custom_liquid_bM7KWL": {
-      "type": "custom-liquid",
-      "name": "t:sections.custom_liquid.name",
-      "settings": {
-        "custom_liquid": "<h2>Secret Restocked</h2>",
-        "section_text_alignment": "center",
-        "mobile_text_alignment": false,
-        "section_color_scheme": "",
-        "section_top_padding": 0,
-        "section_bottom_padding": 0
-      }
-    },
     "logo-list": {
       "type": "logo-list",
       "blocks": {
         "logo1": {
           "type": "logo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/1719386635581____secret.webp"
+          }
         },
         "logo2": {
           "type": "logo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/1745405704500____id-secret.webp"
+          }
         },
         "logo3": {
           "type": "logo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/1769768939763____secret_sunset-shimmer.webp"
+          }
         },
         "logo4": {
           "type": "logo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/1761300557700____secret_merbaby-tears.webp"
+          }
         }
       },
       "block_order": [
@@ -123,16 +119,17 @@
         "logo3",
         "logo4"
       ],
+      "disabled": true,
       "settings": {
         "number_of_columns_on_desktop": 4,
         "section_color_scheme": "scheme1",
-        "enable_grayscale": true,
+        "enable_grayscale": false,
         "full_screen_width": false,
         "enable_marquee": false,
         "marquee_speed": 15,
         "marquee_direction": "marquee_forward",
         "marquee_on_hover": false,
-        "section_top_padding": 28,
+        "section_top_padding": 0,
         "section_bottom_padding": 46
       }
     },
@@ -341,8 +338,9 @@
         "banner1": {
           "type": "banner",
           "settings": {
-            "button_label": "",
-            "button_position": "bottom_right",
+            "image": "shopify://shop_images/1745405704500____id-secret_2cc90ec4-ecdf-4439-982d-3ccbc3a08108.webp",
+            "button_label": "Secret Restocked",
+            "button_position": "bottom_full",
             "link": "",
             "open_new_window": false,
             "section_color_scheme": "scheme6",
@@ -353,8 +351,9 @@
         "banner2": {
           "type": "banner",
           "settings": {
+            "image": "shopify://shop_images/1769768977234____secret_queen-chrysalis.webp",
             "button_label": "",
-            "button_position": "bottom_right",
+            "button_position": "bottom_full",
             "link": "",
             "open_new_window": false,
             "section_color_scheme": "scheme6",
@@ -365,6 +364,7 @@
         "banner3": {
           "type": "banner",
           "settings": {
+            "image": "shopify://shop_images/1755857801277____secret_heart.webp",
             "button_label": "",
             "button_position": "bottom_right",
             "link": "",
@@ -380,7 +380,6 @@
         "banner2",
         "banner3"
       ],
-      "disabled": true,
       "settings": {
         "desktop_row_height": 215,
         "mobile_row_height": 150,
@@ -793,7 +792,6 @@
   },
   "order": [
     "banner-slideshow",
-    "custom_liquid_bM7KWL",
     "logo-list",
     "scrolling-banner",
     "top-collection",
