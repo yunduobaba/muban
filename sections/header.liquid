@@ -274,7 +274,17 @@
           <div class="{{ section_prefix_class }}_desktop">
             <nav class="{{ section_prefix_class }}_nav">
               <ul class="list-unstyled main-navigation main-navigation--desktop">
+                {% assign show_collection_image = false %}
+                {% assign nav_titles = section.settings.nav_title | split: ',' %}
                 {%- for link in section.settings.menu.links -%}
+                  {% for nav_title in nav_titles %}
+                    {%- if link.title == nav_title -%}
+                      {%- assign show_collection_image = true -%}
+                      {%- break -%}
+                    {% else %}
+                      {%- assign show_collection_image = false -%}
+                    {%- endif -%}
+                  {% endfor %}
                   {%- assign main_item_index = forloop.index | times: 1 -%}
                   {%- if link.links != blank -%}
                     {%- assign iteration = 0 -%}
