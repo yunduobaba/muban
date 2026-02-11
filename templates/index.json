@@ -181,17 +181,29 @@
             "open_new_window": false,
             "stencil_text": false
           }
+        },
+        "text_A6pkce": {
+          "type": "text",
+          "settings": {
+            "text": "Twinkle Twinkle",
+            "image": "shopify://shop_images/1755585667354______twinkle-twinkle_123______1.webp",
+            "image_type": "circle",
+            "link": "shopify://collections/twinkle-twinkle",
+            "open_new_window": false,
+            "stencil_text": false
+          }
         }
       },
       "block_order": [
         "banner1",
         "banner2",
         "banner3",
-        "banner4"
+        "banner4",
+        "text_A6pkce"
       ],
       "settings": {
         "marquee_speed": 20,
-        "marquee_direction": "marquee_backward",
+        "marquee_direction": "marquee_forward",
         "marquee_on_hover": true,
         "full_screen_width": false,
         "section_separate": true,
