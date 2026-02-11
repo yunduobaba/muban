@@ -35,6 +35,9 @@
                 class="main-dropdown_link {% if is_show_collection_image %} main-dropdown_has-collection-image{% endif %}{% if childlink.current %} main-dropdown_link--active{% endif %}"{% if childlink.current %} aria-current="page"{% endif %}
                 data-level="1"
               >
+                {% if is_show_collection_image %}
+                  {{ childlink.object.featured_image | image_url: width: 24 | image_tag: class: 'main-dropdown_collection-image' }}
+                {% endif %}
                 {{ childlink.title | escape }}
               </a>
               {%- else -%}
