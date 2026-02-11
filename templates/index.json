@@ -353,8 +353,8 @@
           "settings": {
             "image": "shopify://shop_images/1769768977234____secret_queen-chrysalis.webp",
             "button_label": "",
-            "button_position": "bottom_full",
-            "link": "",
+            "button_position": "bottom_left",
+            "link": "shopify://collections/all-products",
             "open_new_window": false,
             "section_color_scheme": "scheme6",
             "columns": 3,
