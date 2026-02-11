@@ -103,31 +103,21 @@
         "logo4": {
           "type": "logo",
           "settings": {}
-        },
-        "logo5": {
-          "type": "logo",
-          "settings": {}
-        },
-        "logo6": {
-          "type": "logo",
-          "settings": {}
         }
       },
       "block_order": [
         "logo1",
         "logo2",
         "logo3",
-        "logo4",
-        "logo5",
-        "logo6"
+        "logo4"
       ],
       "disabled": true,
       "settings": {
-        "number_of_columns_on_desktop": 6,
+        "number_of_columns_on_desktop": 4,
         "section_color_scheme": "scheme1",
         "enable_grayscale": true,
         "full_screen_width": false,
-        "enable_marquee": true,
+        "enable_marquee": false,
         "marquee_speed": 15,
         "marquee_direction": "marquee_forward",
         "marquee_on_hover": false,
@@ -387,92 +377,6 @@
         "section_bottom_padding": 30
       }
     },
-    "top-collection-eclipse": {
-      "type": "collection-list",
-      "blocks": {
-        "collection1": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "badge_label": "",
-            "badge_bg": "#121212",
-            "badge_text": "#ffffff",
-            "block_color_scheme": ""
-          }
-        },
-        "collection2": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "badge_label": "",
-            "badge_bg": "#121212",
-            "badge_text": "#ffffff",
-            "block_color_scheme": ""
-          }
-        },
-        "collection3": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "badge_label": "",
-            "badge_bg": "#121212",
-            "badge_text": "#ffffff",
-            "block_color_scheme": ""
-          }
-        },
-        "collection4": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "badge_label": "",
-            "badge_bg": "#121212",
-            "badge_text": "#ffffff",
-            "block_color_scheme": ""
-          }
-        },
-        "collection5": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "badge_label": "",
-            "badge_bg": "#121212",
-            "badge_text": "#ffffff",
-            "block_color_scheme": ""
-          }
-        }
-      },
-      "block_order": [
-        "collection1",
-        "collection2",
-        "collection3",
-        "collection4",
-        "collection5"
-      ],
-      "disabled": true,
-      "settings": {
-        "section_heading": "Shop by age",
-        "section_heading_size": "heading_large",
-        "section_description": "",
-        "section_view_more_all": "",
-        "section_view_more_link": "",
-        "number_of_columns_on_desktop": 5,
-        "section_text_alignment": "center",
-        "mobile_text_alignment": false,
-        "show_title": true,
-        "card_view_layout": "eclipse",
-        "animate_on_hover": true,
-        "column_heading_size": "heading_x_small",
-        "section_block_text_alignment": "center",
-        "section_color_scheme": "scheme1",
-        "enable_slideshow": false,
-        "auto_play": false,
-        "show_navigation": false,
-        "pagination": "lines",
-        "change_slides_every": 5,
-        "section_top_padding": 65,
-        "section_bottom_padding": 97
-      }
-    },
     "scrolling-banner-text": {
       "type": "scrolling-banner",
       "blocks": {
@@ -626,7 +530,7 @@
         "show_vendor": true,
         "enable_compare_button": false,
         "enable_quick_add_button": false,
-        "section_text_alignment": "left",
+        "section_text_alignment": "center",
         "mobile_text_alignment": false,
         "section_color_scheme": "scheme1",
         "enable_slideshow": false,
@@ -660,6 +564,7 @@
         "image1",
         "video1"
       ],
+      "disabled": true,
       "settings": {
         "section_subheading": "Subheading",
         "section_subheading_size": "heading_medium",
@@ -718,6 +623,7 @@
         "collection3",
         "collection4"
       ],
+      "disabled": true,
       "settings": {
         "section_heading": "Featured collection tabs",
         "section_heading_size": "heading_large",
@@ -783,6 +689,7 @@
         "column3",
         "column4"
       ],
+      "disabled": true,
       "settings": {
         "section_heading": "",
         "section_heading_size": "heading_large",
@@ -802,43 +709,6 @@
         "change_slides_every": 5,
         "section_top_padding": 50,
         "section_bottom_padding": 50
-      }
-    },
-    "featured-collection-giftcard": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "",
-        "end_date": "",
-        "end_message": "",
-        "section_heading": "Gift Cards",
-        "section_heading_size": "heading_large",
-        "section_description": "for the next two weeks, take 20% off all float products!",
-        "enable_show_more_button": false,
-        "show_more_button_label": "View All Deals",
-        "number_of_columns_on_desktop": 4,
-        "number_of_rows": 3,
-        "number_of_columns_on_mobile": "2",
-        "mob_cols_query": 576,
-        "hide_qty_field_on_mob": false,
-        "hide_info_bar_on_mob": false,
-        "column_image_ratio": "adapt_to_image",
-        "section_view_layout": "section_layout_ii",
-        "show_product_rating": false,
-        "show_inventory": false,
-        "show_savings_badge": false,
-        "show_vendor": false,
-        "enable_compare_button": false,
-        "enable_quick_add_button": false,
-        "section_text_alignment": "left",
-        "mobile_text_alignment": false,
-        "section_color_scheme": "scheme1",
-        "enable_slideshow": true,
-        "auto_play": false,
-        "show_navigation": true,
-        "pagination": "none",
-        "change_slides_every": 5,
-        "section_top_padding": 81,
-        "section_bottom_padding": 26
       }
     },
     "testimonials": {
@@ -908,22 +778,74 @@
         "section_top_padding": 26,
         "section_bottom_padding": 100
       }
+    },
+    "promotion_banners_qMwNfj": {
+      "type": "promotion-banners",
+      "blocks": {
+        "banner_d3tRkh": {
+          "type": "banner",
+          "settings": {
+            "button_label": "",
+            "button_position": "bottom_right",
+            "link": "",
+            "open_new_window": false,
+            "section_color_scheme": "",
+            "columns": 3,
+            "rows": 2
+          }
+        },
+        "banner_7PFDat": {
+          "type": "banner",
+          "settings": {
+            "button_label": "",
+            "button_position": "bottom_right",
+            "link": "",
+            "open_new_window": false,
+            "section_color_scheme": "",
+            "columns": 3,
+            "rows": 1
+          }
+        },
+        "banner_zMUerQ": {
+          "type": "banner",
+          "settings": {
+            "button_label": "",
+            "button_position": "bottom_right",
+            "link": "",
+            "open_new_window": false,
+            "section_color_scheme": "",
+            "columns": 3,
+            "rows": 1
+          }
+        }
+      },
+      "block_order": [
+        "banner_d3tRkh",
+        "banner_7PFDat",
+        "banner_zMUerQ"
+      ],
+      "name": "t:sections.promotion_banners.name",
+      "settings": {
+        "desktop_row_height": 215,
+        "mobile_row_height": 150,
+        "section_top_padding": 50,
+        "section_bottom_padding": 50
+      }
     }
   },
   "order": [
     "banner-slideshow",
+    "promotion_banners_qMwNfj",
     "logo-list",
     "scrolling-banner",
     "top-collection",
     "banners-collage",
-    "top-collection-eclipse",
     "scrolling-banner-text",
     "banners-collage-large",
     "featured-collection",
     "media-with-text",
     "featured-collection-tabset",
     "multicolumn",
-    "featured-collection-giftcard",
     "testimonials"
   ]
 }
