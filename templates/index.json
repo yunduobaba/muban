@@ -309,6 +309,7 @@
         "collection4",
         "collection5"
       ],
+      "disabled": true,
       "settings": {
         "section_heading": "Shop our top collections",
         "section_heading_size": "heading_large",
@@ -378,6 +379,7 @@
         "banner2",
         "banner3"
       ],
+      "disabled": true,
       "settings": {
         "desktop_row_height": 215,
         "mobile_row_height": 150,
@@ -446,6 +448,7 @@
         "collection4",
         "collection5"
       ],
+      "disabled": true,
       "settings": {
         "section_heading": "Shop by age",
         "section_heading_size": "heading_large",
@@ -520,6 +523,7 @@
         "banner3",
         "banner4"
       ],
+      "disabled": true,
       "settings": {
         "marquee_speed": 20,
         "marquee_direction": "marquee_backward",
@@ -589,6 +593,7 @@
         "banner3",
         "banner4"
       ],
+      "disabled": true,
       "settings": {
         "desktop_row_height": 215,
         "mobile_row_height": 150,
@@ -610,7 +615,7 @@
         "number_of_columns_on_desktop": 4,
         "number_of_rows": 2,
         "number_of_columns_on_mobile": "2",
-        "mob_cols_query": 416,
+        "mob_cols_query": 640,
         "hide_qty_field_on_mob": true,
         "hide_info_bar_on_mob": true,
         "column_image_ratio": "adapt_to_image",
