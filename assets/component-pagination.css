@@ -1,0 +1,28 @@
+.pagination__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pagination__item {
+  text-decoration: none;
+  color: var(--section-alternative-color);
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 2.905rem;
+  transition: color 0.35s ease;
+}
+
+.pagination__list > li a.pagination__item--current,
+.pagination__list > li a:hover {
+  color: var(--section-active-hover-color);
+}
+
+.pagination__list .pagination__item{
+  display: block;
+  padding: 0.75rem 1.7rem;
+}
+
+.pagination-wrapper .pagination__list{
+	justify-content: center;
+}

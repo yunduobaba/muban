@@ -1,0 +1,145 @@
+.announcement-bar{
+  word-break: break-word;
+}
+
+.announcement-bar.hidebar{
+  display: none;
+}
+
+.close-btn-active .announcement-bar_btn-close{
+  background-color: var(--section-background-color);
+}
+
+.announcement-bar_block-wrapper,
+.announcement-bar_countdown-timer{
+  display: flex;
+  align-items: center;
+}
+
+.announcement-bar_block-wrapper{
+  column-gap: 13px;
+  position: relative;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.announcement-bar .countdown-timer_message{
+  max-width: 200px;
+}
+
+.announcement-bar .marquee-component_col{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.announcement-bar_countdown-timer{
+  flex-shrink: 0;
+  column-gap: 15px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 3.4rem;
+  justify-content: center;
+  flex-direction: column;
+  display: none;
+}
+
+.announcement-bar_block-wrapper .offer-time .text{
+  top: 1px;
+}
+
+.announcement-bar_btn-close{
+  border: 0;
+  padding: 0;
+  height: 30px;
+  display: flex;
+  min-width: 30px;
+  margin-left: auto;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  position: absolute;
+  top: 0px;
+  right: -10px;
+  color: var(--section-text-color);
+}
+
+.announcement-bar_btn-close svg{
+  width: 11px;
+  height: auto;
+  transition: transform 0.1s ease;
+  transform-origin: 50% 50% 0;
+}
+
+.announcement-bar_btn-close:hover svg{
+  transform: scale(1.1);
+}
+
+.announcement-bar_sale-text{
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.announcement-bar_countdown-timer + .announcement-bar_sale-text{
+  margin-left: 30px;
+}
+
+.announcement-bar_heading{
+  font-weight: 800;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  padding-right: 10px;
+  text-transform: uppercase;
+}
+
+.announcement-bar_sale-text .text-wrap{
+  display: flex;
+  column-gap: 13px;
+  align-items: center;
+}
+
+.announcement-bar_subheading{
+  margin-left: 5px;
+  font-size: 1.2rem;
+  line-height: 2rem;
+  padding-right: 8px;
+}
+
+.announcement-bar_subheading a{
+  font-weight: 900;
+}
+
+.announcement-bar .offer-time{
+  flex-shrink: 0;
+}
+
+@media (min-width: 576px){
+  .announcement-bar_countdown-timer{
+    flex-direction: row;
+    justify-content: flex-start;
+    display: flex;
+  }
+}
+
+@media (min-width: 768px){
+  .announcement-bar_countdown-timer{
+    max-width: 50%;
+  }
+  
+  .announcement-bar_block-wrapper{
+    flex-direction: row;
+    overflow: visible;
+  }
+
+  .announcement-bar_btn-close {
+    position: relative;
+    top: auto;
+    right: auto;
+  }
+}
+
+@media (min-width: 992px){
+  .announcement-bar .marquee-component_col {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+}

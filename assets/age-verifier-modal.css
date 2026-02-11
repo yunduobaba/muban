@@ -1,0 +1,67 @@
+.modal-component--age-verifier .modal-component_body{
+  max-width: 488px;
+  padding: 25px;
+}
+
+.age-verifier_description,
+.age-verifier_heading{
+  word-break: break-word;
+}
+
+.age-verifier_description p{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.age-error-container:not(.hidden){
+  margin-top: 34px;
+}
+
+.age-verifier_heading{
+  display: block;
+}
+
+.age-verifier_btns-wrap{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  width: 100%;
+}
+
+.age-verifier_image{
+  line-height: 0;
+  overflow: hidden;
+  border-radius: calc(var(--section-top-radius) / 2) calc(var(--section-bottom-radius) / 2);
+}
+
+.age-verifier_image img{
+  border-radius: inherit;
+}
+
+.modal-component--age-verifier .--mobile-hidden{
+  display: none;
+}
+
+.modal-component--age-verifier .mty {
+  --mt-bottom: calc(var(--block-spacing)/1.5);
+}
+
+.age-verifier_image .img--placeholder path{
+  fill: currentColor;
+}
+
+@media (min-width: 768px) {
+  .modal-component--age-verifier .modal-component_body{
+    padding: 35px 58px;
+  }
+
+  .modal-component--age-verifier .--mobile-hidden{
+    display: block;
+  }
+}
+
+@media (min-width: 1200px){
+  .modal-component--age-verifier .mty{
+    --mt-bottom: var(--block-spacing);
+  }
+}

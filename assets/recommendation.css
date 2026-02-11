@@ -1,0 +1,69 @@
+.recommendation_wrapper{
+  --top-radius: 15px;
+  --input-radius: 5px;
+  --button-radius: 5px;
+  --bottom-radius: 15px;
+  --padding-top: calc(var(--section-padding-top)/100*70);
+  --padding-bottom: calc(var(--section-padding-bottom)/100*70);
+  padding-top: var(--padding-top);
+  padding-bottom: var(--padding-bottom);
+  --mobile-columns-count: var(--columns-count-mob);
+  --desktop-columns-count: var(--columns-count-mob);
+}
+
+.recommendation_wrapper .container{
+  position: relative;
+}
+
+.recommendation_wrapper .elem-header{
+  margin-bottom: 30px;
+}
+
+.recommendation_wrapper .elem-header p{
+  margin: 20px 0 0;
+}
+
+@media (min-width: 768px){
+  .recommendation_wrapper{
+    --desktop-columns-count: 2;
+    --padding-top: calc(var(--section-padding-top)/100*85);
+    --padding-bottom: calc(var(--section-padding-bottom)/100*85);
+  }
+}
+
+@media (min-width: 992px) {
+  .recommendation_wrapper{
+    --desktop-columns-count: 3;
+  }
+
+  .recommendation_wrapper .elem-header{
+    margin-bottom: 45px;
+  }
+}
+
+@media (min-width: 1200px){
+  .recommendation_wrapper{
+    --top-radius: var(--section-top-radius);
+    --top-padding: var(--section-padding-top);
+    --input-radius: var(--input-corner-radius);
+    --button-radius: var(--button-corner-radius);
+    --bottom-radius: var(--section-bottom-radius);
+    --bottom-padding: var(--section-padding-bottom);
+    --desktop-columns-count: var(--columns-count);
+  }
+
+  .recommendation_wrapper .elem-header{
+    margin-bottom: 56px;
+  }
+}
+
+@media (max-width: 767px) {
+  .recommendation .--hide-infos-mob .product-column_stats-wrap{
+    display: none;
+  }
+  
+  .recommendation .button--product-action .button--text, 
+  .recommendation .product-column_quick-btn-text{
+    margin-top: 1px;
+  }
+}

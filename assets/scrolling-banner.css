@@ -1,0 +1,121 @@
+.scrolling-banner_item {
+  margin-right: 41px;
+  margin-left: 9px;
+}
+
+.scrolling-banner_wrapper{
+  position: relative;
+  --padding-top: calc(var(--section-padding-top)/100*70);
+  --padding-bottom: calc(var(--section-padding-bottom)/100*70);
+  padding-top: var(--padding-top);
+  padding-bottom: var(--padding-bottom);
+}
+
+.scrolling-banner.section_border .scrolling-banner_wrapper:after{
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border: solid var(--section-border-color);
+  border-width: 1px 0;
+}
+
+.scrolling-banner a{
+  text-decoration: none;
+}
+
+.scrolling-banner_text-wrap{
+  display: flex;
+  align-items: center;
+  column-gap: 18px;
+}
+
+.scrolling-banner_img{
+  flex-shrink: 0;
+  position: relative;
+}
+
+.scrolling-banner_img.--circle,
+.scrolling-banner_img.--square{
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 100%;
+}
+
+.scrolling-banner .marquee-component_col{
+  padding-left: 0;
+  padding-right: 0;
+  display: flex;
+  align-items: center;
+}
+
+.scrolling-banner_img.--square{
+  border-radius: 14px;
+}
+
+.scrolling-banner_img.--landscape{
+  overflow: hidden;
+  width: 90px;
+  height: 50px;
+  border-radius: 99px;
+}
+
+.scrolling-banner_img img,
+.scrolling-banner_img .img--placeholder{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.scrolling-banner_item.--separator-on{
+  position: relative;
+}
+
+.scrolling-banner_text{
+  font-size: 2.45rem;
+  font-weight: 800;
+}
+
+.--separator-on::before{
+  left: -3px;
+  top: 50%;
+  width: 9px;
+  height: 4px;
+  content: "";
+  position: absolute;
+  transform: translate(-50%);
+  background: var(--section-text-color);
+  border-radius: 2px;
+}
+
+.--text-simple .scrolling-banner_text{
+  padding-left: 38px;
+  font-size: 2.85rem;
+  font-weight: 800;
+}
+
+.--stencil-on .scrolling-banner_text{
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 1px;
+  font-size: 2.55rem;
+  font-weight: 900;
+}
+
+@media (min-width: 768px){
+  .scrolling-banner_wrapper{
+    --padding-top: calc(var(--section-padding-top)/100*85);
+    --padding-bottom: calc(var(--section-padding-bottom)/100*85);
+  }
+}
+
+@media (min-width: 1200px){
+  .scrolling-banner_wrapper{
+    --padding-top: var(--section-padding-top);
+    --padding-bottom: var(--section-padding-bottom);
+  }
+}

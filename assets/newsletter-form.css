@@ -1,0 +1,103 @@
+.newsletter-form_form-group{
+  position: relative;
+  margin: 0 0 10px;
+}
+
+.newsletter-form_label{
+  display: block;
+}
+
+.newsletter-form_form-group .form-control{
+  --input-height: 6rem;
+  padding-right: 70px;
+}
+
+.email-signup .newsletter-form_submit-button,
+.footer-top .newsletter-form_submit-button{
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2.6rem 2.5rem;
+  background-color: transparent;
+  border: 0;
+  line-height: 0;
+  transition: all ease 0.3s;
+  color: var(--section-input-text-color);
+}
+
+.email-signup .newsletter-form_submit-button svg,
+.footer-top .newsletter-form_submit-button svg{
+  transition: all ease 0.3s;
+  color: var(--section-input-text-color);
+}
+
+.email-signup .newsletter-form_submit-button:hover,
+.footer-top .newsletter-form_submit-button:hover{
+  opacity: 0.8;
+}
+
+.email-signup .newsletter-form_submit-button:hover svg,
+.footer-top .newsletter-form_submit-button:hover svg{
+  transform: translateX(10px);
+}
+
+.newsletter-form .newsletter-form_description{
+  font-size: 1.4rem;
+  line-height: 2.5rem;
+}
+
+.newsletter-form_results-wrap{
+  margin: 0 0 10px;
+  font-size: 1.4rem;
+  line-height: 2.5rem;
+}
+
+.newsletter-form_errors-wrap{
+  color: var(--section-error-color);
+}
+
+.newsletter-form_success-wrap{
+  color: var(--section-success-color);
+}
+
+.newsletter-form_errors-wrap .ico,
+.newsletter-form_success-wrap .ico{
+  vertical-align: -0.4em;
+  margin-right: 3px;
+}
+
+.shopify-challenge__container{
+  overflow: hidden;
+  text-align: center;
+  padding: var(--grid-gutter-x);
+}
+
+.shopify-challenge__container .shopify-challenge__button{
+  --button-background: #D21170;
+  --button-text: #fff;
+  --button-border-color: #D21170;
+  --button-hover-background: #222222;
+  --button-hover-text: #FDE9F3;
+  --button-hover-border-color: #222222;
+  --button-font-family: var(--font-general-family);
+  --button-font-weight: var(--font-general-weight);
+  --button-font-style: var(--font-general-style);
+  --button-font-size: 1.4rem;
+  --button-line-height: 1.9rem;
+  --button-border: var(--button-border-width);
+  --button-radius: var(--button-corner-radius);
+  --button-padding-y: 1.4rem;
+  --button-padding-x: 3.2rem;
+  background-color: var(--button-background);
+  border: var(--button-border) solid var(--button-border-color);
+  color: var(--button-text);
+  font: var(--button-font-style) var(--button-font-weight) var(--button-font-size)/var(--button-line-height) var(--button-font-family);
+  border-radius: var(--button-radius);
+  transition: border-color .3s ease,background-color .3s ease,color .3s ease;
+  padding: var(--button-padding-y) var(--button-padding-x);
+  box-shadow: none;
+  display: inline-block;
+  margin-top: 10px;
+  vertical-align: top;
+  text-decoration: none;
+}

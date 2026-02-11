@@ -1,0 +1,65 @@
+.anim--shine{
+	position: relative;
+  overflow: hidden;
+}
+
+.anim--shine::before{
+	position: absolute;
+	top: 0;
+	left: -105%;
+	z-index: 2;
+	display: block;
+	content: '';
+	width: 50%;
+	height: 100%;
+	background-image: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
+	transform: skewX(-25deg);
+}
+.anim--shine:hover::before{
+	animation: shine 1s ease-in-out;
+}
+
+@keyframes shine {
+	100% {
+		left: 125%;
+	}
+}
+
+.--hover-underline{
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.--hover-underline::before{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background-color: currentColor;
+  bottom: 0;
+  left: 0;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform .3s ease-in-out;
+}
+
+.--hover-underline:hover::before{
+  transform-origin: left;
+  transform: scaleX(1);
+}
+
+.button--primary,
+.button--secondary{
+  background-image: linear-gradient(90deg, var(--button-hover-background-rgb) 0%, var(--button-hover-background-rgb) 100%);
+  background-size: 100% 0;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+}
+
+.button--primary:hover,
+.button--secondary:hover{
+  background-size: 100% 100%;
+  background-color: transparent !important;
+}

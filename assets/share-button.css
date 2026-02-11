@@ -1,0 +1,71 @@
+.dropdown-component--share{
+  position: relative;
+  display: block;
+}
+
+.dropdown-component--share .dropdown-component_wrapper{
+  left: auto;
+  right: 0;
+  border-radius: calc(var(--top-radius)/2) calc(var(--top-radius)/2) calc(var(--bottom-radius)/2) calc(var(--bottom-radius)/2);
+  width: 400px;
+  padding: 0;
+}
+
+.share-content_wrapper{
+  padding: 40px 10px 10px;
+  position: relative;
+}
+
+.dropdown-component--share .share-button__fallback{
+  width: 450px;
+  padding: 38px 10px 13px;
+}
+
+.dropdown-component--share .field__label{
+  top: 5px;
+  left: 23px;
+  font-size: 12px;
+  position: absolute;
+}
+
+.dropdown-component--share .share-button__copy{
+  border: 0;
+  right: 10px;
+  bottom: 7px;
+  background: 0;
+  position: absolute;
+  padding: 14px;
+  line-height: 0;
+  color: inherit;
+}
+
+.dropdown-component--share .field{
+  width: calc(100% - 50px);
+}
+
+.dropdown-component--share .share-button__message{
+  top: 10px;
+  left: 23px;
+  z-index: 1;
+  font-size: 12px;
+  line-height: 20px;
+  position: absolute;
+  background: var(--section-background-color);
+}
+
+.dropdown-component--share .share-button__close{
+  top: 7px;
+  border: 0;
+  padding: 0;
+  right: 7px;
+  position: absolute;
+  background: transparent;
+  padding: 7px;
+  line-height: 0;
+  color: inherit;
+}
+
+.dropdown-component--share .share-button__close svg{
+  width: 10px;
+  height: auto;
+}

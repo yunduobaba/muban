@@ -1,0 +1,96 @@
+.collection-list{
+  --top-radius: 15px;
+  --bottom-radius: 15px;
+  --button-radius: 15px;
+  --mobile-columns-count: 1;
+}
+
+.collection-list_wrapper{
+  --padding-top: calc(var(--section-padding-top)/100*70);
+  --padding-bottom: calc(var(--section-padding-bottom)/100*70);
+  padding-top: var(--padding-top);
+  padding-bottom: var(--padding-bottom);
+}
+
+.collection-list .collection-slider,
+.collection-list .collection-list_grid{
+  gap: 20px;
+  padding-top: 20px;
+}
+
+.collection-list .elem-header .mty{
+  --mt-bottom: 5px;
+}
+
+.collection-list .elem-header .elem-header_text{
+  font-weight: 500;
+  --mt-top: 10px;
+}
+
+.collection-list .elem-header_text p{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.collection-list_holder{
+  position: relative;
+}
+
+.collection-list_wrapper .splide{
+  position: static;
+}
+
+@media (min-width: 576px){
+  .collection-list{
+    --mobile-columns-count: 2;
+  }
+
+  .collection-list .collection-slider,
+  .collection-list .collection-list_grid{
+    padding-top: 25px;
+  }
+}
+
+@media (min-width: 768px){
+  .collection-list_wrapper{
+    --padding-top: calc(var(--section-padding-top)/100*85);
+    --padding-bottom: calc(var(--section-padding-bottom)/100*85);
+  }
+  
+  .--align-center .collection-list_slider{
+    position: relative;
+  }
+  
+  .collection-list{
+    --desktop-columns-count: 3;
+  }
+
+  .collection-list .collection-slider,
+  .collection-list .collection-list_grid{
+    padding-top: 35px;
+  }
+}
+
+@media (min-width: 992px) {
+  .collection-list{
+    --desktop-columns-count: var(--columns-count);
+  }
+
+  .collection-list .collection-slider,
+  .collection-list .collection-list_grid{
+    padding-top: 46px;
+  }
+}
+
+@media (min-width: 1200px){
+  .collection-list{
+    --top-radius: var(--section-top-radius);
+    --button-radius: var(--button-corner-radius);
+    --bottom-radius: var(--section-bottom-radius);
+  }
+
+  .collection-list_wrapper{
+    --padding-top: var(--section-padding-top);
+    --padding-bottom: var(--section-padding-bottom);
+  }
+}

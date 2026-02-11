@@ -1,0 +1,63 @@
+.breadcrumbs{
+  padding-top: 11px;
+  margin-bottom: 40px;
+}
+
+.breadcrumbs_list{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 20px;
+  word-break: break-word;
+}
+
+.breadcrumbs_list .breadcrumbs_item{
+  margin-left: 4px;
+  margin-right: 14px;
+  position: relative;
+}
+
+.breadcrumbs_list .back-btn-icn{
+  margin-right: 30px;
+  vertical-align: -0.1em;
+}
+
+.breadcrumbs_list .breadcrumbs_item:after{
+  top: 20px;
+  width: 6px;
+  height: 6px;
+  content: "";
+  right: -24px;
+  position: absolute;
+  transform: rotate(45deg);
+  border: solid var(--section-alternative-color);
+  border-width: 1px 1px 0 0;
+}
+
+.breadcrumbs_list .breadcrumbs_item:last-child:after{
+  display: none;
+}
+
+.breadcrumbs_list .breadcrumbs_link{
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  text-decoration: none;
+  transition: all ease 0.3s;
+  display: inline-block;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.breadcrumbs_link a{
+  text-decoration: none;
+}
+
+.breadcrumbs_list .breadcrumbs_link:hover .text,
+.breadcrumbs_list .breadcrumbs_link[aria-current="page"] .text{
+  opacity: 1;
+}
+
+.breadcrumbs_list .breadcrumbs_link .ico-button{
+  width: 12px;
+  height: auto;
+}

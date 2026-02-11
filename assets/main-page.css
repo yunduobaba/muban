@@ -1,0 +1,94 @@
+.main-page .main-page_wrapper {
+  --padding-top: calc(var(--section-padding-top)/100*70);
+  --padding-bottom: calc(var(--section-padding-bottom)/100*70);
+  padding-top: var(--padding-top);
+  padding-bottom: var(--padding-bottom);
+}
+
+.main-page_heading {
+  margin-bottom: 15px;
+  font-weight: 800;
+}
+
+.main-page .rte {
+  font-size: 1.8rem;
+  line-height: 3.1rem;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.main-page .rte a {
+  transition: color .35s ease;
+}
+
+.main-page .rte a:hover {
+  color: var(--section-primary-bg);
+}
+
+.main-page .rte img,
+.main-page .rte iframe {
+  max-width: 100%;
+  border: 0;
+  --top-radius: var(--section-top-radius);
+  --bottom-radius: var(--section-bottom-radius);
+  border-radius: calc(var(--top-radius)/1.5) calc(var(--top-radius)/1.5) calc(var(--bottom-radius)/1.5) calc(var(--bottom-radius)/1.5);
+}
+
+.main-page .rte table ul,
+.main-page .rte table ol {
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.main-page table:not([class]) {
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 1.6rem;
+  border-style: hidden;
+  border: 1px solid var(--section-border-color);
+}
+
+.main-page table:not([class]) td, 
+.main-page table:not([class]) th {
+  padding: 20px 10px;
+  border: 1px solid var(--section-border-color);
+}
+
+.main-page blockquote {
+  font-style: italic;
+  border-left: 0.2rem solid var(--section-border-color);
+  padding-left: 1rem;
+  margin-left: 2rem;
+}
+
+.main-page blockquote > * {
+  margin: -0.5rem 0;
+}
+
+@media (min-width: 768px){
+  .main-page .rte table td {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  }
+  
+  .main-page blockquote {
+    padding-left: 1.5rem;
+  }
+  
+  .main-page {
+    --padding-top: 30px;
+    --padding-bottom: 50px;
+  }
+
+  .main-page .main-page_wrapper {
+    --padding-top: calc(var(--section-padding-top)/100*85);
+    --padding-bottom: calc(var(--section-padding-bottom)/100*85);
+  }
+}
+
+@media (min-width: 1200px){
+  .main-page .main-page_wrapper {
+    --padding-top: var(--section-padding-top);
+    --padding-bottom: var(--section-padding-bottom);
+  }
+}

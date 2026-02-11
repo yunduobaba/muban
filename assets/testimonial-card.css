@@ -1,0 +1,49 @@
+.testimonial-card{
+  padding: 0;
+  margin: 0;
+  font-size: 2rem;
+}
+
+.testimonial-card::before{
+  display: none;
+}
+
+.testimonial-card .testimonial-card_quote{
+  quotes: none;
+  display: block;
+  line-height: 4rem;
+}
+
+.testimonial-card .testimonial-card_quote.mty{
+  --mt-bottom: 20px;
+}
+
+.testimonial-card .testimonial-card_quote:before,
+.testimonial-card .testimonial-card_quote:after{
+  display: none;
+}
+
+.testimonial-card .rating-list li{
+  opacity: 0.5;
+}
+
+.testimonial-card .rating-list li.rating-list_filled{
+  opacity: 1;
+}
+
+.testimonial-card .rating-list{
+  display: flex;
+  line-height: 0;
+  column-gap: 4px;
+}
+
+.testimonial-card_author-name{
+  font-weight: 600;
+  display: block;
+  color: var(--section-alternative-color);
+  word-break: break-word;
+}
+
+.testimonial-card_author-name.mty{
+  --mt-bottom: 10px;
+}

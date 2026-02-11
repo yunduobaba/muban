@@ -1,0 +1,85 @@
+.column-card_description{
+  word-break: break-word;
+}
+
+.column-card_image{
+  position: relative;
+}
+
+.column-card_image img{
+  vertical-align: top;
+}
+
+.column-card_image.--justify-content-center{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.column-card_image.--justify-content-end{
+  margin-left: auto;
+}
+
+.multicolumn.--full_width .column-card_image,
+.multicolumn.--half_width .column-card_image img,
+.multicolumn.--full_width .column-card_image img,
+.multicolumn.--one_third_width .column-card_image,
+.multicolumn.--one_third_width .column-card_image img{
+  width: 100%;
+}
+
+.multicolumn.--half_width .column-card_image{
+  width: 50%;
+}
+
+.multicolumn.--one_third_width .column-card_image{
+  width: 25%;
+}
+
+.multicolumn.--position-image .column-card_image img{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+}
+
+.multicolumn.--portrait-media .column-card_image .img-holder{
+  padding-top: 125%;
+}
+
+.multicolumn.--landscape-media .column-card_image .img-holder{
+  padding-top: 50%;
+}
+
+.multicolumn.--square-media .column-card_image .img-holder{
+  padding-top: 100%;
+}
+
+.column-card_heading{
+  text-decoration: underline;
+}
+
+.column-card_image.mty{
+  --mt-bottom: 25px;
+}
+
+.column-card_heading.mty{
+  --mt-bottom: 15px;
+}
+
+.column-card_buttons-wrap.mty{
+  --mt-top: 15px;
+}
+
+.column-card_buttons-wrap .button{
+  word-break: break-word;
+}
+
+@media (max-width: 767px){
+  .--mobile-align-center .column-card_image.--justify-content-end,
+  .--mobile-align-center .column-card_image.--justify-content-start{
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

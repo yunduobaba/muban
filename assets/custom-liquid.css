@@ -1,0 +1,17 @@
+.custom-liquid{
+  --padding-top: 30px;
+  --padding-bottom: 30px;
+}
+
+.custom-liquid_wrapper{
+  position: relative;
+  padding-top: var(--padding-top);
+  padding-bottom: var(--padding-bottom);
+}
+
+@media (min-width: 1200px){
+  .custom-liquid{
+    --padding-top: var(--section-padding-top);
+    --padding-bottom: var(--section-padding-bottom);
+  }
+}
