@@ -64,6 +64,7 @@
       "blocks": {
         "store1": {
           "type": "store",
+          "disabled": true,
           "settings": {
             "heading": "About Us",
             "heading_size": "heading_xx_small",
