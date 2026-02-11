@@ -65,10 +65,10 @@
         "store1": {
           "type": "store",
           "settings": {
-            "heading": "Store heading",
+            "heading": "Our Story",
             "heading_size": "heading_xx_small",
-            "description": "<p>Find a store near you to explore our products up close and get personalized assistance from our knowledgeable staff. Our stores offer a wide range of high-quality items to suit your needs. Enter your location to discover the nearest store and its operating hours. We look forward to serving you!</p>",
-            "map_iframe": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3115.3259575492275!2d-90.4420986!3d38.66437630000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87df32a51671812b%3A0x1f980197453245c9!2s456%20N%20New%20Ballas%20Rd%2C%20Creve%20Coeur%2C%20MO%2063141%2C%20USA!5e0!3m2!1sen!2s!4v1703092233883!5m2!1sen!2s\" width=\"590\" height=\"750\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
+            "description": "<p>It’s a pleasure to meet you at<strong> PopNya~</strong>.</p><p> We are a trendy toy shop in Shenzhen, China, offering 100% authentic products.<br/> We are a leading buying agency and retailer that has thrived in the trend art market for years. Think of us as a global hub for collectors—operating with the same rigorous standards as platforms like StockX, but with a dedicated focus on trendy toys, art, and original creations.<br/>We are proud to be authorized retailers for numerous brands. For over 5 years, we have prioritized speed and access, making us the best choice for collectors looking to secure new releases the moment they drop.</p>",
+            "map_iframe": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2531.4336634810984!2d113.94368647235791!3d22.545813824029985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3403edfd84179b23%3A0x11a3ba2b96fe5e95!2z5Yqo5ryr5Y-K572R5ri45Lqn5Lia5Z-65Zyw57u85ZCI5qW8!5e0!3m2!1szh-CN!2shk!4v1770786358423!5m2!1szh-CN!2shk\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
             "store_button_label": "Get Directions",
             "store_button_url": "",
             "open_new_window": false
