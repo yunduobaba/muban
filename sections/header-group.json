@@ -18,7 +18,7 @@
           "type": "announcement_text",
           "settings": {
             "heading": "Welcome to our store!",
-            "sub_heading": "Explore Deals & Offers &nbsp; &nbsp; <a><em>SHOP NOW!</em></a>"
+            "sub_heading": "Explore Deals & Offers     <a><em>SHOP NOW!</em></a>"
           }
         }
       },
@@ -28,7 +28,7 @@
       "settings": {
         "show_only_on_homepage": false,
         "show_close_button": false,
-        "enable_timer": true,
+        "enable_timer": false,
         "countdown_text": "Limited-time offer!",
         "end_date": "2025/04/05",
         "end_message": "",
