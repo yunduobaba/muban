@@ -69,7 +69,7 @@
             "heading_size": "heading_xx_small",
             "description": "<p>It’s a pleasure to meet you at<strong> PopNya~</strong>.</p><p> We are a trendy toy shop in Shenzhen, China, offering 100% authentic products.<br/> We are a leading buying agency and retailer that has thrived in the trend art market for years. Think of us as a global hub for collectors—operating with the same rigorous standards as platforms like StockX, but with a dedicated focus on trendy toys, art, and original creations.<br/>We are proud to be authorized retailers for numerous brands. For over 5 years, we have prioritized speed and access, making us the best choice for collectors looking to secure new releases the moment they drop.</p>",
             "map_iframe": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3684.8910964755723!2d113.93842307584808!3d22.545751933952786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjLCsDMyJzQ0LjciTiAxMTPCsDU2JzI3LjYiRQ!5e0!3m2!1sen!2sus!4v1770787038002!5m2!1sen!2sus\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
-            "store_button_label": "Get Directions",
+            "store_button_label": "",
             "store_button_url": "",
             "open_new_window": false
           }
