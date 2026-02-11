@@ -121,6 +121,7 @@
         "logo5",
         "logo6"
       ],
+      "disabled": true,
       "settings": {
         "number_of_columns_on_desktop": 6,
         "section_color_scheme": "scheme1",
@@ -140,9 +141,10 @@
         "banner1": {
           "type": "text",
           "settings": {
-            "text": "Last chance to buy!",
+            "text": "The Monsters",
+            "image": "shopify://shop_images/1723457780897____labubu_ip.webp",
             "image_type": "circle",
-            "link": "",
+            "link": "shopify://collections/the-monsters",
             "open_new_window": false,
             "stencil_text": false
           }
