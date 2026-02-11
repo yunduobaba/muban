@@ -239,7 +239,7 @@
       ],
       "settings": {
         "marquee_speed": 20,
-        "marquee_direction": "marquee_forward",
+        "marquee_direction": "marquee_backward",
         "marquee_on_hover": true,
         "full_screen_width": false,
         "section_separate": true,
@@ -604,7 +604,7 @@
     "featured-collection": {
       "type": "featured-collection",
       "settings": {
-        "collection": "all-products",
+        "collection": "",
         "end_date": "2025/04/05",
         "end_message": "",
         "section_heading": "Flash Sale",
