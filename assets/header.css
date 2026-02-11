@@ -319,6 +319,12 @@ body.active-overlay [data-revealed="true"] .page-header{
   padding: 12px 30px;
 }
 
+.main-dropdown_has-collection-image{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 .main-dropdown_link.dropdown-component_opener,
 .main-navigation_dropdown-opener{
   display: flex;
