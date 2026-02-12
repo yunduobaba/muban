@@ -363,7 +363,7 @@
         "collection": "all-products",
         "end_date": "2025/04/05",
         "end_message": "",
-        "section_heading": "Hot Sales",
+        "section_heading": "HOT SALES",
         "section_heading_size": "heading_large",
         "section_description": "",
         "enable_show_more_button": true,
@@ -400,25 +400,31 @@
         "collection1": {
           "type": "collection",
           "settings": {
-            "collection": ""
+            "collection": "toy-clothes"
           }
         },
         "collection2": {
           "type": "collection",
           "settings": {
-            "collection": ""
+            "collection": "phone-accessories"
           }
         },
         "collection3": {
           "type": "collection",
           "settings": {
-            "collection": ""
+            "collection": "cups"
           }
         },
         "collection4": {
           "type": "collection",
           "settings": {
-            "collection": ""
+            "collection": "bags"
+          }
+        },
+        "collection_fpqtPR": {
+          "type": "collection",
+          "settings": {
+            "collection": "card-holders"
           }
         }
       },
@@ -426,14 +432,15 @@
         "collection1",
         "collection2",
         "collection3",
-        "collection4"
+        "collection4",
+        "collection_fpqtPR"
       ],
-      "disabled": true,
       "settings": {
-        "section_heading": "Featured collection tabs",
+        "section_heading": "ACCESSORIES",
         "section_heading_size": "heading_large",
-        "section_description": "",
+        "section_description": "few",
         "enable_show_more_button": true,
+        "image": "shopify://shop_images/15.jpg",
         "number_of_products_on_desktop": 6,
         "section_color_scheme": "scheme1",
         "section_sidebar_color_scheme": "scheme2",
