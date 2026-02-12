@@ -85,54 +85,6 @@
         "section_bottom_padding": 0
       }
     },
-    "logo-list": {
-      "type": "logo-list",
-      "blocks": {
-        "logo1": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/1719386635581____secret.webp"
-          }
-        },
-        "logo2": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/1745405704500____id-secret.webp"
-          }
-        },
-        "logo3": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/1769768939763____secret_sunset-shimmer.webp"
-          }
-        },
-        "logo4": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/1761300557700____secret_merbaby-tears.webp"
-          }
-        }
-      },
-      "block_order": [
-        "logo1",
-        "logo2",
-        "logo3",
-        "logo4"
-      ],
-      "disabled": true,
-      "settings": {
-        "number_of_columns_on_desktop": 4,
-        "section_color_scheme": "scheme1",
-        "enable_grayscale": false,
-        "full_screen_width": false,
-        "enable_marquee": false,
-        "marquee_speed": 15,
-        "marquee_direction": "marquee_forward",
-        "marquee_on_hover": false,
-        "section_top_padding": 0,
-        "section_bottom_padding": 46
-      }
-    },
     "scrolling-banner": {
       "type": "scrolling-banner",
       "blocks": {
@@ -246,90 +198,42 @@
         "section_bottom_padding": 32
       }
     },
-    "top-collection": {
-      "type": "collection-list",
+    "media-with-text": {
+      "type": "media-with-text",
       "blocks": {
-        "collection1": {
-          "type": "collection",
+        "image1": {
+          "type": "image",
           "settings": {
-            "collection": "",
-            "badge_label": "",
-            "badge_bg": "#121212",
-            "badge_text": "#ffffff",
-            "block_color_scheme": ""
-          }
-        },
-        "collection2": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "badge_label": "",
-            "badge_bg": "#121212",
-            "badge_text": "#ffffff",
-            "block_color_scheme": ""
-          }
-        },
-        "collection3": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "badge_label": "",
-            "badge_bg": "#121212",
-            "badge_text": "#ffffff",
-            "block_color_scheme": ""
-          }
-        },
-        "collection4": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "badge_label": "",
-            "badge_bg": "#121212",
-            "badge_text": "#ffffff",
-            "block_color_scheme": ""
-          }
-        },
-        "collection5": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "badge_label": "",
-            "badge_bg": "#121212",
-            "badge_text": "#ffffff",
-            "block_color_scheme": ""
+            "image": "shopify://shop_images/4550c2bc248c54c0d82ec3358cbcf78ac3baa82071ee67cf9439138408895bb9_36d1fbfa-0bea-42ed-98a5-482d45f70b19.webp",
+            "pagination_text": "Image"
           }
         }
       },
       "block_order": [
-        "collection1",
-        "collection2",
-        "collection3",
-        "collection4",
-        "collection5"
+        "image1"
       ],
-      "disabled": true,
       "settings": {
-        "section_heading": "Shop our top collections",
+        "section_subheading": "<strong>Why Unbox with PopNya?</strong>",
+        "section_subheading_size": "heading_small",
+        "section_heading": "Authentic Trendy Toys",
         "section_heading_size": "heading_large",
-        "section_description": "",
-        "section_view_more_all": "",
-        "section_view_more_link": "",
-        "number_of_columns_on_desktop": 5,
-        "section_text_alignment": "center",
+        "section_description": "<p>Guaranteed genuine figures and sought-after collectibles.</p>",
+        "link_label": "Learn more",
+        "link": "",
+        "open_new_window": false,
+        "section_media_alignment": "left",
+        "section_media_position": "middle",
+        "section_text_alignment": "left",
         "mobile_text_alignment": false,
-        "show_title": true,
-        "card_view_layout": "square",
-        "animate_on_hover": false,
-        "column_heading_size": "heading_x_small",
-        "section_block_text_alignment": "center",
-        "section_color_scheme": "scheme1",
-        "enable_slideshow": false,
+        "column_image_ratio": "adapt_to_image",
+        "section_color_scheme": "scheme6",
+        "section_background_full": false,
         "auto_play": false,
         "show_navigation": true,
-        "pagination": "none",
+        "pagination": "lines",
         "change_slides_every": 5,
-        "section_top_padding": 60,
-        "section_bottom_padding": 60
+        "section_top_padding": 43,
+        "section_bottom_padding": 51
       }
     },
     "banners-collage": {
@@ -553,52 +457,6 @@
         "section_bottom_padding": 50
       }
     },
-    "media-with-text": {
-      "type": "media-with-text",
-      "blocks": {
-        "image1": {
-          "type": "image",
-          "settings": {
-            "pagination_text": "Image"
-          }
-        },
-        "video1": {
-          "type": "video",
-          "settings": {
-            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "alt_text": "",
-            "pagination_text": "Video"
-          }
-        }
-      },
-      "block_order": [
-        "image1",
-        "video1"
-      ],
-      "settings": {
-        "section_subheading": "Subheading",
-        "section_subheading_size": "heading_medium",
-        "section_heading": "Media with text",
-        "section_heading_size": "heading_large",
-        "section_description": "<p>Pair text with an image or video to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-        "link_label": "Learn more",
-        "link": "",
-        "open_new_window": false,
-        "section_media_alignment": "left",
-        "section_media_position": "middle",
-        "section_text_alignment": "left",
-        "mobile_text_alignment": false,
-        "column_image_ratio": "adapt_to_image",
-        "section_color_scheme": "scheme5",
-        "section_background_full": false,
-        "auto_play": false,
-        "show_navigation": true,
-        "pagination": "lines",
-        "change_slides_every": 5,
-        "section_top_padding": 43,
-        "section_bottom_padding": 51
-      }
-    },
     "featured-collection-tabset": {
       "type": "featured-collection-tabs",
       "blocks": {
@@ -792,10 +650,8 @@
   },
   "order": [
     "banner-slideshow",
-    "logo-list",
     "scrolling-banner",
     "media-with-text",
-    "top-collection",
     "banners-collage",
     "scrolling-banner-text",
     "banners-collage-large",
