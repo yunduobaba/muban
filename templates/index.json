@@ -322,7 +322,18 @@
           "settings": {
             "text": "Safe packaging service",
             "image": "shopify://shop_images/16_aa1dc1e4-f3ca-4685-90a5-b47768812027.jpg",
-            "image_type": "landscape",
+            "image_type": "square",
+            "link": "",
+            "open_new_window": false,
+            "stencil_text": false
+          }
+        },
+        "text_LxprjG": {
+          "type": "text",
+          "settings": {
+            "text": "Ten Thousands of Happy Unboxers",
+            "image": "shopify://shop_images/16_3663315b-bf27-41cf-a898-e3e289819e4e.jpg",
+            "image_type": "square",
             "link": "",
             "open_new_window": false,
             "stencil_text": false
@@ -343,6 +354,7 @@
         "banner1",
         "banner2",
         "banner3",
+        "text_LxprjG",
         "banner4"
       ],
       "settings": {
