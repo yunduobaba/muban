@@ -357,80 +357,13 @@
         "section_bottom_padding": 30
       }
     },
-    "banners-collage-large": {
-      "type": "promotion-banners",
-      "blocks": {
-        "banner1": {
-          "type": "banner",
-          "settings": {
-            "image": "shopify://shop_images/1770103956251____new-arrival_skullpanda-x.webp",
-            "button_label": "Learn more",
-            "button_position": "bottom_right",
-            "link": "",
-            "open_new_window": false,
-            "section_color_scheme": "scheme6",
-            "columns": 3,
-            "rows": 2
-          }
-        },
-        "banner2": {
-          "type": "banner",
-          "settings": {
-            "button_label": "Learn more",
-            "button_position": "bottom_right",
-            "link": "",
-            "open_new_window": false,
-            "section_color_scheme": "scheme6",
-            "columns": 3,
-            "rows": 2
-          }
-        },
-        "banner3": {
-          "type": "banner",
-          "settings": {
-            "button_label": "Learn more",
-            "button_position": "bottom_right",
-            "link": "",
-            "open_new_window": false,
-            "section_color_scheme": "scheme6",
-            "columns": 3,
-            "rows": 2
-          }
-        },
-        "banner4": {
-          "type": "banner",
-          "settings": {
-            "button_label": "Learn more",
-            "button_position": "bottom_right",
-            "link": "",
-            "open_new_window": false,
-            "section_color_scheme": "scheme6",
-            "columns": 3,
-            "rows": 2
-          }
-        }
-      },
-      "block_order": [
-        "banner1",
-        "banner2",
-        "banner3",
-        "banner4"
-      ],
-      "disabled": true,
-      "settings": {
-        "desktop_row_height": 215,
-        "mobile_row_height": 150,
-        "section_top_padding": 77,
-        "section_bottom_padding": 46
-      }
-    },
     "featured-collection": {
       "type": "featured-collection",
       "settings": {
         "collection": "all-products",
         "end_date": "2025/04/05",
         "end_message": "",
-        "section_heading": "TRENDING",
+        "section_heading": "Hot Sales",
         "section_heading_size": "heading_large",
         "section_description": "",
         "enable_show_more_button": true,
@@ -658,7 +591,6 @@
     "media-with-text",
     "banners-collage",
     "scrolling-banner-text",
-    "banners-collage-large",
     "featured-collection",
     "featured-collection-tabset",
     "multicolumn",
