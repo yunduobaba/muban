@@ -284,6 +284,7 @@
         "banner2",
         "banner3"
       ],
+      "disabled": true,
       "settings": {
         "desktop_row_height": 215,
         "mobile_row_height": 150,
@@ -297,8 +298,9 @@
         "banner1": {
           "type": "text",
           "settings": {
-            "text": "Last chance to buy",
-            "image_type": "circle",
+            "text": "10,000 square feet warehouses",
+            "image": "shopify://shop_images/banner7503_12c877d5-0d03-4362-b554-f039c113bc81.jpg",
+            "image_type": "square",
             "link": "",
             "open_new_window": false,
             "stencil_text": false
@@ -307,7 +309,8 @@
         "banner2": {
           "type": "text",
           "settings": {
-            "text": "Last chance to buy",
+            "text": "Worldwide Delivery",
+            "image": "shopify://shop_images/16.jpg",
             "image_type": "square",
             "link": "",
             "open_new_window": false,
@@ -317,7 +320,8 @@
         "banner3": {
           "type": "text",
           "settings": {
-            "text": "Last chance to buy",
+            "text": "Safe packaging service",
+            "image": "shopify://shop_images/16_aa1dc1e4-f3ca-4685-90a5-b47768812027.jpg",
             "image_type": "landscape",
             "link": "",
             "open_new_window": false,
@@ -341,7 +345,6 @@
         "banner3",
         "banner4"
       ],
-      "disabled": true,
       "settings": {
         "marquee_speed": 20,
         "marquee_direction": "marquee_backward",
