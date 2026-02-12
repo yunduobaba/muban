@@ -17,8 +17,8 @@
         "announcement_text": {
           "type": "announcement_text",
           "settings": {
-            "heading": "Welcome to our store!",
-            "sub_heading": "Explore Deals & Offers     <a><em>SHOP NOW!</em></a>"
+            "heading": "Free Shipping Over $50$",
+            "sub_heading": "Sectet Restocked   <a><em>SHOP NOW!</em></a>"
           }
         }
       },
