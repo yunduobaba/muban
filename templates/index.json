@@ -455,6 +455,7 @@
         "banner1": {
           "type": "banner",
           "settings": {
+            "image": "shopify://shop_images/1770103956251____new-arrival_skullpanda-x.webp",
             "button_label": "Learn more",
             "button_position": "bottom_right",
             "link": "",
@@ -574,7 +575,6 @@
         "image1",
         "video1"
       ],
-      "disabled": true,
       "settings": {
         "section_subheading": "Subheading",
         "section_subheading_size": "heading_medium",
@@ -794,12 +794,12 @@
     "banner-slideshow",
     "logo-list",
     "scrolling-banner",
+    "media-with-text",
     "top-collection",
     "banners-collage",
     "scrolling-banner-text",
     "banners-collage-large",
     "featured-collection",
-    "media-with-text",
     "featured-collection-tabset",
     "multicolumn",
     "testimonials"
