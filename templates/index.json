@@ -338,24 +338,13 @@
             "open_new_window": false,
             "stencil_text": false
           }
-        },
-        "banner4": {
-          "type": "text",
-          "settings": {
-            "text": "Last chance to buy",
-            "image_type": "square",
-            "link": "",
-            "open_new_window": false,
-            "stencil_text": false
-          }
         }
       },
       "block_order": [
         "banner1",
         "banner2",
         "banner3",
-        "text_LxprjG",
-        "banner4"
+        "text_LxprjG"
       ],
       "settings": {
         "marquee_speed": 20,
