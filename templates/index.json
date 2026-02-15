@@ -596,9 +596,7 @@
           "settings": {
             "show_sample_reviews": true,
             "reviews_selection": "all",
-            "products": [
-              "the-monsters-labubu-v3-big-into-energy-series-plush-dolls-pop-mart-blind-box"
-            ],
+            "products": [],
             "star_rating": "all",
             "show_review_media": true,
             "display_order": "media_first",
