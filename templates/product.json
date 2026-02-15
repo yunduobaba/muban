@@ -98,8 +98,7 @@
       ],
       "custom_css": [
         ".breadcrumbs_link {/* 将内联元素转为块级或内联块，以便设置宽度 */ display: inline-block; /* 使用 ch 单位设置最大宽度（例如：最多显示 30 个字符的概略宽度） */ max-width: 30ch; /* 禁止换行 */ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: middle;}",
-        ".breadcrumbs.--align-left {display: flex; align-items: center; padding: 0 0px; margin: 0;}",
-        "@media (max-width: 768px) {.splide__track {touch-action: pan-y pinch-zoom; -webkit-tap-highlight-color: transparent; } .splide__slide {user-select: none; -webkit-user-drag: none; } .splide__slide img {pointer-events: none; }}"
+        ".breadcrumbs.--align-left {display: flex; align-items: center; padding: 0 0px; margin: 0;}"
       ],
       "settings": {
         "sticky_product": true,
