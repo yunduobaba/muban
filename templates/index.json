@@ -198,6 +198,43 @@
         "section_bottom_padding": 32
       }
     },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "pop-now",
+        "end_date": "2025/04/05",
+        "end_message": "",
+        "section_heading": "HOT SALES",
+        "section_heading_size": "heading_large",
+        "section_description": "",
+        "enable_show_more_button": true,
+        "show_more_button_label": "View All Deals",
+        "number_of_columns_on_desktop": 4,
+        "number_of_rows": 3,
+        "number_of_columns_on_mobile": "2",
+        "mob_cols_query": 416,
+        "hide_qty_field_on_mob": false,
+        "hide_info_bar_on_mob": true,
+        "column_image_ratio": "adapt_to_image",
+        "section_view_layout": "section_layout_i",
+        "show_product_rating": true,
+        "show_inventory": false,
+        "show_savings_badge": true,
+        "show_vendor": true,
+        "enable_compare_button": false,
+        "enable_quick_add_button": false,
+        "section_text_alignment": "center",
+        "mobile_text_alignment": false,
+        "section_color_scheme": "scheme1",
+        "enable_slideshow": false,
+        "auto_play": false,
+        "show_navigation": false,
+        "pagination": "lines",
+        "change_slides_every": 5,
+        "section_top_padding": 50,
+        "section_bottom_padding": 50
+      }
+    },
     "media-with-text": {
       "type": "media-with-text",
       "blocks": {
@@ -357,43 +394,6 @@
         "section_bottom_padding": 30
       }
     },
-    "featured-collection": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "pop-now",
-        "end_date": "2025/04/05",
-        "end_message": "",
-        "section_heading": "HOT SALES",
-        "section_heading_size": "heading_large",
-        "section_description": "",
-        "enable_show_more_button": true,
-        "show_more_button_label": "View All Deals",
-        "number_of_columns_on_desktop": 4,
-        "number_of_rows": 3,
-        "number_of_columns_on_mobile": "2",
-        "mob_cols_query": 416,
-        "hide_qty_field_on_mob": false,
-        "hide_info_bar_on_mob": true,
-        "column_image_ratio": "adapt_to_image",
-        "section_view_layout": "section_layout_i",
-        "show_product_rating": true,
-        "show_inventory": true,
-        "show_savings_badge": true,
-        "show_vendor": true,
-        "enable_compare_button": false,
-        "enable_quick_add_button": false,
-        "section_text_alignment": "center",
-        "mobile_text_alignment": false,
-        "section_color_scheme": "scheme1",
-        "enable_slideshow": false,
-        "auto_play": false,
-        "show_navigation": false,
-        "pagination": "lines",
-        "change_slides_every": 5,
-        "section_top_padding": 50,
-        "section_bottom_padding": 50
-      }
-    },
     "featured_collection_JHX7xe": {
       "type": "featured-collection",
       "name": "t:sections.featured_collection.name",
@@ -415,7 +415,7 @@
         "column_image_ratio": "adapt_to_image",
         "section_view_layout": "section_layout_i",
         "show_product_rating": true,
-        "show_inventory": true,
+        "show_inventory": false,
         "show_savings_badge": true,
         "show_vendor": true,
         "enable_compare_button": false,
@@ -561,10 +561,10 @@
   "order": [
     "banner-slideshow",
     "scrolling-banner",
+    "featured-collection",
     "media-with-text",
     "banners-collage",
     "scrolling-banner-text",
-    "featured-collection",
     "featured_collection_JHX7xe",
     "featured-collection-tabset",
     "testimonials"
