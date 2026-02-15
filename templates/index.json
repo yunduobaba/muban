@@ -601,12 +601,12 @@
             "star_rating": "all",
             "show_review_media": true,
             "display_order": "media_first",
-            "no_image_fallback": "review_text_only",
+            "no_image_fallback": "product_image",
             "max_reviews": 20,
             "review_length": "medium",
             "text_size": "medium",
             "image_ratio": "1",
-            "reviews_shown": 4,
+            "reviews_shown": 5,
             "show_reviewer_name": true,
             "show_product_name": true,
             "hide_arrows_mobile": true,
@@ -619,7 +619,7 @@
             "stars_color": "",
             "arrows_color": "#000000",
             "transition_speed": 5,
-            "header_text": "Customers are saying",
+            "header_text": "What Collectors Say",
             "show_average_rating": true
           }
         }
