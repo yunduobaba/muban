@@ -570,6 +570,7 @@
         "testimonial4",
         "testimonial5"
       ],
+      "disabled": true,
       "settings": {
         "section_heading": "Testimonials",
         "section_heading_size": "heading_large",
