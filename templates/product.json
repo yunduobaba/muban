@@ -42,6 +42,7 @@
         },
         "stock_statistics_bar": {
           "type": "stock_statistics_bar",
+          "disabled": true,
           "settings": {
             "enable_sale_timer": true,
             "sale_end_date": "2025/04/05",
@@ -183,7 +184,7 @@
         "show_navigation": true,
         "pagination": "lines",
         "section_top_padding": 0,
-        "section_bottom_padding": 36
+        "section_bottom_padding": 10
       }
     },
     "media-with-text": {

@@ -13,7 +13,7 @@
       "type": "collection-products-grid",
       "settings": {
         "section_heading_size": "heading_large",
-        "number_of_columns_on_desktop": 3,
+        "number_of_columns_on_desktop": 4,
         "number_of_rows": 6,
         "number_of_columns_on_mobile": "2",
         "mob_cols_query": 416,
