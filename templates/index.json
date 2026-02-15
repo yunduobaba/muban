@@ -619,13 +619,14 @@
             "arrows_color": "#000000",
             "transition_speed": 5,
             "header_text": "What Collectors Say",
-            "show_average_rating": true
+            "show_average_rating": false
           }
         }
       },
       "block_order": [
         "judge_me_reviews_cards_carousel_nDt73J"
       ],
+      "custom_css": [],
       "settings": {}
     }
   },
