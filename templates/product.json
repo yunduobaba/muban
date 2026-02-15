@@ -79,6 +79,10 @@
             "block_bottom_padding": 22
           }
         },
+        "judge_me_reviews_preview_badge_fKkPEr": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
         "pickup_availability": {
           "type": "pickup_availability",
           "settings": {
@@ -164,6 +168,7 @@
         "price_and_variations",
         "quantity_input",
         "checkout_buttons",
+        "judge_me_reviews_preview_badge_fKkPEr",
         "pickup_availability",
         "description",
         "message_box",
