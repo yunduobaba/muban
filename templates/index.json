@@ -515,8 +515,8 @@
         "section_text_alignment": "left",
         "mobile_text_alignment": false,
         "column_image_ratio": "adapt_to_image",
-        "section_top_padding": 60,
-        "section_bottom_padding": 95
+        "section_top_padding": 20,
+        "section_bottom_padding": 20
       }
     },
     "testimonials": {
@@ -603,7 +603,7 @@
             "show_review_media": true,
             "display_order": "media_first",
             "no_image_fallback": "product_image",
-            "max_reviews": 20,
+            "max_reviews": 30,
             "review_length": "medium",
             "text_size": "medium",
             "image_ratio": "1",
