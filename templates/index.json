@@ -48,7 +48,7 @@
             "image_iii": "shopify://shop_images/banner1200.jpg",
             "bg_overlay_opac": 30,
             "remove_overlay": false,
-            "block_content_order": "center",
+            "block_content_order": "right",
             "block_text_alignment": "left",
             "mobile_text_alignment": false,
             "block_content_alignment": "top",
