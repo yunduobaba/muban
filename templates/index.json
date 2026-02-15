@@ -273,62 +273,6 @@
         "section_bottom_padding": 51
       }
     },
-    "banners-collage": {
-      "type": "promotion-banners",
-      "blocks": {
-        "banner1": {
-          "type": "banner",
-          "settings": {
-            "image": "shopify://shop_images/1745405704500____id-secret_2cc90ec4-ecdf-4439-982d-3ccbc3a08108.webp",
-            "button_label": "Secret Restocked",
-            "button_position": "bottom_full",
-            "link": "",
-            "open_new_window": false,
-            "section_color_scheme": "scheme6",
-            "columns": 3,
-            "rows": 2
-          }
-        },
-        "banner2": {
-          "type": "banner",
-          "settings": {
-            "image": "shopify://shop_images/1769768977234____secret_queen-chrysalis.webp",
-            "button_label": "",
-            "button_position": "bottom_left",
-            "link": "shopify://collections/all-products",
-            "open_new_window": false,
-            "section_color_scheme": "scheme6",
-            "columns": 3,
-            "rows": 1
-          }
-        },
-        "banner3": {
-          "type": "banner",
-          "settings": {
-            "image": "shopify://shop_images/1768558106091____secret_grow-grey-together.webp",
-            "button_label": "",
-            "button_position": "bottom_right",
-            "link": "",
-            "open_new_window": false,
-            "section_color_scheme": "scheme6",
-            "columns": 3,
-            "rows": 1
-          }
-        }
-      },
-      "block_order": [
-        "banner1",
-        "banner2",
-        "banner3"
-      ],
-      "disabled": true,
-      "settings": {
-        "desktop_row_height": 215,
-        "mobile_row_height": 150,
-        "section_top_padding": 14,
-        "section_bottom_padding": 30
-      }
-    },
     "scrolling-banner-text": {
       "type": "scrolling-banner",
       "blocks": {
@@ -427,6 +371,54 @@
         "auto_play": false,
         "show_navigation": true,
         "pagination": "none",
+        "change_slides_every": 5,
+        "section_top_padding": 50,
+        "section_bottom_padding": 50
+      }
+    },
+    "banner_slideshow_BTUCtN": {
+      "type": "banner-slideshow",
+      "blocks": {
+        "slide_JXdUhU": {
+          "type": "slide",
+          "settings": {
+            "image_i": "shopify://shop_images/12_96cd522f-c9cb-4b83-a56b-de55ab4a3ceb.jpg",
+            "image_ii": "shopify://shop_images/12_4b625299-974a-4f22-bc50-cc6355e69b4a.jpg",
+            "image_iii": "shopify://shop_images/banner12010_6e80d5df-cb8e-4a37-8a75-7d5b97cdfdb8.jpg",
+            "bg_overlay_opac": 30,
+            "remove_overlay": false,
+            "block_content_order": "left",
+            "block_text_alignment": "left",
+            "mobile_text_alignment": false,
+            "block_content_alignment": "bottom",
+            "block_content_position": "left",
+            "max_content_width": 100,
+            "heading": "CRYBABY Series",
+            "heading_size": "heading_xx_large",
+            "description": "CRYBABY Tears Launch Project",
+            "badge_text": "New",
+            "button_label_i": "Buy now",
+            "link_i": "",
+            "open_new_window": false,
+            "button_label_ii": "Details",
+            "link_ii": "",
+            "open_new_windowii": false,
+            "pagination_text": "Slide 1",
+            "block_color_scheme": "scheme6"
+          }
+        }
+      },
+      "block_order": [
+        "slide_JXdUhU"
+      ],
+      "name": "t:sections.banner_slideshow.name",
+      "settings": {
+        "desktop_height": 580,
+        "mobile_height": 400,
+        "section_color_scheme": "",
+        "auto_play": true,
+        "show_navigation": true,
+        "pagination": "lines",
         "change_slides_every": 5,
         "section_top_padding": 50,
         "section_bottom_padding": 50
@@ -563,9 +555,9 @@
     "scrolling-banner",
     "featured-collection",
     "media-with-text",
-    "banners-collage",
     "scrolling-banner-text",
     "featured_collection_JHX7xe",
+    "banner_slideshow_BTUCtN",
     "featured-collection-tabset",
     "testimonials"
   ]
