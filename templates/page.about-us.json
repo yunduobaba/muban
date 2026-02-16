@@ -102,7 +102,7 @@
         "section_background_full": false,
         "auto_play": true,
         "show_navigation": true,
-        "pagination": "dots",
+        "pagination": "lines",
         "change_slides_every": 5,
         "section_top_padding": 30,
         "section_bottom_padding": 0
@@ -189,7 +189,7 @@
         "section_background_full": false,
         "auto_play": true,
         "show_navigation": true,
-        "pagination": "dots",
+        "pagination": "lines",
         "change_slides_every": 5,
         "section_top_padding": 30,
         "section_bottom_padding": 50
