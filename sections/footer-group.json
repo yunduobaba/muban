@@ -1,1 +1,132 @@
-{"type":"footer","name":"Footer Group","sections":{"rich-text":{"type":"rich-text","blocks":{"subheading":{"type":"subheading","settings":{"heading":"<u>Subheading<\/u>"}},"heading":{"type":"heading","settings":{"heading":"Talk about your brand","heading_size":"heading_large"}},"description":{"type":"description","settings":{"heading":"<p>Share store details, promotions, or brand content with your customers.<\/p>","block_spacing":28}},"buttons":{"type":"buttons","settings":{"button_label_1":"Learn more"}}},"block_order":["subheading","heading","description","buttons"],"settings":{"section_text_alignment":"center","mobile_text_alignment":false,"section_color_scheme":"scheme4","section_background_full":false,"section_corner_radius":"top_corners_radius","section_top_padding":67,"section_bottom_padding":67}},"footer-top":{"type":"footer-top","blocks":{"newsletter":{"type":"newsletter","settings":{"heading":"Subscribe to newsletter","description":"","show_social_media_icons":true}},"menu1":{"type":"menu","settings":{"heading":"Quick links","menu":"footer"}},"menu2":{"type":"menu","settings":{"heading":"Quick links","menu":"footer"}},"information":{"type":"information","settings":{"heading":"Talk about your store","description":"<p>Share store details, promotions, or brand content with your customers.<\/p>"}}},"block_order":["newsletter","menu1","menu2","information"],"settings":{"section_color_scheme":"scheme2","section_background_full":false,"section_corner_radius":"no_corners_radius","section_top_padding":60,"section_bottom_padding":60}},"footer":{"type":"footer","settings":{"enable_countryregion_selector":true,"enable_language_selector":true,"show_payment_icons":true,"section_color_scheme":"scheme2","section_background_full":false,"section_corner_radius":"bottom_corners_radius","section_top_padding":30,"section_bottom_padding":30}}},"order":["rich-text","footer-top","footer"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer Group",
+  "sections": {
+    "rich-text": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Get in touch with us!",
+            "heading_size": "heading_large",
+            "block_spacing": 20
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "heading": "<p>Have questions or need help with something? We're here to help!</p>",
+            "block_text_size": "subtitle",
+            "block_spacing": 28
+          }
+        },
+        "buttons": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Contact us",
+            "button_link_1": "shopify://pages/contact",
+            "open_new_window_1": false,
+            "button_label_2": "Become an Affiliate",
+            "button_link_2": "",
+            "open_new_window_2": false,
+            "button_label_3": "",
+            "button_link_3": "",
+            "open_new_window_3": false,
+            "block_spacing": 0
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "description",
+        "buttons"
+      ],
+      "settings": {
+        "section_text_alignment": "center",
+        "mobile_text_alignment": false,
+        "section_color_scheme": "scheme4",
+        "section_background_full": false,
+        "section_corner_radius": "top_corners_radius",
+        "section_top_padding": 67,
+        "section_bottom_padding": 67
+      }
+    },
+    "footer-top": {
+      "type": "footer-top",
+      "blocks": {
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "Subscribe to newsletter",
+            "description": "Sign up for exclusive updates, new arrivals & insider only discounts",
+            "show_social_media_icons": true
+          }
+        },
+        "menu1": {
+          "type": "menu",
+          "settings": {
+            "heading": "Quick links",
+            "menu": "footer"
+          }
+        },
+        "menu2": {
+          "type": "menu",
+          "settings": {
+            "heading": "Quick links",
+            "menu": "footer"
+          }
+        },
+        "information": {
+          "type": "information",
+          "settings": {
+            "heading": "Talk about your store",
+            "description": "<p>Share store details, promotions, or brand content with your customers.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "newsletter",
+        "menu1",
+        "menu2",
+        "information"
+      ],
+      "settings": {
+        "section_color_scheme": "scheme2",
+        "section_background_full": false,
+        "section_corner_radius": "no_corners_radius",
+        "section_top_padding": 60,
+        "section_bottom_padding": 60
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "enable_follow_on_shop": true,
+        "enable_countryregion_selector": true,
+        "enable_language_selector": true,
+        "show_payment_icons": true,
+        "section_color_scheme": "scheme2",
+        "section_background_full": false,
+        "show_top_border": true,
+        "section_corner_radius": "bottom_corners_radius",
+        "section_top_padding": 30,
+        "section_bottom_padding": 30
+      }
+    }
+  },
+  "order": [
+    "rich-text",
+    "footer-top",
+    "footer"
+  ]
+}
