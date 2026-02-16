@@ -111,7 +111,7 @@
     "footer": {
       "type": "footer",
       "settings": {
-        "enable_follow_on_shop": true,
+        "enable_follow_on_shop": false,
         "enable_countryregion_selector": true,
         "enable_language_selector": true,
         "show_payment_icons": true,
