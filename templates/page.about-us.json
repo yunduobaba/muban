@@ -49,14 +49,14 @@
         "section_text_alignment": "left",
         "mobile_text_alignment": false,
         "column_image_ratio": "adapt_to_image",
-        "section_color_scheme": "scheme1",
-        "section_background_full": true,
+        "section_color_scheme": "scheme2",
+        "section_background_full": false,
         "auto_play": false,
         "show_navigation": true,
         "pagination": "lines",
         "change_slides_every": 5,
-        "section_top_padding": 50,
-        "section_bottom_padding": 50
+        "section_top_padding": 0,
+        "section_bottom_padding": 0
       }
     },
     "media_with_text_87DLNr": {
@@ -104,8 +104,8 @@
         "show_navigation": true,
         "pagination": "dots",
         "change_slides_every": 5,
-        "section_top_padding": 50,
-        "section_bottom_padding": 50
+        "section_top_padding": 30,
+        "section_bottom_padding": 0
       }
     },
     "media_with_text_YjHRtL": {
@@ -191,7 +191,7 @@
         "show_navigation": true,
         "pagination": "dots",
         "change_slides_every": 5,
-        "section_top_padding": 50,
+        "section_top_padding": 30,
         "section_bottom_padding": 50
       }
     },
