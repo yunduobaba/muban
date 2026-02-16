@@ -11,8 +11,8 @@
   "current": {
     "image": "shopify://shop_images/logo6.png",
     "favicon_icon": "shopify://shop_images/1.png",
-    "show_currency_code": false,
-    "enable_variant_swatches": "images",
+    "show_currency_code": true,
+    "enable_variant_swatches": "colors",
     "show_buttons_icon": true,
     "free_shipping_amount": "50",
     "social_instagram_link": "http://instagram.com/popnya",
