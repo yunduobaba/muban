@@ -111,6 +111,13 @@
     "media_with_text_YjHRtL": {
       "type": "media-with-text",
       "blocks": {
+        "image_AVecbt": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/3_ed777d2b-17fe-473f-b997-2b4163cdfc44.jpg",
+            "pagination_text": ""
+          }
+        },
         "image_6aUNP4": {
           "type": "image",
           "settings": {
@@ -162,6 +169,7 @@
         }
       },
       "block_order": [
+        "image_AVecbt",
         "image_6aUNP4",
         "image_BdTAr3",
         "image_mcPfED",
