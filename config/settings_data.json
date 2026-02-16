@@ -13,6 +13,7 @@
     "favicon_icon": "shopify://shop_images/1.png",
     "show_currency_code": false,
     "show_buttons_icon": true,
+    "free_shipping_amount": "50",
     "content_for_index": [],
     "blocks": {
       "14060646107696862457": {
