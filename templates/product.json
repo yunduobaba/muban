@@ -180,6 +180,14 @@
             "description": "<p>Please contact us on E-mail: Support@PopNya.Com, this is our only customer service window.</p><p>Please leave your order number if you have questions after you ordered.</p><p>We will reply you in 24 hours :)</p>",
             "defaul_section_open": false
           }
+        },
+        "collapsible_row_RKHP4P": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What would the condition be like for confirmed design?",
+            "description": "<p>The confirmed design is box pre-opened. otherwise we won't know what's inside. but the plastic bag is still factory-sealed. the doll is intact inside. we pre-open the box just for confirming item with the tag card.</p>",
+            "defaul_section_open": false
+          }
         }
       },
       "block_order": [
@@ -190,7 +198,8 @@
         "collapsible_row_gqWtVU",
         "collapsible_row_j8i4r4",
         "collapsible_row_NGRNr7",
-        "collapsible_row_M4WY6z"
+        "collapsible_row_M4WY6z",
+        "collapsible_row_RKHP4P"
       ],
       "settings": {
         "section_image_ratio": "adapt_to_image",
