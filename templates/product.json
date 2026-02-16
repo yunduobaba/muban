@@ -205,7 +205,7 @@
         "section_image_ratio": "adapt_to_image",
         "section_heading": "FAQs",
         "section_heading_size": "heading_large",
-        "section_description": "<p><strong>Order & Shipping</strong></p>",
+        "section_description": "<p>Order & Shipping</p>",
         "section_media_alignment": "left",
         "section_media_position": "top",
         "section_text_alignment": "center",
@@ -213,8 +213,8 @@
         "collapsible_text_alignment": "left",
         "section_color_scheme": "scheme4",
         "section_background_full": false,
-        "section_top_padding": 41,
-        "section_bottom_padding": 49
+        "section_top_padding": 16,
+        "section_bottom_padding": 21
       }
     },
     "1771179945ae9f0ccb": {
