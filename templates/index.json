@@ -200,6 +200,9 @@
     },
     "featured-collection": {
       "type": "featured-collection",
+      "custom_css": [
+        ".product-column_heading {font-size: 18px; /* 根据需要调整数值，或使用 smaller、0.8em 等相对单位 */}"
+      ],
       "settings": {
         "collection": "pop-now",
         "end_date": "2025/04/05",
@@ -217,7 +220,7 @@
         "hide_info_bar_on_mob": true,
         "column_image_ratio": "adapt_to_image",
         "section_view_layout": "section_layout_i",
-        "show_product_rating": true,
+        "show_product_rating": false,
         "show_inventory": false,
         "show_savings_badge": true,
         "show_vendor": true,
@@ -340,6 +343,9 @@
     },
     "featured_collection_JHX7xe": {
       "type": "featured-collection",
+      "custom_css": [
+        ".product-column_heading {font-size: 18px; /* 根据需要调整数值，或使用 smaller、0.8em 等相对单位 */}"
+      ],
       "name": "t:sections.featured_collection.name",
       "settings": {
         "collection": "new-arrivals",
@@ -358,7 +364,7 @@
         "hide_info_bar_on_mob": true,
         "column_image_ratio": "adapt_to_image",
         "section_view_layout": "section_layout_i",
-        "show_product_rating": true,
+        "show_product_rating": false,
         "show_inventory": false,
         "show_savings_badge": true,
         "show_vendor": true,
@@ -426,6 +432,9 @@
     },
     "featured_collection_ML3wWy": {
       "type": "featured-collection",
+      "custom_css": [
+        ".product-column_heading {font-size: 18px; /* 根据需要调整数值，或使用 smaller、0.8em 等相对单位 */}"
+      ],
       "name": "t:sections.featured_collection.name",
       "settings": {
         "collection": "crybaby",
