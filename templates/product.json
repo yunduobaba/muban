@@ -172,6 +172,14 @@
             "description": "<p><strong>After we upload the tracking number, you will receive an email from our system about your tracking number, please click the tracking number to go to the carrier website for the tracking.Also, you can click:Tracking Order  - Enter Order Info to tracking your order.</strong></p>",
             "defaul_section_open": false
           }
+        },
+        "collapsible_row_M4WY6z": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How do I contact customer service?",
+            "description": "<p>Please contact us on E-mail: Support@PopNya.Com, this is our only customer service window.</p><p>Please leave your order number if you have questions after you ordered.</p><p>We will reply you in 24 hours :)</p>",
+            "defaul_section_open": false
+          }
         }
       },
       "block_order": [
@@ -181,7 +189,8 @@
         "collapsible_row4",
         "collapsible_row_gqWtVU",
         "collapsible_row_j8i4r4",
-        "collapsible_row_NGRNr7"
+        "collapsible_row_NGRNr7",
+        "collapsible_row_M4WY6z"
       ],
       "settings": {
         "section_image_ratio": "adapt_to_image",
