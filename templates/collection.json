@@ -12,7 +12,8 @@
     "collection-products-grid": {
       "type": "collection-products-grid",
       "custom_css": [
-        ".thumbnail-header_image {display: none;}"
+        ".thumbnail-header_image {display: none;}",
+        ".product-column_heading {font-size: 18px; /* 根据需要调整数值，或使用 smaller、0.8em 等相对单位 */}"
       ],
       "settings": {
         "section_heading_size": "heading_large",
