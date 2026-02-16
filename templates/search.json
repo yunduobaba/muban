@@ -11,6 +11,11 @@
   "sections": {
     "main": {
       "type": "main-search",
+      "custom_css": [
+        ".thumbnail-header_image {display: none;}",
+        ".product-column_heading {font-size: 14px;}",
+        ".thumbnail-header {margin-top: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0;}"
+      ],
       "settings": {
         "section_heading": "Search",
         "section_heading_size": "heading_large",
@@ -18,7 +23,7 @@
         "number_of_columns_on_desktop": 3,
         "number_of_rows": 6,
         "number_of_columns_on_mobile": "2",
-        "mob_cols_query": 576,
+        "mob_cols_query": 416,
         "hide_qty_field_on_mob": false,
         "hide_info_bar_on_mob": false,
         "column_image_ratio": "adapt_to_image",
