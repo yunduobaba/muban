@@ -201,7 +201,8 @@
     "featured-collection": {
       "type": "featured-collection",
       "custom_css": [
-        ".product-column_heading {font-size: 18px; /* 根据需要调整数值，或使用 smaller、0.8em 等相对单位 */}"
+        ".product-column_heading {font-size: 14px; /* 根据需要调整数值，或使用 smaller、0.8em 等相对单位 */}",
+        " /* 针对移动端屏幕（例如宽度小于768px） */ /* 针对移动端屏幕（例如宽度小于768px） */.product-column_heading a {display: block; /* 或 inline-block，需配合宽度 */ display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; max-height: calc(1.4em * 2);}"
       ],
       "settings": {
         "collection": "pop-now",
@@ -344,7 +345,8 @@
     "featured_collection_JHX7xe": {
       "type": "featured-collection",
       "custom_css": [
-        ".product-column_heading {font-size: 18px; /* 根据需要调整数值，或使用 smaller、0.8em 等相对单位 */}"
+        ".product-column_heading {font-size: 14px; /* 根据需要调整数值，或使用 smaller、0.8em 等相对单位 */}",
+        " /* 针对移动端屏幕（例如宽度小于768px） */ /* 针对移动端屏幕（例如宽度小于768px） */.product-column_heading a {display: block; /* 或 inline-block，需配合宽度 */ display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; max-height: calc(1.4em * 2);}"
       ],
       "name": "t:sections.featured_collection.name",
       "settings": {
@@ -433,7 +435,8 @@
     "featured_collection_ML3wWy": {
       "type": "featured-collection",
       "custom_css": [
-        ".product-column_heading {font-size: 18px; /* 根据需要调整数值，或使用 smaller、0.8em 等相对单位 */}"
+        ".product-column_heading {font-size: 14px; /* 根据需要调整数值，或使用 smaller、0.8em 等相对单位 */}",
+        " /* 针对移动端屏幕（例如宽度小于768px） */ /* 针对移动端屏幕（例如宽度小于768px） */.product-column_heading a {display: block; /* 或 inline-block，需配合宽度 */ display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; max-height: calc(1.4em * 2);}"
       ],
       "name": "t:sections.featured_collection.name",
       "settings": {
