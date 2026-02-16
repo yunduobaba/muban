@@ -16,7 +16,7 @@
         "show_page_breadcrumbs": true,
         "section_text_alignment": "left",
         "mobile_text_alignment": false,
-        "section_color_scheme": "",
+        "section_color_scheme": "scheme1",
         "section_top_padding": 30,
         "section_bottom_padding": 100
       }
