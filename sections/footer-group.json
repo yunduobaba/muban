@@ -82,8 +82,15 @@
         "menu2": {
           "type": "menu",
           "settings": {
-            "heading": "Quick links",
-            "menu": "footer"
+            "heading": "Help & Info",
+            "menu": "help-info"
+          }
+        },
+        "menu_WtMffy": {
+          "type": "menu",
+          "settings": {
+            "heading": "Customer Service",
+            "menu": "customer-service"
           }
         },
         "information": {
@@ -98,6 +105,7 @@
         "newsletter",
         "menu1",
         "menu2",
+        "menu_WtMffy",
         "information"
       ],
       "settings": {
