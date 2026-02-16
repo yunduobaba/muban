@@ -1,0 +1,28 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "heading_size": "heading_large",
+        "show_page_breadcrumbs": true,
+        "section_text_alignment": "left",
+        "mobile_text_alignment": false,
+        "section_color_scheme": "scheme1",
+        "section_top_padding": 30,
+        "section_bottom_padding": 100
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
