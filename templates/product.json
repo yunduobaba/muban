@@ -120,32 +120,48 @@
         "collapsible_row1": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Collapsible row",
-            "description": "<p>Collapsible description</p>",
+            "heading": "Is it 100% authentic and original?",
+            "description": "<p>Yes, every blind box and figures in our website is 100% authentic and original. We are a wholesaler and retailer for blind box and have a 10,000 Square Feet warehouse based in China, our supply chain is verified and original. We also have legal license to sell these products.</p>",
             "defaul_section_open": true
           }
         },
         "collapsible_row2": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Collapsible row",
-            "description": "<p>Collapsible description</p>",
+            "heading": "How long will it take to receive my order?",
+            "description": "<p>It takes 72 hours for us to ship out your order and usually 7-14 business days to receive your order after we shipped out. We’re doing our best to deliver it promptly for you.</p>",
             "defaul_section_open": false
           }
         },
         "collapsible_row3": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Collapsible row",
-            "description": "<p>Collapsible description</p>",
+            "heading": "Do you ship to my country?",
+            "description": "<p>Yes, we do world-wide shipping, we have a powerful shipping resource and able to ship to any country and region in the world.</p>",
             "defaul_section_open": false
           }
         },
         "collapsible_row4": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Collapsible row",
-            "description": "<p>Collapsible description</p>",
+            "heading": "Do I need to pay tariffs?",
+            "description": "<p>No, after you ordered in our website, there won't be any extra charges of tariffs or tax, we will cover it all. No matter which country you are in, we will make sure ship to your address without any tariffs.</p>",
+            "defaul_section_open": false
+          }
+        },
+        "collapsible_row_gqWtVU": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How much for shipping fee?",
+            "description": "<p>Free shipping on orders over $50. Standard shipping is $15 per order, and express shipping is $35 per order.</p>",
+            "defaul_section_open": false
+          }
+        },
+        "collapsible_row_j8i4r4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How can I purchase a confirmed design?",
+            "description": "<p>We have confirmed design options for certain products, if the one you want to order is not listed as confirmed design in the product link, you can also contact us by Email to ask if we can list them for you. But this is NOT guaranteed.</p><p>Email:Support@PopNya.com</p>",
             "defaul_section_open": false
           }
         }
@@ -154,13 +170,15 @@
         "collapsible_row1",
         "collapsible_row2",
         "collapsible_row3",
-        "collapsible_row4"
+        "collapsible_row4",
+        "collapsible_row_gqWtVU",
+        "collapsible_row_j8i4r4"
       ],
       "settings": {
         "section_image_ratio": "adapt_to_image",
-        "section_heading": "Frequently Asked Questions About Product",
+        "section_heading": "FAQs",
         "section_heading_size": "heading_large",
-        "section_description": "<p>Please read our frequently asked questions to find out more.</p>",
+        "section_description": "<p><strong>Order & Shipping</strong></p>",
         "section_media_alignment": "left",
         "section_media_position": "top",
         "section_text_alignment": "center",
@@ -198,7 +216,7 @@
             "corner_styling": "soft",
             "header_text_color": "#000000",
             "text_color": "#000000",
-            "card_color": "#F9F9F9",
+            "card_color": "#f9f9f9",
             "stars_color": "",
             "arrows_color": "#000000",
             "transition_speed": 5,
