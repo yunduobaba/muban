@@ -122,7 +122,7 @@
           "settings": {
             "heading": "Is it 100% authentic and original?",
             "description": "<p>Yes, every blind box and figures in our website is 100% authentic and original. We are a wholesaler and retailer for blind box and have a 10,000 Square Feet warehouse based in China, our supply chain is verified and original. We also have legal license to sell these products.</p>",
-            "defaul_section_open": true
+            "defaul_section_open": false
           }
         },
         "collapsible_row2": {
