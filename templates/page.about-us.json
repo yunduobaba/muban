@@ -203,196 +203,6 @@
         "section_bottom_padding": 35
       }
     },
-    "promotion-banners1": {
-      "type": "promotion-banners",
-      "blocks": {
-        "banner_yd68NV": {
-          "type": "banner",
-          "settings": {
-            "image": "shopify://shop_images/41.jpg",
-            "button_label": "",
-            "button_position": "bottom_right",
-            "link": "",
-            "open_new_window": false,
-            "section_color_scheme": "scheme6",
-            "columns": 3,
-            "rows": 2
-          }
-        },
-        "banner_RhwnLP": {
-          "type": "banner",
-          "settings": {
-            "image": "shopify://shop_images/4.jpg",
-            "button_label": "",
-            "button_position": "bottom_right",
-            "link": "",
-            "open_new_window": false,
-            "section_color_scheme": "scheme6",
-            "columns": 3,
-            "rows": 2
-          }
-        },
-        "banner1": {
-          "type": "banner",
-          "settings": {
-            "image": "shopify://shop_images/44.jpg",
-            "button_label": "",
-            "button_position": "bottom_right",
-            "link": "",
-            "open_new_window": false,
-            "section_color_scheme": "",
-            "columns": 6,
-            "rows": 2
-          }
-        }
-      },
-      "block_order": [
-        "banner_yd68NV",
-        "banner_RhwnLP",
-        "banner1"
-      ],
-      "settings": {
-        "desktop_row_height": 315,
-        "mobile_row_height": 150,
-        "section_top_padding": 50,
-        "section_bottom_padding": 10
-      }
-    },
-    "rich-text1": {
-      "type": "rich-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Talk about your brand",
-            "heading_size": "heading_large",
-            "block_spacing": 20
-          }
-        },
-        "description": {
-          "type": "description",
-          "settings": {
-            "heading": "<p>Share information about your brand with your customers. <br/>Describe a product, make announcements, or welcome customers to your store. </p>",
-            "block_text_size": "subtitle",
-            "block_spacing": 30
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "description"
-      ],
-      "settings": {
-        "section_text_alignment": "center",
-        "mobile_text_alignment": true,
-        "section_color_scheme": "scheme1",
-        "section_background_full": true,
-        "section_corner_radius": "both_corners_radius",
-        "section_top_padding": 46,
-        "section_bottom_padding": 50
-      }
-    },
-    "promotion-banners2": {
-      "type": "promotion-banners",
-      "blocks": {
-        "banner1": {
-          "type": "banner",
-          "settings": {
-            "button_label": "",
-            "button_position": "bottom_right",
-            "link": "",
-            "open_new_window": false,
-            "section_color_scheme": "",
-            "columns": 2,
-            "rows": 2
-          }
-        },
-        "banner2": {
-          "type": "banner",
-          "settings": {
-            "button_label": "",
-            "button_position": "bottom_right",
-            "link": "",
-            "open_new_window": false,
-            "section_color_scheme": "",
-            "columns": 2,
-            "rows": 2
-          }
-        }
-      },
-      "block_order": [
-        "banner1",
-        "banner2"
-      ],
-      "settings": {
-        "desktop_row_height": 215,
-        "mobile_row_height": 150,
-        "section_top_padding": 0,
-        "section_bottom_padding": 0
-      }
-    },
-    "rich-text2": {
-      "type": "rich-text",
-      "blocks": {
-        "description": {
-          "type": "description",
-          "settings": {
-            "heading": "<p>Share information about your brand with your customers. <br/>Describe a product, make announcements, or welcome customers to your store. </p>",
-            "block_text_size": "subtitle",
-            "block_spacing": 30
-          }
-        }
-      },
-      "block_order": [
-        "description"
-      ],
-      "settings": {
-        "section_text_alignment": "left",
-        "mobile_text_alignment": true,
-        "section_color_scheme": "scheme1",
-        "section_background_full": true,
-        "section_corner_radius": "both_corners_radius",
-        "section_top_padding": 57,
-        "section_bottom_padding": 0
-      }
-    },
-    "media-with-text1": {
-      "type": "media-with-text",
-      "blocks": {
-        "image1": {
-          "type": "image",
-          "settings": {
-            "pagination_text": ""
-          }
-        }
-      },
-      "block_order": [
-        "image1"
-      ],
-      "settings": {
-        "section_subheading": "",
-        "section_subheading_size": "heading_medium",
-        "section_heading": "",
-        "section_heading_size": "heading_large",
-        "section_description": "<p>Pair text with an image or video to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-        "link_label": "",
-        "link": "",
-        "open_new_window": false,
-        "section_media_alignment": "left",
-        "section_media_position": "middle",
-        "section_text_alignment": "left",
-        "mobile_text_alignment": false,
-        "column_image_ratio": "adapt_to_image",
-        "section_color_scheme": "scheme1",
-        "section_background_full": true,
-        "auto_play": false,
-        "show_navigation": true,
-        "pagination": "lines",
-        "change_slides_every": 5,
-        "section_top_padding": 50,
-        "section_bottom_padding": 50
-      }
-    },
     "multicolumn": {
       "type": "multicolumn",
       "blocks": {
@@ -454,6 +264,7 @@
         "column4",
         "column5"
       ],
+      "disabled": true,
       "custom_css": [
         ".multicolumn_wrapper {border-top: 0;}"
       ],
@@ -480,15 +291,10 @@
     }
   },
   "order": [
+    "main-page",
     "media-with-text2",
     "media_with_text_87DLNr",
     "media_with_text_YjHRtL",
-    "main-page",
-    "promotion-banners1",
-    "rich-text1",
-    "promotion-banners2",
-    "rich-text2",
-    "media-with-text1",
     "multicolumn"
   ]
 }
