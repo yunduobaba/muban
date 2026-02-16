@@ -1,1 +1,73 @@
-{"sections":{"main-collection-grid":{"type":"main-collections","settings":{}},"featured-collection":{"type":"featured-collection","settings":{"collection":"","end_date":"","section_heading_size":"heading_large","section_description":"","enable_show_more_button":false,"show_more_button_label":"View All Deals","number_of_columns_on_desktop":4,"number_of_rows":2,"column_image_ratio":"adapt_to_image","section_view_layout":"section_layout_i","show_product_rating":true,"show_inventory":true,"show_savings_badge":true,"show_vendor":true,"enable_compare_button":true,"enable_quick_add_button":true,"section_text_alignment":"center","mobile_text_alignment":false,"section_color_scheme":"scheme1","enable_slideshow":false,"show_navigation":false,"pagination":"line","change_slides_every":5,"section_top_padding":52,"section_bottom_padding":65}}},"order":["main-collection-grid","featured-collection"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main-collection-grid": {
+      "type": "main-collections",
+      "settings": {
+        "section_heading": "Collections",
+        "section_heading_size": "heading_large",
+        "section_description": "",
+        "sort": "alphabetical",
+        "number_of_columns_on_desktop": 5,
+        "section_color_scheme": "",
+        "section_text_alignment": "center",
+        "card_view_layout": "square",
+        "animate_on_hover": false,
+        "column_heading_size": "heading_x_small",
+        "section_block_text_alignment": "center",
+        "collection_color_scheme": "",
+        "section_top_padding": 0,
+        "section_bottom_padding": 50
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "",
+        "end_date": "",
+        "end_message": "",
+        "section_heading": "Featured collection",
+        "section_heading_size": "heading_large",
+        "section_description": "",
+        "enable_show_more_button": false,
+        "show_more_button_label": "View All Deals",
+        "number_of_columns_on_desktop": 4,
+        "number_of_rows": 2,
+        "number_of_columns_on_mobile": "2",
+        "mob_cols_query": 576,
+        "hide_qty_field_on_mob": false,
+        "hide_info_bar_on_mob": false,
+        "column_image_ratio": "adapt_to_image",
+        "section_view_layout": "section_layout_i",
+        "show_product_rating": true,
+        "show_inventory": true,
+        "show_savings_badge": true,
+        "show_vendor": true,
+        "enable_compare_button": true,
+        "enable_quick_add_button": true,
+        "section_text_alignment": "center",
+        "mobile_text_alignment": false,
+        "section_color_scheme": "scheme1",
+        "enable_slideshow": false,
+        "auto_play": false,
+        "show_navigation": false,
+        "pagination": "line",
+        "change_slides_every": 5,
+        "section_top_padding": 52,
+        "section_bottom_padding": 65
+      }
+    }
+  },
+  "order": [
+    "main-collection-grid",
+    "featured-collection"
+  ]
+}
