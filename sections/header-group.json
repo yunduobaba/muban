@@ -48,7 +48,7 @@
         "enable_countryregion_selector": true,
         "enable_language_selector": true,
         "block_content_alignment": "middle",
-        "show_account": false,
+        "show_account": true,
         "show_cart": true,
         "show_search": true,
         "enable_predictive_search_suggestions": true,
