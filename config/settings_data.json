@@ -10,6 +10,7 @@
 {
   "current": {
     "image": "shopify://shop_images/1.png",
+    "favicon_icon": "shopify://shop_images/1.png",
     "show_currency_code": false,
     "show_buttons_icon": true,
     "content_for_index": [],
