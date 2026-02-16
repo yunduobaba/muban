@@ -9,6 +9,18 @@
  */
 {
   "sections": {
+    "main-page": {
+      "type": "main-page",
+      "settings": {
+        "heading_size": "heading_large",
+        "show_page_breadcrumbs": true,
+        "section_text_alignment": "center",
+        "mobile_text_alignment": true,
+        "section_color_scheme": "",
+        "section_top_padding": 30,
+        "section_bottom_padding": 35
+      }
+    },
     "media-with-text2": {
       "type": "media-with-text",
       "blocks": {
@@ -90,7 +102,7 @@
         "section_background_full": false,
         "auto_play": false,
         "show_navigation": true,
-        "pagination": "lines",
+        "pagination": "dots",
         "change_slides_every": 5,
         "section_top_padding": 50,
         "section_bottom_padding": 50
@@ -189,18 +201,6 @@
         "change_slides_every": 5,
         "section_top_padding": 50,
         "section_bottom_padding": 50
-      }
-    },
-    "main-page": {
-      "type": "main-page",
-      "settings": {
-        "heading_size": "heading_large",
-        "show_page_breadcrumbs": true,
-        "section_text_alignment": "center",
-        "mobile_text_alignment": true,
-        "section_color_scheme": "",
-        "section_top_padding": 30,
-        "section_bottom_padding": 35
       }
     },
     "multicolumn": {
