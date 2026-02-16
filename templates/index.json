@@ -566,80 +566,11 @@
         "number_of_products_on_desktop": 6,
         "section_color_scheme": "scheme1",
         "section_sidebar_color_scheme": "scheme2",
-        "section_text_alignment": "left",
+        "section_text_alignment": "center",
         "mobile_text_alignment": false,
         "column_image_ratio": "adapt_to_image",
         "section_top_padding": 20,
         "section_bottom_padding": 20
-      }
-    },
-    "testimonials": {
-      "type": "testimonials",
-      "blocks": {
-        "testimonial1": {
-          "type": "testimonial",
-          "settings": {
-            "description": "Add customer reviews and testimonials to showcase your store's happy customers.",
-            "rating": "5",
-            "heading": "Author's name"
-          }
-        },
-        "testimonial2": {
-          "type": "testimonial",
-          "settings": {
-            "description": "Add customer reviews and testimonials to showcase your store's happy customers.",
-            "rating": "5",
-            "heading": "Author's name"
-          }
-        },
-        "testimonial3": {
-          "type": "testimonial",
-          "settings": {
-            "description": "Add customer reviews and testimonials to showcase your store's happy customers.",
-            "rating": "5",
-            "heading": "Author's name"
-          }
-        },
-        "testimonial4": {
-          "type": "testimonial",
-          "settings": {
-            "description": "Add customer reviews and testimonials to showcase your store's happy customers.",
-            "rating": "5",
-            "heading": "Author's name"
-          }
-        },
-        "testimonial5": {
-          "type": "testimonial",
-          "settings": {
-            "description": "Add customer reviews and testimonials to showcase your store's happy customers.",
-            "rating": "5",
-            "heading": "Author's name"
-          }
-        }
-      },
-      "block_order": [
-        "testimonial1",
-        "testimonial2",
-        "testimonial3",
-        "testimonial4",
-        "testimonial5"
-      ],
-      "disabled": true,
-      "settings": {
-        "section_heading": "Testimonials",
-        "section_heading_size": "heading_large",
-        "section_description": "",
-        "number_of_columns_on_desktop": 3,
-        "section_text_alignment": "left",
-        "mobile_text_alignment": false,
-        "section_color_scheme": "scheme1",
-        "enable_slideshow": true,
-        "auto_play": true,
-        "show_navigation": true,
-        "pagination": "none",
-        "change_slides_every": 5,
-        "section_top_padding": 26,
-        "section_bottom_padding": 100
       }
     },
     "177116472469c29c78": {
@@ -695,7 +626,6 @@
     "featured_collection_ML3wWy",
     "featured_collection_rqMUF7",
     "featured-collection-tabset",
-    "testimonials",
     "177116472469c29c78"
   ]
 }
