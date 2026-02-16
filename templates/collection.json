@@ -11,6 +11,9 @@
   "sections": {
     "collection-products-grid": {
       "type": "collection-products-grid",
+      "custom_css": [
+        ".thumbnail-header_image {display: none;}"
+      ],
       "settings": {
         "section_heading_size": "heading_large",
         "number_of_columns_on_desktop": 4,
