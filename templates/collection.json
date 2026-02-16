@@ -12,6 +12,7 @@
     "collection-products-grid": {
       "type": "collection-products-grid",
       "custom_css": [
+        ".thumbnail-header_image img {height: 50px; width: auto; /* 让宽度自适应，保持图片比例 */}",
         ".product-column_heading {font-size: 14px; /* 根据需要调整数值，或使用 smaller、0.8em 等相对单位 */}",
         " /* 针对移动端屏幕（例如宽度小于768px） */ /* 针对移动端屏幕（例如宽度小于768px） */.thumbnail-header {margin-top: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0;}"
       ],
