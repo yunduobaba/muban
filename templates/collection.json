@@ -13,7 +13,8 @@
       "type": "collection-products-grid",
       "custom_css": [
         ".thumbnail-header_image {display: none;}",
-        ".product-column_heading {font-size: 14px; /* 根据需要调整数值，或使用 smaller、0.8em 等相对单位 */}"
+        ".product-column_heading {font-size: 14px; /* 根据需要调整数值，或使用 smaller、0.8em 等相对单位 */}",
+        "/* 针对移动端屏幕（例如宽度小于768px） */@media (max-width: 767px) {.product-column_heading {display: -webkit-box; -webkit-line-clamp: 2; /* 限制显示两行 */ -webkit-box-orient: vertical; overflow: hidden; /* 可选：设置行高以确保高度计算准确 */ line-height: 1.4; max-height: calc(1.4em * 2); /* 可选，与行高匹配 */ }}"
       ],
       "settings": {
         "section_heading_size": "heading_large",
