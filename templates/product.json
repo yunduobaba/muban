@@ -164,6 +164,14 @@
             "description": "<p>We have confirmed design options for certain products, if the one you want to order is not listed as confirmed design in the product link, you can also contact us by Email to ask if we can list them for you. But this is NOT guaranteed.</p><p>Email:Support@PopNya.Com</p>",
             "defaul_section_open": false
           }
+        },
+        "collapsible_row_NGRNr7": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How to track my order?",
+            "description": "<p><strong>After we upload the tracking number, you will receive an email from our system about your tracking number, please click the tracking number to go to the carrier website for the tracking.Also, you can click:Tracking Order  - Enter Order Info to tracking your order.</strong></p>",
+            "defaul_section_open": false
+          }
         }
       },
       "block_order": [
@@ -172,7 +180,8 @@
         "collapsible_row3",
         "collapsible_row4",
         "collapsible_row_gqWtVU",
-        "collapsible_row_j8i4r4"
+        "collapsible_row_j8i4r4",
+        "collapsible_row_NGRNr7"
       ],
       "settings": {
         "section_image_ratio": "adapt_to_image",
