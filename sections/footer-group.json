@@ -110,6 +110,9 @@
     },
     "footer": {
       "type": "footer",
+      "custom_css": [
+        ".footer-bottom_copyright a:last-child {display: none;}"
+      ],
       "settings": {
         "enable_follow_on_shop": false,
         "enable_countryregion_selector": true,
