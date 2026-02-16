@@ -169,7 +169,7 @@
           "type": "collapsible_row",
           "settings": {
             "heading": "How to track my order?",
-            "description": "<p><strong>After we upload the tracking number, you will receive an email from our system about your tracking number, please click the tracking number to go to the carrier website for the tracking.Also, you can click:Tracking Order  - Enter Order Info to tracking your order.</strong></p>",
+            "description": "<p>After we upload the tracking number, you will receive an email from our system about your tracking number, please click the tracking number to go to the carrier website for the tracking.Also, you can click:Tracking Order  - Enter Order Info to tracking your order.</p>",
             "defaul_section_open": false
           }
         },
