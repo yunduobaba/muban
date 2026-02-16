@@ -102,33 +102,90 @@
         "image_6aUNP4": {
           "type": "image",
           "settings": {
-            "pagination_text": "Image"
+            "image": "shopify://shop_images/3_ed777d2b-17fe-473f-b997-2b4163cdfc44.jpg",
+            "pagination_text": ""
+          }
+        },
+        "image_BdTAr3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1_4004bb11-161f-4539-816e-3e43edc0bda4.jpg",
+            "pagination_text": ""
+          }
+        },
+        "image_naHQPf": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/2_00349905-9893-4afb-87aa-e0aa9fb7d6b9.jpg",
+            "pagination_text": ""
+          }
+        },
+        "image_mcPfED": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/3_5d0e6360-7792-4d3e-a8db-95ed7d15abb2.jpg",
+            "pagination_text": ""
+          }
+        },
+        "image_37zcQC": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/4.jpg",
+            "pagination_text": ""
+          }
+        },
+        "image_e63WqJ": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/41.jpg",
+            "pagination_text": ""
+          }
+        },
+        "image_hfYEAw": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/44.jpg",
+            "pagination_text": ""
+          }
+        },
+        "image_V8nhPf": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/444.jpg",
+            "pagination_text": ""
           }
         }
       },
       "block_order": [
-        "image_6aUNP4"
+        "image_6aUNP4",
+        "image_BdTAr3",
+        "image_naHQPf",
+        "image_mcPfED",
+        "image_37zcQC",
+        "image_e63WqJ",
+        "image_hfYEAw",
+        "image_V8nhPf"
       ],
       "name": "t:sections.media_with_text.name",
       "settings": {
         "section_subheading": "",
         "section_subheading_size": "heading_medium",
-        "section_heading": "",
+        "section_heading": "Why Shop With PopNya? ",
         "section_heading_size": "heading_large",
-        "section_description": "<p>Pair text with an image or video to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+        "section_description": "<p><strong>Authenticity Guaranteed</strong><br/>We never sell fakes. Any non-genuine item triggers our 3x compensation policy.</p><p><strong>Fast Shipping</strong><br/>Orders ship immediately—no waiting.</p><p><strong>Transparent & Trusted</strong><br/>See our team and products on video platforms. We’re a visible business you can trust.</p><p><strong>Rare Finds</strong><br/>We source sold-out and hard-to-find items from the secondary market, meticulously authenticate them, and make it easy for you to buy your favorites.</p>",
         "link_label": "",
         "link": "",
         "open_new_window": false,
-        "section_media_alignment": "left",
+        "section_media_alignment": "right",
         "section_media_position": "middle",
-        "section_text_alignment": "right",
+        "section_text_alignment": "left",
         "mobile_text_alignment": false,
         "column_image_ratio": "adapt_to_image",
         "section_color_scheme": "scheme2",
         "section_background_full": false,
         "auto_play": false,
         "show_navigation": true,
-        "pagination": "lines",
+        "pagination": "numbers",
         "change_slides_every": 5,
         "section_top_padding": 50,
         "section_bottom_padding": 50
