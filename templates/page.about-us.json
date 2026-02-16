@@ -54,16 +54,16 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/3.jpg",
-            "pagination_text": "Image"
+            "pagination_text": "In-Stock Image"
           }
         },
         "video_f8KVbx": {
           "type": "video",
           "settings": {
-            "upload_video": "shopify://files/videos/2月16日.mp4",
-            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "upload_video": "shopify://files/videos/2月16日(1).mp4",
+            "video_url": "",
             "alt_text": "",
-            "pagination_text": "Video"
+            "pagination_text": "In-Stock Video"
           }
         }
       },
