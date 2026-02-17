@@ -34,7 +34,7 @@
             "link_i": "shopify://pages/about-us",
             "open_new_window": false,
             "button_label_ii": "Details",
-            "link_ii": "",
+            "link_ii": "shopify://pages/about-us",
             "open_new_windowii": false,
             "pagination_text": "100% Authenticity",
             "block_color_scheme": "scheme6"
