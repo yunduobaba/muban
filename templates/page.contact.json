@@ -25,7 +25,7 @@
       "type": "contact-form",
       "settings": {
         "timings": "If you have any questions or concerns, please do not hesitate to contact us.",
-        "address": "<strong>Email:Support@PopNya.com </strong><a href=\"https://wa.me/8618611831844\" title=\"https://wa.me/8618611831844\"><strong>WhatsApp:+86 18611831844</strong></a>",
+        "address": "<strong>Email:Support@PopNya.com </strong><a href=\"https://wa.me/8618611831844\" target=\"_blank\" title=\"https://wa.me/8618611831844\"><strong>WhatsApp:+86 18611831844</strong></a>",
         "map_url": "",
         "heading": "Get in Touch",
         "heading_size": "heading_large",
