@@ -1,6 +1,7 @@
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
   <head>
+ {%- render 'ecom_header' -%}
 	<!-- Added by AVADA SEO Suite -->
 	{% include 'avada-seo' %}
 	<!-- /Added by AVADA SEO Suite -->
@@ -195,5 +196,5 @@
         </script>
       {% endif %}
     </div>
-  </body>
+  {%- render "ecom_footer"-%}</body>
 </html>
