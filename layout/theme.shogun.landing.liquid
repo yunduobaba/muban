@@ -50,7 +50,9 @@ This file can be re-written at any time.
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer></script>
-  {% include 'pagefly-app-header' %}</head>
+  {% include 'pagefly-app-header' %}
+  {% render 'shogun-head' %}
+</head>
   <body>
     {% include 'shogun-content-handler' %}
 
