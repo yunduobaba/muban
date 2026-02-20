@@ -1,0 +1,220 @@
+{% render 'otsb-breadcrumb-base' %}
+
+{% schema %}
+{
+  "name": "Breadcrumb",
+  "tag": "section",
+  "class": "otsb__root breadcrumb-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Display"
+    },
+    {
+      "type": "select",
+      "id": "custom_breadcrumb_separator_icon",
+      "label": "Separator icon",
+      "options": [
+        {
+          "value": ">",
+          "label": "angle bracket >"
+        },
+        {
+          "value": "/",
+          "label": "slash /"
+        },
+        {
+          "value": "•",
+          "label": "bullet •"
+        },
+        {
+          "value": "→",
+          "label": "arrow →"
+        },
+        {
+          "value": "-",
+          "label": "em dash -"
+        }
+      ],
+      "default": "/"
+    },
+    {
+      "type": "range",
+      "id": "custom_breadcrumb_separator_size",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Separator size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "custom_breadcrumb_letter_spacing",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Letter Spacing",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_use_custom_font",
+      "label": "Use custom font",
+      "default": false
+    },
+    {
+      "type": "font_picker",
+      "id": "custome_breadcrumb_font",
+      "label": "Font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "custom_breadcrumb_font_size",
+      "min": 8,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "custom_breadcrumb_font_size_mobile",
+      "min": 8,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size Mobile",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "custom_breadcrumb_alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "Left",
+          "label": "Left"
+        },
+        {
+          "value": "Center",
+          "label": "Center"
+        },
+        {
+          "value": "Right",
+          "label": "Right"
+        }
+      ],
+      "default": "Left"
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_breadcrumb_show_home_link",
+      "label": "Show home link",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_breadcrumb_use_home_icon",
+      "label": "Use home icon",
+      "default": false
+    },
+    {
+      "id": "custom_breadcrumb_max_items",
+      "type": "number",
+      "label": "Max items",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Color"
+    },
+    {
+      "type": "color",
+      "id": "custom_breadcrumb_text_color",
+      "label": "Text color",
+      "default": "#97735A"
+    },
+    {
+      "type": "color",
+      "id": "custom_breadcrumb_active_color",
+      "label": "Active color",
+      "default": "#565353"
+    },
+    {
+      "type": "color",
+      "id": "custom_breadcrumb_separator_color",
+      "label": "Separator color",
+      "default": "#565353"
+    },
+    {
+      "type": "header",
+      "content": "Desktop"
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_breadcrumb_desktop_fullwidth",
+      "label": "Section fullwidth",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "custom_breadcrumb_desktop_padding_lr",
+      "label": "Padding left/right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "custom_breadcrumb_desktop_padding_tb",
+      "label": "Padding top/bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_breadcrumb_mobile_fullwidth",
+      "label": "Section fullwidth",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "custom_breadcrumb_mobile_padding_lr",
+      "label": "Padding left/right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "custom_breadcrumb_mobile_padding_tb",
+      "label": "Padding top/bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    }
+  ],
+  "presets": [
+    {
+      "name": "OT: Breadcrumb"
+    }
+  ],
+}
+{% endschema %}

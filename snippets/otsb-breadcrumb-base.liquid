@@ -1,0 +1,342 @@
+{% comment %}
+  <pre>
+  Host: {{ request.host }}
+  Path: {{ request.path }}
+  URL: {{ request.url }}
+  Design mode: {{ request.design_mode }}
+  </pre>
+{% endcomment %}
+{% comment %}template app-embed-warning.liquid{% endcomment %}
+{% if request.design_mode %}
+  <style>
+    .otsb_nope {
+      display: none !important;
+      height: 0 !important;
+      overflow: hidden !important;
+      visibility: hidden !important;
+      width: 0 !important;
+      opacity: 0 !important;
+    }
+    ._otsb_warning {
+      position: relative;
+      box-shadow: 0rem 0.1875rem 0.0625rem -0.0625rem rgba(26, 26, 26, 0.07);
+      border-radius: 1rem;
+    }
+    ._otsb_warning::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+      box-shadow: 0.0625rem 0rem 0rem 0rem rgba(0, 0, 0, 0.13) inset,
+      -0.0625rem 0rem 0rem 0rem rgba(0, 0, 0, 0.13) inset, 0rem -0.0625rem 0rem 0rem rgba(0, 0, 0, 0.17) inset,
+      0rem 0.0625rem 0rem 0rem rgba(204, 204, 204, 0.5) inset;
+      border-radius: 1rem;
+      pointer-events: none;
+      mix-blend-mode: luminosity;
+    }
+  </style>
+  <div x-data="otsb_script_require" class="page-width" style="margin-top:36px;margin-bottom:36px">
+    <div class="_otsb_warning">
+      <div style="border-top-left-radius:1rem;border-top-right-radius:1rem;border:1px solid #fcaf0a;background:#fcb827;padding:1rem">
+        <div style="align-items:center;gap:8px;display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:space-between">
+          <div style="display:flex;gap:4px;flex-direction:row;flex-wrap:nowrap;justify-content:space-between">
+            <span style="display:block;height:20px;width:20px;max-height:100%;max-width:100%;margin:auto">
+              <svg viewBox="0 0 20 20" class="Polaris-Icon__Svg" focusable="false" aria-hidden="true">
+                <path d="M10 6.75a.75.75 0 0 1 .75.75v3.5a.75.75 0 1 1-1.5 0v-3.5a.75.75 0 0 1 .75-.75Z"></path><path d="M11 13.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path><path fill-rule="evenodd" d="M10 3.5c-1.045 0-1.784.702-2.152 1.447a449.26 449.26 0 0 1-2.005 3.847l-.028.052a403.426 403.426 0 0 0-2.008 3.856c-.372.752-.478 1.75.093 2.614.57.863 1.542 1.184 2.464 1.184h7.272c.922 0 1.895-.32 2.464-1.184.57-.864.465-1.862.093-2.614-.21-.424-1.113-2.147-2.004-3.847l-.032-.061a429.497 429.497 0 0 1-2.005-3.847c-.368-.745-1.107-1.447-2.152-1.447Zm-.808 2.112c.404-.816 1.212-.816 1.616 0 .202.409 1.112 2.145 2.022 3.88a418.904 418.904 0 0 1 2.018 3.875c.404.817 0 1.633-1.212 1.633h-7.272c-1.212 0-1.617-.816-1.212-1.633.202-.408 1.113-2.147 2.023-3.883a421.932 421.932 0 0 0 2.017-3.872Z"></path>
+              </svg>
+            </span>
+            <h2 style="overflow-wrap:anywhere;word-break:normal;font-size:100%;font-weight:650;line-height:1.25;color:rgb(37,26,0)">
+              App Embeds Are Disabled
+            </h2>
+          </div>
+        </div>
+      </div>
+      <div style="padding:1rem;color:rgb(37,26,0)">
+        <p>
+          To use this section, the app embeds of OT: Theme Sections must be enabled in the theme editor. Please follow
+          these steps to activate them:
+        </p>
+        <ul>
+          <li>In the left panel, click the last icon that says <b>“App embeds”</b>.</li>
+          <li>Enter <b>“OT”</b> on the search bar to quickly find and embed the apps from OT: Theme Sections.</li>
+          <li>
+            Turn on the Toggle buttons of "Section Builder Script" and "Section Builder Style", then click <b>Save</b>.
+          </li>
+        </ul>
+        <p>
+          Please refer to the User Guide
+          <a
+            href="https://support.omnithemes.com/blogs/ot-theme-sections-get-started/1-embed-app-to-shopify-theme"
+            target="_blank"
+          >here</a
+          >
+        </p>
+        <p>
+          For further support: feel free to contact us at
+          <a href="mailto:support@omnithemes.com">support@omnithemes.com</a>!
+        </p>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% comment %}endtemplate{% endcomment %}
+<div class="otsb_nope" x-data="otsb_script_1">
+{% style %}
+#shopify-section-{{section.id}} .otsb_trademark_root {
+  user-select:none;
+  color:#999;
+  font-size:.75em;
+  text-align:right;
+}
+#shopify-section-{{section.id}} .otsb_trademark_root a {
+  color:#999;
+  background:none;
+  text-decoration: none;
+}
+#shopify-section-{{section.id}} .otsb-breadcrumb a,
+#shopify-section-{{section.id}} .otsb-breadcrumb span {
+  display: inline-block;
+  vertical-align: middle;
+}
+{{ section.settings.custome_breadcrumb_font | font_face: font_display: 'swap' }}
+#shopify-section-{{ section.id }} .custom_breadcrumb_separator_icon {
+  font-size: {{ section.settings.custom_breadcrumb_separator_size }}px;
+  color: {{ section.settings.custom_breadcrumb_separator_color }};
+}
+#shopify-section-{{ section.id }}  .breadcrumb-container .breadcrumb-link {
+  text-decoration: none;
+  color:{{ section.settings.custom_breadcrumb_text_color }};
+}
+#shopify-section-{{ section.id }} .breadcrumb-container .breadcrumb-link:hover {
+  text-decoration: underline;
+}
+#shopify-section-{{ section.id }} .breadcrumb-link svg {
+  width: {{ section.settings.custom_breadcrumb_font_size }}px;
+  height: {{ section.settings.custom_breadcrumb_font_size }}px;
+}
+#shopify-section-{{ section.id }} .otsb-breadcrumb .breadcrumb-separator-1,
+#shopify-section-{{ section.id }} .otsb-breadcrumb .ot-breadcrumb-collection {
+  display: none;
+}
+#shopify-section-{{ section.id }} .otsb-breadcrumb a ~ .breadcrumb-separator-1,
+#shopify-section-{{ section.id }} .otsb-breadcrumb a ~ .ot-breadcrumb-collection,
+#shopify-section-{{ section.id }} .otsb-breadcrumb .breadcrumb-ellipsis ~ .breadcrumb-separator-1 { 
+  display: inline-block;
+}
+{% if section.settings.custom_breadcrumb_show_home_link == false %}
+#shopify-section-{{ section.id }} .breadcrumb-separator-0 {
+  display: none;
+}
+{% endif %}
+#shopify-section-{{ section.id }}  .breadcrumb-container .breadcrumb-current {
+  color:{{ section.settings.custom_breadcrumb_active_color }};
+}
+#shopify-section-{{ section.id }} .breadcrumb-container {
+  text-align: {{ section.settings.custom_breadcrumb_alignment | downcase }};
+  padding: {{ section.settings.custom_breadcrumb_desktop_padding_tb }}px {{ section.settings.custom_breadcrumb_desktop_padding_lr }}px;
+  color: {{ section.settings.custom_breadcrumb_text_color }};
+  font-size: {{ section.settings.custom_breadcrumb_font_size }}px;
+  line-height: {{ section.settings.custom_breadcrumb_font_size }}px;
+  {% if section.settings.custom_use_custom_font %}
+  font-family: {{ section.settings.custome_breadcrumb_font.family }};
+  font-weight: {{ section.settings.custome_breadcrumb_font.weight }};
+  font-style: {{ section.settings.custome_breadcrumb_font.style }};
+  {% endif %}
+  letter-spacing: {{ section.settings.custom_breadcrumb_font_size | times: section.settings.custom_breadcrumb_letter_spacing | divided_by: 100 }}px;
+}
+@media (max-width: 768px) {
+  #shopify-section-{{ section.id }} .breadcrumb-container {
+    padding: {{ section.settings.custom_breadcrumb_mobile_padding_tb }}px {{ section.settings.custom_breadcrumb_mobile_padding_lr }}px;
+    font-size: {{ section.settings.custom_breadcrumb_font_size_mobile }}px;
+  }
+  #shopify-section-{{ section.id }} .breadcrumb-link svg {
+    width: {{ section.settings.custom_breadcrumb_font_size_mobile }}px;
+    height: {{ section.settings.custom_breadcrumb_font_size_mobile }}px;
+  }
+  {% if section.settings.custom_breadcrumb_mobile_fullwidth %}
+  #shopify-section-{{ section.id }} .page-width.section {
+    display: block;
+  }
+  {% endif %}
+}
+{% endstyle %}
+<div class="{% if section.settings.custom_breadcrumb_desktop_fullwidth == false %} page-width section {% endif %}">
+<div class="otsb-breadcrumb breadcrumb-container">
+  {% assign max_items = section.settings.custom_breadcrumb_max_items %}
+  {% if max_items <= 0 %}
+    {% assign max_items = 1 %}
+  {% endif %}
+  {% comment %}
+    Splitting the request path into an array of parts.
+    'compact' removes any empty strings from the result.
+  {% endcomment %}
+  {% assign path_parts = request.path | remove_first: '/' | split: '/' | compact %}
+  {% assign num_parts = path_parts | size %}
+  {% if section.settings.custom_breadcrumb_show_home_link %}
+  {% assign num_parts = num_parts | minus: 1 %}
+{% endif %}
+  {% comment %}
+    Setting the separator icon.
+  {% endcomment %}
+  {% assign separator = section.settings.custom_breadcrumb_separator_icon %}
+
+  {% comment %}
+    Start building the breadcrumb trail.
+  {% endcomment %}
+  {% if request.path != '/' %}
+    {% comment %}
+      Render the Home link based on settings.
+    {% endcomment %}
+    {% if section.settings.custom_breadcrumb_show_home_link %}
+      <a href="/" class="breadcrumb-link">
+        {% if section.settings.custom_breadcrumb_use_home_icon %}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+            style="vertical-align: middle; margin-right: 4px;"
+          >
+            <path d="M8 3.293l6 6V15h-4v-4H6v4H2v-5.707l6-6zM7.293 1.5a1 1 0 011.414 0l6.5 6.5a.5.5 0 01-.707.707L8 2.207 1.5 8.707a.5.5 0 11-.707-.707l6.5-6.5z"/>
+          </svg>
+        {% else %}
+          Home
+        {% endif %}
+      </a>
+      
+    {% elsif section.settings.custom_breadcrumb_show_home_link == false %}
+      {% comment %} <span>Home</span> {% endcomment %}
+    {% endif %}
+    {% if template.name == 'product' %}
+      {% assign active_collection = nil %}
+
+      {% if collection %}
+        {% assign active_collection = collection %}
+      {% elsif product.collections.size > 0 %}
+        {% assign active_collection = product.collections.first %}
+      {% endif %}
+      {% assign num_parts = 1 %}
+      {% if active_collection %}
+        {% assign num_parts = num_parts | plus: 1 %}
+      {% endif %}
+
+      {% if num_parts > max_items %}
+        <span class="breadcrumb-separator custom_breadcrumb_separator_icon">{{ separator }}</span>
+        <span class="breadcrumb-ellipsis">…</span>
+      {% endif %}
+
+      {%- if active_collection and num_parts <= max_items -%}
+        <span class="breadcrumb-separator ot-breadcrumb-collection breadcrumb-separator-{{ i }} custom_breadcrumb_separator_icon">{{ separator }}</span>
+        <a
+          class="breadcrumb-link"
+          href="{{ active_collection.url }}"
+          title="{{ active_collection.title }}"
+        >
+          {{ active_collection.title | escape }}
+        </a>
+      {%- endif -%}
+      <span class="breadcrumb-separator breadcrumb-separator-{{ i }} custom_breadcrumb_separator_icon">{{ separator }}</span>
+      <span class="breadcrumb-current">{{ product.title | escape }}</span>
+  {% elsif template.name == 'collection' %}
+  {% assign num_parts = 1 %}
+  {% if section.settings.custom_breadcrumb_show_home_link %}
+    {% assign num_parts = num_parts | plus: 1 %}
+  {% endif %}
+
+  {%- if num_parts > max_items -%}
+    <span class="breadcrumb-separator custom_breadcrumb_separator_icon">{{ separator }}</span>
+    <span class="breadcrumb-ellipsis">…</span>
+  {%- endif -%}
+
+  {% unless max_items == 1 %}
+    {% if section.settings.custom_breadcrumb_show_home_link %}
+    <span class="breadcrumb-separator custom_breadcrumb_separator_icon">{{ separator }}</span>
+    {% endif %}
+    <a href="/collections" class="breadcrumb-link">Collection</a>
+  {% endunless %}
+
+  <span class="breadcrumb-separator custom_breadcrumb_separator_icon">{{ separator }}</span>
+  {% if collection.handle == 'all' %}
+    <span class="breadcrumb-current">All Products</span>
+  {% else %}
+    <span class="breadcrumb-current">{{ collection.title }}</span>
+  {% endif %}
+
+  {% elsif template.name == 'list-collections' %}
+      <span class="breadcrumb-separator">{{ separator }}</span>
+      <span class="breadcrumb-current">Collections</span>
+  
+  {% elsif template.name == 'article' %}
+  {% comment %}
+    num_parts = home (if enabled) + blog (if exists)
+    article.title is always shown, so not included in num_parts
+  {% endcomment %}
+  
+  {% assign num_parts = 1 %}
+  {% if blog.url %}
+    {% assign num_parts = num_parts | plus: 1 %}
+  {% endif %}
+
+  {%- if num_parts > max_items -%}
+    <span class="breadcrumb-separator custom_breadcrumb_separator_icon">{{ separator }}</span>
+    <span class="breadcrumb-ellipsis">…</span>
+    <span class="breadcrumb-separator custom_breadcrumb_separator_icon">{{ separator }}</span>
+  {%- endif -%}
+  {%- if blog.url and num_parts <= max_items -%}
+    {% if section.settings.custom_breadcrumb_show_home_link %}
+    <span class="breadcrumb-separator custom_breadcrumb_separator_icon">{{ separator }}</span>
+    {% endif %}
+    <a href="{{ blog.url }}" class="breadcrumb-link">{{ blog.title }}</a>
+    <span class="breadcrumb-separator custom_breadcrumb_separator_icon">{{ separator }}</span>
+  {%- endif -%}
+
+  <span class="breadcrumb-current">{{ article.title }}</span>
+  {% else %}
+    {% assign link_path = '' %}
+
+
+{% assign start_index = 1 %}
+{% if num_parts > max_items %}
+  {% assign hidden_parts = num_parts | minus: max_items %}
+  {% assign start_index = hidden_parts %}
+
+  <span class="breadcrumb-separator custom_breadcrumb_separator_icon">{{ separator }}</span>
+  <span class="breadcrumb-ellipsis">…</span>
+{% endif %}
+
+{% for part in path_parts limit: max_items offset: start_index %}
+  {% assign i = forloop.index0 %}
+  {% assign link_path = link_path | append: '/' | append: part %}
+
+  {% if part == 'blogs' %}
+    {%- continue -%}
+  {% endif %}
+
+  {%- unless forloop.first and request.path contains '/blogs/' and section.settings.custom_breadcrumb_show_home_link == false -%}
+    <span class="breadcrumb-separator breadcrumb-separator-{{ i }} custom_breadcrumb_separator_icon">{{ separator }}</span>
+  {%- endunless -%}
+
+  {% assign part_formatted = '' %}
+  {% assign words = part | replace: '-', ' ' | split: ' ' %}
+  {% for w in words %}
+    {% assign part_formatted = part_formatted | append: w | capitalize %}
+    {% unless forloop.last %}
+      {% assign part_formatted = part_formatted | append: ' ' %}
+    {% endunless %}
+  {% endfor %}
+
+  {% if forloop.last %}
+    <span class="breadcrumb-current">{{ part_formatted }}</span>
+  {% else %}
+    <a href="{{ link_path }}" class="breadcrumb-link">{{ part_formatted }}</a>
+  {% endif %}
+{% endfor %}
+  {% endif %}
+{% endif %}
+</div>
+</div>
+</div>
