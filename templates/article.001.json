@@ -37,9 +37,7 @@
     },
     "sp_post_image_header_C6b8bq": {
       "type": "sp-post-image-header",
-      "custom_css": [
-        "#my-image {border-radius: 20px;}"
-      ],
+      "custom_css": [],
       "name": "🚀 Post Image Header",
       "settings": {
         "override_fonts": false,
