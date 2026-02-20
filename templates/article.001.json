@@ -9,6 +9,32 @@
  */
 {
   "sections": {
+    "otsb_breadcrumb_qQe8gx": {
+      "type": "otsb-breadcrumb",
+      "name": "OT: Breadcrumb",
+      "settings": {
+        "custom_breadcrumb_separator_icon": ">",
+        "custom_breadcrumb_separator_size": 14,
+        "custom_breadcrumb_letter_spacing": 0,
+        "custom_use_custom_font": false,
+        "custome_breadcrumb_font": "sans_serif_n4",
+        "custom_breadcrumb_font_size": 20,
+        "custom_breadcrumb_font_size_mobile": 14,
+        "custom_breadcrumb_alignment": "Left",
+        "custom_breadcrumb_show_home_link": true,
+        "custom_breadcrumb_use_home_icon": false,
+        "custom_breadcrumb_max_items": 3,
+        "custom_breadcrumb_text_color": "#222222",
+        "custom_breadcrumb_active_color": "#565353",
+        "custom_breadcrumb_separator_color": "#565353",
+        "custom_breadcrumb_desktop_fullwidth": true,
+        "custom_breadcrumb_desktop_padding_lr": 44,
+        "custom_breadcrumb_desktop_padding_tb": 15,
+        "custom_breadcrumb_mobile_fullwidth": true,
+        "custom_breadcrumb_mobile_padding_lr": 20,
+        "custom_breadcrumb_mobile_padding_tb": 10
+      }
+    },
     "sp_post_image_header_C6b8bq": {
       "type": "sp-post-image-header",
       "name": "🚀 Post Image Header",
@@ -24,7 +50,7 @@
         "mobile_headline_size": 40,
         "headline_line_height": "inherit",
         "override_text_colors": false,
-        "text_color": "#111",
+        "text_color": "#111111",
         "link_color": "#005bd3",
         "show_on_device": "all",
         "section_background_color": "",
@@ -46,7 +72,7 @@
         "container_radius": 0,
         "container_shadow": false,
         "container_border_size": 0,
-        "container_border_color": "#888",
+        "container_border_color": "#888888",
         "grid_gap": 25,
         "mobile_grid_gap": 10,
         "grid_display": "1fr 1fr",
@@ -85,7 +111,7 @@
         "mobile_headline_size": 40,
         "headline_line_height": "inherit",
         "override_text_colors": false,
-        "text_color": "#111",
+        "text_color": "#111111",
         "link_color": "#005bd3",
         "show_on_device": "all",
         "section_background_color": "",
@@ -107,7 +133,7 @@
         "container_radius": 0,
         "container_shadow": false,
         "container_border_size": 0,
-        "container_border_color": "#888",
+        "container_border_color": "#888888",
         "column_layout": "one",
         "column_gap": 40,
         "max_width": 900,
@@ -201,6 +227,7 @@
     }
   },
   "order": [
+    "otsb_breadcrumb_qQe8gx",
     "sp_post_image_header_C6b8bq",
     "sp_post_content_Hpw4gh",
     "main",
