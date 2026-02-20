@@ -31,8 +31,13 @@
         "disabled": false,
         "settings": {}
       },
-      "21474836472147483647": {
-        "type": "shopify://apps/ecomposer-landing-page-builder/blocks/app-embed/a0fc26e1-7741-4773-8b27-39389b4fb4a0",
+      "12016176150940211849": {
+        "type": "shopify://apps/ot-theme-sections/blocks/otsb-script/45c0d634-d78b-458c-8bca-17086e7d65aa",
+        "disabled": false,
+        "settings": {}
+      },
+      "11119278427475967885": {
+        "type": "shopify://apps/ot-theme-sections/blocks/otsb-style/45c0d634-d78b-458c-8bca-17086e7d65aa",
         "disabled": false,
         "settings": {}
       }
