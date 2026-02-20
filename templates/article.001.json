@@ -87,6 +87,7 @@
         "date_format": "%B %d, %Y",
         "details_text_color": "#666666",
         "details_text_size": 14,
+        "author_image": "shopify://shop_images/898c5c21a5cad74f01533ab3fc3d87b3.png",
         "author_image_size": 32,
         "text_alignment": "left",
         "mobile_text_alignment": "left",
