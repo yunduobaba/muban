@@ -37,7 +37,9 @@
     },
     "sp_post_image_header_C6b8bq": {
       "type": "sp-post-image-header",
-      "custom_css": [],
+      "custom_css": [
+        "#my-image {border-radius: 20px;}"
+      ],
       "name": "🚀 Post Image Header",
       "settings": {
         "override_fonts": false,
@@ -80,7 +82,7 @@
         "grid_vertical_alignament": "center",
         "image_location": "left",
         "mobile_image_location": "top",
-        "image_aspect_ratio": "auto",
+        "image_aspect_ratio": "4 / 3",
         "border_radius": 5,
         "media_shadow": false,
         "show_date": true,
@@ -100,6 +102,9 @@
     },
     "sp_post_content_Hpw4gh": {
       "type": "sp-post-content",
+      "custom_css": [
+        ".spro-post-content-wrapper img {border-radius: 20px;}"
+      ],
       "name": "🚀 Post Content",
       "settings": {
         "override_fonts": false,
