@@ -79,7 +79,7 @@
         "grid_display": "1fr 1fr",
         "grid_vertical_alignament": "center",
         "image_location": "left",
-        "mobile_image_location": "top",
+        "mobile_image_location": "bottom",
         "image_aspect_ratio": "auto",
         "border_radius": 5,
         "media_shadow": false,
