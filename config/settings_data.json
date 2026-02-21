@@ -41,13 +41,13 @@
         "disabled": false,
         "settings": {}
       },
-      "11068332061543699368": {
-        "type": "shopify://apps/booster-page-speed-optimizer/blocks/app-embed/d920faf3-7c60-423a-9636-22618b5561b5",
+      "15885977890469162556": {
+        "type": "shopify://apps/ea-page-speed-boost/blocks/app-embed-block/b667776a-3444-4aab-a7b6-a467a3438097",
         "disabled": true,
         "settings": {}
       },
-      "15885977890469162556": {
-        "type": "shopify://apps/ea-page-speed-boost/blocks/app-embed-block/b667776a-3444-4aab-a7b6-a467a3438097",
+      "11068332061543699368": {
+        "type": "shopify://apps/booster-page-speed-optimizer/blocks/app-embed/d920faf3-7c60-423a-9636-22618b5561b5",
         "disabled": false,
         "settings": {}
       }
