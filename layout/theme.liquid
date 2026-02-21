@@ -1,7 +1,10 @@
 {% include 'shogun-content-handler' %}
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
-  <head><!-- SEOAnt Speed Up Script -->{%- if shop.metafields.seoantAppSiteSpeedUpV2.switch == 1 -%}{% include 'SEOAnt-SpeedUp' %}{%- endif -%}<!-- /SEOAnt Speed Up Script -->
+  <head>
+	<!-- Added by APP PLAZA -->
+	{% include 'app-plaza' %}
+	<!-- /Added by APP PLAZA --><!-- SEOAnt Speed Up Script -->{%- if shop.metafields.seoantAppSiteSpeedUpV2.switch == 1 -%}{% include 'SEOAnt-SpeedUp' %}{%- endif -%}<!-- /SEOAnt Speed Up Script -->
  {%- render 'ecom_header' -%}
  
 	<!-- Added by AVADA SEO Suite -->
