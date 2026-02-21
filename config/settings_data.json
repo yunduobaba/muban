@@ -45,6 +45,11 @@
         "type": "shopify://apps/booster-page-speed-optimizer/blocks/app-embed/d920faf3-7c60-423a-9636-22618b5561b5",
         "disabled": false,
         "settings": {}
+      },
+      "17899005752291538835": {
+        "type": "shopify://apps/loadify-preloader/blocks/loadify-block/a901f8d1-8a96-4e38-a7d8-fdf18b278bfc",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
