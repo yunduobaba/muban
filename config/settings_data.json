@@ -46,10 +46,17 @@
         "disabled": false,
         "settings": {}
       },
-      "8348336002393713315": {
-        "type": "shopify://apps/leo-preloader/blocks/app-embed/019ae8ee-1515-78ef-b4d8-8ad9f4671f2c",
-        "disabled": true,
-        "settings": {}
+      "6370498992143777488": {
+        "type": "shopify://apps/superloader/blocks/preloader/019b9968-4668-7c80-b2b1-d384c5ce0a4e",
+        "disabled": false,
+        "settings": {
+          "display_on": "all",
+          "specific_page_type": "product",
+          "animation_type": "spinner-dots",
+          "animation_size": 48,
+          "background_color": "#ffffff",
+          "primary_color": "#000000"
+        }
       }
     },
     "color_schemes": {
