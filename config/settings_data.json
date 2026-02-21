@@ -52,7 +52,7 @@
         "settings": {
           "display_on": "all",
           "specific_page_type": "product",
-          "animation_type": "gradient-shimmer",
+          "animation_type": "logo-pulse",
           "animation_size": 120,
           "background_color": "#ffffff",
           "primary_color": "#e41745",
