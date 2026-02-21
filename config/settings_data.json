@@ -48,7 +48,7 @@
       },
       "6370498992143777488": {
         "type": "shopify://apps/superloader/blocks/preloader/019b9968-4668-7c80-b2b1-d384c5ce0a4e",
-        "disabled": false,
+        "disabled": true,
         "settings": {
           "display_on": "all",
           "specific_page_type": "product",
