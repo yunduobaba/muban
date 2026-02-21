@@ -48,7 +48,7 @@
       },
       "8348336002393713315": {
         "type": "shopify://apps/leo-preloader/blocks/app-embed/019ae8ee-1515-78ef-b4d8-8ad9f4671f2c",
-        "disabled": false,
+        "disabled": true,
         "settings": {}
       }
     },
