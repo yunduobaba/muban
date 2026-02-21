@@ -52,10 +52,11 @@
         "settings": {
           "display_on": "all",
           "specific_page_type": "product",
-          "animation_type": "spinner-dots",
-          "animation_size": 48,
+          "animation_type": "logo-pulse",
+          "animation_size": 120,
           "background_color": "#ffffff",
-          "primary_color": "#000000"
+          "primary_color": "#000000",
+          "custom_logo": "shopify://shop_images/250logo.png"
         }
       }
     },
