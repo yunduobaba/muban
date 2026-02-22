@@ -2,6 +2,7 @@
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
   <head>
+ {%- render 'layouthub_header' -%}
 	<!-- Added by APP PLAZA -->
 	{% include 'app-plaza' %}
 	<!-- /Added by APP PLAZA --><!-- SEOAnt Speed Up Script -->{%- if shop.metafields.seoantAppSiteSpeedUpV2.switch == 1 -%}{% include 'SEOAnt-SpeedUp' %}{%- endif -%}<!-- /SEOAnt Speed Up Script -->
@@ -77,7 +78,7 @@
       {%- endif -%}
 
       <main id="MainContent" role="main" tabindex="-1">
-        {{ content_for_layout }}
+        <!--LayoutHub-Workspace-Start-->{{ content_for_layout }}<!--LayoutHub-Workspace-End-->
       </main>
 
       {% sections 'footer-group' %}
@@ -201,5 +202,6 @@
         </script>
       {% endif %}
     </div>
-  {%- render "ecom_footer"-%}</body>
+  {%- render "ecom_footer"-%}{%- render 'layouthub_footer' -%} 
+ </body>
 </html>
