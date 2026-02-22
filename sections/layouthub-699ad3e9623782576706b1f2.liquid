@@ -1,0 +1,224 @@
+{% comment %}
+ LayoutHub (https://layouthub.com)
+ You SHOULD NOT modify source code in this page because
+ It is automatically generated from LayoutHub
+ {% endcomment %} 
+ <div class="lh-sections-wrapper" data-id="699ad3e9623782576706b1f2" data-type="page">
+  
+<section id="" data-section-id="FbvtMUXqYe" data-section="blog-list-2" data-dev="le-vi" data-lh-page-id="414" data-lh-page-name="Blog List - Ozzy" data-layouthub="section">  
+ 
+
+{%- assign tpl =  template | replace: '.', ' ' | truncatewords: 1, '' | handle  -%}
+        {% assign string_cate = blog.title | append: "|" | append: blog.handle %}
+        {%- if tpl != 'blog' and blog == blank -%}
+           
+          {% assign blog = blogs[handle_blog] %}
+        {%- endif -%}
+        {% assign list_cate = string_cate | split: "," %}<div class="lh-wrapper lh-blog-section" data-blog-handle="">
+  <include data-live-bl_background data-live-b_title data-live-show_count data-live-b_post data-live-title_full data-name="content" data-id="1">  
+ <div class="lh-banner" style="background: url('https://library.layouthub.com/HUB/files/Tm92LS0yMDE5/NTc0ODY0ODc5/First_release/pages/Ozzy_Blog/blog/assets/images/rectangle220.png') center center/cover no-repeat scroll;" data-hub-attr-state="class%3D%22lh-banner%22%20style%3D%22background%3A%20url('%257B%253A%257Bsection.settings.bl_background%257D%253A%257D')%20center%20center%2Fcover%20no-repeat%20scroll%3B%22"  data-hub-attr-bl_background data-lh-image-helper="bl_background">
+  <div class="lh-banner-content">
+    <h3  data-lhi="b_title" data-lh-lang>{{ 'FbvtMUXqYe.lh_2q_title' | t }}</h3>
+     
+    <p><span class="lh-count-art">{{ blog.articles_count }}</span> <span  data-lhi="b_post" data-lh-lang>{{ 'FbvtMUXqYe.lh_2q_post' | t }}</span></p>
+     
+  </div>
+</div>
+<div class="lh-container">
+  <div class="lh-row">
+    <div class="lh-col-md-12">
+      <div class="lh-article-grid full_text" data-hub-attr-state="class%3D%22lh-article-grid%20%257B%253A%257Bsection.settings.title_full%257D%253A%257D%22"  data-hub-attr-title_full >
+        {%- if blog != blank -%}
+      {%-paginate blog.articles by 3-%}
+      <div class="lh-item-blog">
+      <div class="lh-row">
+        {%- for item in blog.articles -%}
+        <div class="lh-item-article">
+          <div class="lh-article-image">
+            <a href="{{item.url}}">
+               
+                <img src="{{item.image | img_url : '380x278_crop_center'}}" alt="{{item.title}}">
+               
+            </a>
+          </div>
+          <div class="lh-article-info">
+          <h5 class="lh-article-title">
+              <a href="{{item.url}}">{{item.title}}</a>
+          </h5>
+          <div class="lh-article-head">
+            By <span class="lh-article-author">{{ item.author }}</span>
+            <span class="lh-elippse"></span>
+            <span class="lh-article-date">{{item.published_at | date: "%d/%m/%y" }}</span>
+          </div>
+          <div class="lh-article-excerpt">
+            {% if item.excerpt.size > 0 %}
+            <p>
+              {{ item.excerpt | strip_html | truncate : 150 }}
+            </p>
+            {% else %}
+            <p>
+              {{ item.content | strip_html | truncate : 150 }}
+            </p>
+            {% endif %}
+          </div>
+          <a href="{{item.url}}" class="lh-readmore-btn">Read More</a>
+        </div>
+        </div>
+        {%- endfor -%}
+      </div>
+    </div>
+        <div class="lh-page-numbers">
+          <ul class="lh-pagination_pages">
+            {%- for part in paginate.parts -%}
+              {%- if part.is_link -%}
+              <li class="lh-item-pagination">
+                <a href="{{ part.url }}" class="lh-numbers">{{ part.title }}</a>
+              </li>
+              {%- else -%}
+                {%- if part.title == paginate.current_page -%}
+                  <li class="lh-item-pagination"><span class="lh-numbers current">{{ part.title }}</span></li>
+                {%- else -%}
+                  <li class="lh-item-pagination"><span class="lh-numbers">{{ part.title }}</span></li>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endpaginate -%}
+    {%- else -%}
+      <div class="lh-message" >
+        <p>Empty content. Please select category to preview</p>
+        <div class="lh-wrap-btn" >
+          <a href="javascript:void(0)" >Select category</a>
+        </div>
+      </div>
+    {%- endif -%}</div>
+    </div>
+  </div>
+</div>  </include></div>
+ 
+  </section>  
+<section id="" data-section-id="4r5mp3fo9jt" data-section="faqs-29" data-dev="hongyen" data-lh-page-id="1397" data-lh-page-name="Wine - Landing" data-layouthub="section">  
+  
+ 
+<div class="lh-faq-section">
+    <div class="lh-container">
+        <div class="lh-row">
+            <div class="lh-col-md-12">
+                <h3 class="lh-title"  data-lhi="txt_title" data-lh-lang>{{ '4r5mp3fo9jt.lh_a168_title' | t }}</h3>
+            </div>
+        </div>
+        
+            
+            <include data-live-faqs_left__active data-live-faqs_left__active data-live-faqs_left data-live-faqs_right__active data-live-faqs_right__active data-live-faqs_right data-name="style_1" data-id="1">  
+ 
+  <div class="lh-row">
+    <div class="lh-col-md-5 lh-left">
+      <div class="lh-faq-gr">
+          <div class="lh-items">
+         
+          
+           
+             
+           
+       
+            <div class="lh-item active" >
+              <div class="lh-head">
+                <p class="lh-title-header"  data-lhi="faqs_left[0]title" data-lh-lang data-lhis="faqs_left-title">{{ '4r5mp3fo9jt.lh_ht3bzu_title_html' | t }}</p>
+                 <span class="arrow">
+                    <i class="lni lni-chevron-down"></i>
+                    </span>
+              </div>
+              <div class="lh-content"  data-lhi="faqs_left[0]des" data-lh-lang data-lh-live-editor data-lhis="faqs_left-des">{{ '4r5mp3fo9jt.lh_ht3bzu_des_html' | t }}</div>
+            </div>
+          
+          
+           
+       
+            <div class="lh-item " >
+              <div class="lh-head">
+                <p class="lh-title-header"  data-lhi="faqs_left[1]title" data-lh-lang data-lhis="faqs_left-title">{{ '4r5mp3fo9jt.lh_ht3bzv_title' | t }}</p>
+                 <span class="arrow">
+                    <i class="lni lni-chevron-down"></i>
+                    </span>
+              </div>
+              <div class="lh-content"  data-lhi="faqs_left[1]des" data-lh-lang data-lh-live-editor data-lhis="faqs_left-des">{{ '4r5mp3fo9jt.lh_ht3bzv_des_html' | t }}</div>
+            </div>
+          
+          
+           
+       
+            <div class="lh-item " >
+              <div class="lh-head">
+                <p class="lh-title-header"  data-lhi="faqs_left[2]title" data-lh-lang data-lhis="faqs_left-title">{{ '4r5mp3fo9jt.lh_ht3bzw_title' | t }}</p>
+                 <span class="arrow">
+                    <i class="lni lni-chevron-down"></i>
+                    </span>
+              </div>
+              <div class="lh-content"  data-lhi="faqs_left[2]des" data-lh-lang data-lh-live-editor data-lhis="faqs_left-des">{{ '4r5mp3fo9jt.lh_ht3bzw_des_html' | t }}</div>
+            </div>
+          
+         
+      </div>
+      </div>
+    </div>
+    <div class="lh-col-md-2">
+      <div class="lh-line"></div>
+    </div>
+    <div class="lh-col-md-5 lh-right">
+      <div class="lh-faq-gr">
+      <div class="lh-items">
+         
+          
+           
+          
+            <div class="lh-item " >
+              <div class="lh-head">
+                <p class="lh-title-header"  data-lhi="faqs_right[0]title" data-lh-lang data-lhis="faqs_right-title">{{ '4r5mp3fo9jt.lh_4piquj_title' | t }}</p>
+                 <span class="arrow">
+                   <i class="lni lni-chevron-down"></i>
+                    </span>
+              </div>
+              <div class="lh-content"  data-lhi="faqs_right[0]des" data-lh-lang data-lh-live-editor data-lhis="faqs_right-des">{{ '4r5mp3fo9jt.lh_4piquj_des_html' | t }}</div>
+            </div>
+          
+          
+           
+          
+            <div class="lh-item " >
+              <div class="lh-head">
+                <p class="lh-title-header"  data-lhi="faqs_right[1]title" data-lh-lang data-lhis="faqs_right-title">{{ '4r5mp3fo9jt.lh_4piquk_title' | t }}</p>
+                 <span class="arrow">
+                   <i class="lni lni-chevron-down"></i>
+                    </span>
+              </div>
+              <div class="lh-content"  data-lhi="faqs_right[1]des" data-lh-lang data-lh-live-editor data-lhis="faqs_right-des">{{ '4r5mp3fo9jt.lh_4piquk_des_html' | t }}</div>
+            </div>
+          
+          
+           
+          
+            <div class="lh-item " >
+              <div class="lh-head">
+                <p class="lh-title-header"  data-lhi="faqs_right[2]title" data-lh-lang data-lhis="faqs_right-title">{{ '4r5mp3fo9jt.lh_4piqul_title' | t }}</p>
+                 <span class="arrow">
+                   <i class="lni lni-chevron-down"></i>
+                    </span>
+              </div>
+              <div class="lh-content"  data-lhi="faqs_right[2]des" data-lh-lang data-lh-live-editor data-lhis="faqs_right-des">{{ '4r5mp3fo9jt.lh_4piqul_des_html' | t }}</div>
+            </div>
+          
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+   </include></div>
+</div>
+   </section>
+</div>
+ {%schema%} 
+{"locales":{"en":{"FbvtMUXqYe":{"lh_2q_title":"Our Article","lh_2q_post":"posts"},"4r5mp3fo9jt":{"lh_a168_title":"Do you have any questions?","lh_ht3bzu_title_html":"What does 2nd generation mean with reference to this product's description?","lh_ht3bzu_des_html":"I \u201cthink\u201d the second generation has auto shut off. It was awful so I returned mine. <!--lh-live-editor-->","lh_ht3bzv_title":"Is this an authentic Haru iron? And does Haru ships","lh_ht3bzv_des_html":"LayoutHub is an easy page builder that helps merchants quickly set up an online store with any kind of page type by using our library of pre-designed layouts and blocks.<!--lh-live-editor-->","lh_ht3bzw_title":"What is the difference between Haru iron and Haruz pro and demo tyme pro?","lh_ht3bzw_des_html":"LayoutHub is an easy page builder that helps merchants quickly set up an online store with any kind of page type by using our library of pre-designed layouts and blocks.<!--lh-live-editor-->","lh_4piquj_title":"Why is this product 4 times as expensive from Other retailers here on Amazon for the same item?","lh_4piquj_des_html":"LayoutHub is an easy page builder that helps merchants quickly set up an online store with any kind of page type by using our library of pre-designed layouts and blocks.<!--lh-live-editor-->","lh_4piquk_title":"Can it glide more smoothly compared with the cheaper similar product?","lh_4piquk_des_html":"LayoutHub is an easy page builder that helps merchants quickly set up an online store with any kind of page type by using our library of pre-designed layouts and blocks.<!--lh-live-editor-->","lh_4piqul_title":"Do you sell the iron with EU plug?","lh_4piqul_des_html":"LayoutHub is an easy page builder that helps merchants quickly set up an online store with any kind of page type by using our library of pre-designed layouts and blocks.<!--lh-live-editor-->"}}},"name":"LABUBU"}
+ {%endschema%}
