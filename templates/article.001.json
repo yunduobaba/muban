@@ -88,7 +88,6 @@
         "date_format": "%B %d, %Y",
         "details_text_color": "#666666",
         "details_text_size": 14,
-        "author_image": "shopify://shop_images/898c5c21a5cad74f01533ab3fc3d87b3.png",
         "author_image_size": 32,
         "text_alignment": "left",
         "mobile_text_alignment": "left",
@@ -229,6 +228,37 @@
         "section_top_padding": 50,
         "section_bottom_padding": 100
       }
+    },
+    "featured_blog_QJU37L": {
+      "type": "featured-blog",
+      "name": "t:sections.featured_blog.name",
+      "settings": {
+        "blog": "news",
+        "section_heading": "LABUBU Blogs",
+        "section_heading_size": "heading_medium",
+        "section_description": "",
+        "enable_show_more_button": true,
+        "show_more_button_label": "View all posts",
+        "block_heading_size": "heading_small",
+        "column_image_ratio": "adapt_to_image",
+        "show_image": true,
+        "show_date": true,
+        "show_author": false,
+        "show_comments": false,
+        "show_excerpt": false,
+        "number_of_columns_on_desktop": 4,
+        "number_of_rows": 3,
+        "section_text_alignment": "left",
+        "mobile_text_alignment": false,
+        "section_color_scheme": "",
+        "enable_slideshow": true,
+        "auto_play": true,
+        "show_navigation": false,
+        "pagination": "dots",
+        "change_slides_every": 5,
+        "section_top_padding": 50,
+        "section_bottom_padding": 50
+      }
     }
   },
   "order": [
@@ -236,6 +266,7 @@
     "sp_post_image_header_C6b8bq",
     "sp_post_content_Hpw4gh",
     "main",
-    "flash-sale"
+    "flash-sale",
+    "featured_blog_QJU37L"
   ]
 }
