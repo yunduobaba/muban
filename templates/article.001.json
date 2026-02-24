@@ -233,7 +233,7 @@
       "type": "featured-blog",
       "name": "t:sections.featured_blog.name",
       "settings": {
-        "blog": "news",
+        "blog": "labubu",
         "section_heading": "LABUBU Blogs",
         "section_heading_size": "heading_medium",
         "section_description": "",
