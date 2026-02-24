@@ -65,8 +65,8 @@
           "settings": {
             "show_dynamic_checkouts": true,
             "show_gift_card_recipient": false,
-            "block_top_padding": 0,
-            "block_bottom_padding": 0
+            "block_top_padding": 20,
+            "block_bottom_padding": 20
           }
         },
         "description": {
