@@ -93,6 +93,13 @@
             "menu": "customer-service"
           }
         },
+        "menu_3FJbnC": {
+          "type": "menu",
+          "settings": {
+            "heading": "Blog",
+            "menu": "blog"
+          }
+        },
         "information": {
           "type": "information",
           "settings": {
@@ -106,6 +113,7 @@
         "menu1",
         "menu2",
         "menu_WtMffy",
+        "menu_3FJbnC",
         "information"
       ],
       "settings": {
