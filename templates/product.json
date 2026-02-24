@@ -98,7 +98,9 @@
       ],
       "custom_css": [
         ".breadcrumbs_link {display: inline-block; max-width: 30ch; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: middle;}",
-        ".breadcrumbs.--align-left {display: flex; align-items: center; padding: 0 0px; margin: 0;}"
+        ".breadcrumbs.--align-left {display: flex; align-items: center; padding: 0 0px; margin: 0;}",
+        "..shopify-payment-button [role=\"button\"]{height:48px!important;width:100%!important;border-radius:9px!important;-webkit-appearance:none;margin-top:10px}",
+        ".shopify-payment-button fieldset{margin:0!important;padding:0}"
       ],
       "settings": {
         "sticky_product": true,
