@@ -9,6 +9,18 @@
  */
 {
   "sections": {
+    "custom_liquid_GJRN4R": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom_liquid.name",
+      "settings": {
+        "custom_liquid": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"BlogPosting\",\n  \"headline\": {{ article.title | json }},\n  \"description\": {{ article.metafields.global.description_tag | default: article.excerpt | strip_html | json }},\n  \"datePublished\": {{ article.published_at | date: \"%Y-%m-%dT%H:%M:%SZ\" | json }},\n  \"dateModified\": {{ article.updated_at | date: \"%Y-%m-%dT%H:%M:%SZ\" | json }},\n  \"author\": {\n    \"@type\": \"Organization\",\n    \"name\": \"PopNya\",\n    \"url\": \"https://popnya.com\"\n  },\n  \"publisher\": {\n    \"@type\": \"Organization\",\n    \"name\": \"PopNya\",\n    \"url\": \"https://popnya.com\"\n  },\n  \"image\": {{ article.image.src | image_url: width: 1200 | json }},\n  \"keywords\": {{ article.tags | join: \", \" | json }}\n}\n</script>",
+        "section_text_alignment": "left",
+        "mobile_text_alignment": false,
+        "section_color_scheme": "",
+        "section_top_padding": 0,
+        "section_bottom_padding": 0
+      }
+    },
     "otsb_breadcrumb_qQe8gx": {
       "type": "otsb-breadcrumb",
       "name": "OT: Breadcrumb",
@@ -264,6 +276,7 @@
   "order": [
     "otsb_breadcrumb_qQe8gx",
     "sp_post_image_header_C6b8bq",
+    "custom_liquid_GJRN4R",
     "sp_post_content_Hpw4gh",
     "main",
     "flash-sale",
